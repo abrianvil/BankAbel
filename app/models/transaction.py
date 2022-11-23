@@ -11,8 +11,7 @@ class Transaction(db.Model):
         __table_args__={'schema': SCHEMA}
     id = db.Column(db.Integer, primary_key=True)
     sender_id= db.Column(db.Integer,ForeignKey(add_prefix_for_prod('users.id')))
-    receiver_id=db.Column(db.Integer)
-
+    receiver_id=db.Column(db.Integer, nullable=False)
     amount=db.Column(db.Float, nullable=False)
     due_date=db.Column(db.DateTime(), nullable=False)
     status=db.Column(db.String, nullable=False)
@@ -21,8 +20,7 @@ class Transaction(db.Model):
     updated_at = db.Column(db.DateTime(), nullable=False,
                            onupdate=func.now(), default=func.now())
 
-    # sender_id=relationship('User', foreign_keys=[sender_id])
-    # receiver_id=relationship('User', foreign_keys=[receiver_id])
+
     users=db.relationship('User', back_populates='transactions')
 
 
