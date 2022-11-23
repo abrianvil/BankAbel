@@ -13,8 +13,13 @@ class User(db.Model, UserMixin):
     first_name=db.Column(db.String(40), nullable=False)
     last_name=db.Column(db.String(40), nullable=False)
     username = db.Column(db.String(40), nullable=False, unique=True)
+    profile_pic=db.Column(db.String)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+
+    accounts=db.relationship('Account', back_populates='users', cascade='all,delete')
+    transactions=db.relationship('Transaction', back_populates='users', cascade='all, delete')
+    wallets=db.relationship('Wallet', back_populates='users', cascade='all, delete')
 
     @property
     def password(self):
