@@ -5,4 +5,4 @@ from app.models import Account
 
 class New_account(FlaskForm):
     name= StringField('name', validators=[DataRequired()])
-    
+    balance=FloatField('balance')

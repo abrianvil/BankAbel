@@ -11,7 +11,7 @@ class Account(db.Model):
         __table_args__={'schema': SCHEMA}
     id = db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(32), nullable=False)
-    balance=db.Column(db.Float)
+    balance=db.Column(db.Float, default=0.00)
     user_id=db.Column(db.Integer,ForeignKey(add_prefix_for_prod('users.id')),
      unique=False)
     created_at = db.Column(db.DateTime(), nullable=False,
