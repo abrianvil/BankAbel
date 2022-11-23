@@ -1,12 +1,16 @@
 """create all tables
 
 Revision ID: 8e3293bb1c26
-Revises: 
+Revises:
 Create Date: 2022-11-23 17:24:54.387590
 
 """
 from alembic import op
 import sqlalchemy as sa
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
+
 
 
 # revision identifiers, used by Alembic.
@@ -30,6 +34,9 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('accounts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=32), nullable=False),
@@ -40,6 +47,9 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE accounts SET SCHEMA {SCHEMA};")
+
     op.create_table('transactions',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('sender_id', sa.Integer(), nullable=True),
@@ -52,6 +62,9 @@ def upgrade():
     sa.ForeignKeyConstraint(['sender_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE transactions SET SCHEMA {SCHEMA};")
+
     op.create_table('wallets',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
@@ -61,6 +74,9 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE wallets SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
