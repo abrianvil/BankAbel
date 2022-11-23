@@ -1,5 +1,5 @@
 from app.models import db, Transaction, environment, SCHEMA
-
+import datetime
 
 
 def seed_transactions():
@@ -7,7 +7,7 @@ def seed_transactions():
         sender_id=1,
         receiver_id=3,
         amount=99.99,
-        due_date='2022,12,20',
+        due_date=datetime.date(2022,12,20),
         status='pending'
     )
 
@@ -15,7 +15,7 @@ def seed_transactions():
         sender_id=2,
         receiver_id=3,
         amount=99.99,
-        due_date='2022,12,20',
+        due_date=datetime.date(2022,12,20),
         status='pending'
     )
 
