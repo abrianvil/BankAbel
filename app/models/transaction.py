@@ -1,4 +1,4 @@
-from db import db, SCHEMA, environment, add_prefix_for_prod
+from .db import db, SCHEMA, environment, add_prefix_for_prod
 from sqlalchemy.sql import func
 from sqlalchemy import ForeignKey
 
@@ -9,9 +9,9 @@ class Transaction(db.Model):
     if environment == 'production':
         __table_args__={'schema': SCHEMA}
     sender_id= db.Column(ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
-    receiver_id=db.Column(ForeignKey(add_prefix_for_prod('users.id')), promaru_key=True)
+    receiver_id=db.Column(ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
     amount=db.Column(db.Float, nullable=False)
-    due_date=db.Column(db.Datetime(), nullable=False)
+    due_date=db.Column(db.DateTime(), nullable=False)
     status=db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime(), nullable=False,
                            server_default=func.now())
