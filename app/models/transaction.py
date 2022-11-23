@@ -8,8 +8,8 @@ class Transaction(db.Model):
     __tablename__='transactions'
     if environment == 'production':
         __table_args__={'schema': SCHEMA}
-    sender_id= db.Column(ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
-    receiver_id=db.Column(ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
+    sender_id= db.Column(db.Integer,ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
+    receiver_id=db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
     amount=db.Column(db.Float, nullable=False)
     due_date=db.Column(db.DateTime(), nullable=False)
     status=db.Column(db.String, nullable=False)
@@ -25,8 +25,8 @@ class Transaction(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'sender':self.users.to_dict(),
-            'receiver':self.users.to_dict(),
+            'sender':self.sender_id,
+            'receiver':self.receiver_id,
             'amount':self.amount,
             'dueDate':self.due_date,
             'status':self.status,

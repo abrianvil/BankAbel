@@ -5,21 +5,21 @@ from app.models import db, User, environment, SCHEMA
 def seed_users():
     demo = User(
         username='Demo',
-        firs_name='John',
+        first_name='John',
         last_name='Doe',
         email='demo@aa.io',
         password='password')
 
     marnie = User(
         username='marnie',
-        firs_name='Marie',
+        first_name='Marie',
         last_name='Rose',
         email='marnie@aa.io',
         password='password')
 
     bobbie = User(
         username='bobbie',
-        firs_name='Bob',
+        first_name='Bob',
         last_name='Earl',
         email='bobbie@aa.io',
         password='password')
@@ -43,4 +43,3 @@ def undo_users():
         db.session.execute("DELETE FROM users")
 
     db.session.commit()
-  

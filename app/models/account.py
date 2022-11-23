@@ -10,7 +10,7 @@ class Account(db.Model):
         __table_args__={'schema': SCHEMA}
     name=db.Column(db.String(32), nullable=False)
     balance=db.Column(db.Float)
-    user_id=db.Column(ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
+    user_id=db.Column(db.Integer,ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
     created_at = db.Column(db.DateTime(), nullable=False,
                            server_default=func.now())
     updated_at = db.Column(db.DateTime(), nullable=False,
