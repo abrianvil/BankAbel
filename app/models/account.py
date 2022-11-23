@@ -4,6 +4,7 @@ from sqlalchemy import ForeignKey
 
 
 
+
 class Account(db.Model):
     __tablename__='accounts'
     if environment == 'production':
