@@ -9,6 +9,9 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import SplashPage from './components/Splashpage';
+import LandingPage from './components/landingPage';
+import LogoutButton from './components/auth/LogoutButton';
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -34,8 +37,10 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        <ProtectedRoute path='/dashboard' exact={true} >
+          <LandingPage />
           <UsersList />
+          <LogoutButton />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />

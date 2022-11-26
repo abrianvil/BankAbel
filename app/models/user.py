@@ -39,5 +39,4 @@ class User(db.Model, UserMixin):
             'lastName':self.last_name,
             'username': self.username,
             'email': self.email,
-            'wallet':self.wallets.to_dict()
         }
