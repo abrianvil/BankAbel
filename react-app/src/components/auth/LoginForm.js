@@ -19,7 +19,6 @@ const LoginForm = () => {
     if (data) {
       setErrors(data);
     }
-    console.log('====>', data)
   };
 
   const updateEmail = (e) => {

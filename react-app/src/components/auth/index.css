@@ -1,5 +1,4 @@
 .login-signup-div {
-    /* border: red 1px solid; */
     height: 1000px;
     display: flex;
     flex-direction: row;
@@ -104,4 +103,18 @@
     height: 50px;
     cursor: pointer;
     border: none;
+}
+
+
+.logout-b>button {
+    margin-top: 30px;
+    width: 95%;
+    background-color: #38345f;
+    color: white;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }

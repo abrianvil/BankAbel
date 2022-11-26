@@ -46,7 +46,7 @@ export const clearAccount = () => ({
 
 
 export const getAllAccounts = () => async dispatch => {
-    const response = await fetch('api/accounts')
+    const response = await fetch('/api/accounts/')
 
     if (response.ok) {
         const accounts = await response.json();
@@ -146,7 +146,7 @@ const accountReducer = (state = initialState, action) => {
             newState = { ...state }
             newState.accounts = {}
             return newState
-            
+
         default:
             return state
     }
