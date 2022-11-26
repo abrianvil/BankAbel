@@ -7,6 +7,7 @@ def seed_users():
         username='Demo',
         first_name='John',
         last_name='Doe',
+        profile_pic='https://static.vecteezy.com/system/resources/previews/002/002/332/non_2x/ablack-man-avatar-character-isolated-icon-free-vector.jpg',
         email='demo@aa.io',
         password='password')
 
@@ -14,6 +15,7 @@ def seed_users():
         username='marnie',
         first_name='Marie',
         last_name='Rose',
+        profile_pic='https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg',
         email='marnie@aa.io',
         password='password')
 
@@ -21,6 +23,7 @@ def seed_users():
         username='bobbie',
         first_name='Bob',
         last_name='Earl',
+        profile_pic='https://static.vecteezy.com/system/resources/previews/002/002/403/non_2x/man-with-beard-avatar-character-isolated-icon-free-vector.jpg',
         email='bobbie@aa.io',
         password='password')
 

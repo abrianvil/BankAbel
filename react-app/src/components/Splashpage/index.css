@@ -15,15 +15,12 @@
     width: auto;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
-    /* border: none; */
-    /* object-fit: fill; */
+
     background: linear-gradient(
         135deg,
         rgba(159, 159, 160, 0.4),
         rgba(160,159,159,0.2)
     );
-    /* border: 1px solid rgba(255,255,255,0.75); */
     backdrop-filter: blur(10px);
 }
 
@@ -42,10 +39,6 @@
 
 }
 
-/* .picture-box {
-    border: solid red 1px;
-
-} */
 
 .picture-box {
     display: flex;
@@ -99,13 +92,6 @@
 
 .photo{
     border-radius: 8px;
-    /* background: linear-gradient(
-        135deg,
-        rgba(159, 159, 160, 0.4),
-        rgba(160,159,159,0.2)
-    ); */
-    /* border: 1px solid rgba(255,255,255,0.75); */
-    /* backdrop-filter: blur(6px); */
     padding-bottom: 10px;
 }
 

@@ -1,0 +1,120 @@
+.login-signup-div {
+    height: 1000px;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.form-container {
+    width: 50%;
+    background-color: #38345f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+    /* align-items: flex-start; */
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: flex-start;
+    gap: 10px;
+    /* height: 520px; */
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px;
+
+    /* font-family: 'Poppins',sans-serif; */
+    /* color: #ffffff; */
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+
+.form input {
+    width: 90%;
+    height: 50px;
+    border: none;
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.form label {
+    color: white;
+    font-size: 20px;
+}
+
+.form button {
+    margin-top: 30px;
+    width: 95%;
+    /* background-color: #ffffff; */
+    background-color: #38345f;
+    /* color: #080710; */
+    color: white;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.info {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+    color: #38345f;
+}
+
+.info>h1 {
+    font-size: 50px;
+}
+
+.info>div {
+    font-size: 20px;
+}
+
+
+.info>button {
+    background-color: #38345f;
+    color: white;
+    margin-top: 50px;
+    border-radius: 8px;
+    width: 30%;
+    height: 50px;
+    cursor: pointer;
+    border: none;
+}
+
+
+.logout-b>button {
+    margin-top: 30px;
+    width: 95%;
+    background-color: #38345f;
+    color: white;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}

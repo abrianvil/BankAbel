@@ -13,7 +13,7 @@ function SplashPage() {
 const history=useHistory()
     function buttonClick(e){
         e.preventDefault()
-        history.push('/login')
+        history.push('/getstarted')
     }
 
     return (
