@@ -1,0 +1,41 @@
+.main-page{
+display: flex;
+flex-direction: row;
+/* border: red solid 1px; */
+height: 98vh;
+}
+
+.navigation-bar{
+    width: 250px;
+    /* border: green solid 1px; */
+}
+
+
+.user-card{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+border-bottom: solid purple 1px;
+height: 20%;
+}
+
+.image{
+     object-fit: cover;
+     /* border: mediumslateblue solid 1px; */
+}
+
+.image >img{
+    height: 100px;
+}
+
+
+.components{
+    /* border: pink solid 1px; */
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}

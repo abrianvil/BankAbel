@@ -19,7 +19,6 @@ const LoginForm = () => {
     if (data) {
       setErrors(data);
     }
-    console.log('====>', data)
   };
 
   const updateEmail = (e) => {
@@ -31,7 +30,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/dashboard' />;
   }
 
   return (
