@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccounts } from '../../store/account';
+import { getWallet } from '../../store/wallet';
+import { getAllTransactions } from '../../store/transaction';
 
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
@@ -10,12 +12,17 @@ import './index.css'
 
 
 const LandingPage = () => {
-    const user = useSelector(state => state.session.user)
     const dispatch=useDispatch()
 
+    const user = useSelector(state => state.session.user)
+    const wallet=useSelector(state=>state.wallet.wallet)
+
+    console.log('this is the user wallet',wallet)
 
     useEffect(()=>{
         dispatch(getAllAccounts())
+        dispatch(getWallet())
+        dispatch(getAllTransactions())
     },[dispatch])
 
     return (
