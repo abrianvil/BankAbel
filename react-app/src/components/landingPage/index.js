@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccounts } from '../../store/account';
 import { getWallet } from '../../store/wallet';
@@ -6,24 +6,24 @@ import { getAllTransactions } from '../../store/transaction';
 
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
+import WalletComp from '../wallet';
 
 
 
 
 
 const LandingPage = () => {
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
 
     const user = useSelector(state => state.session.user)
-    const wallet=useSelector(state=>state.wallet.wallet)
+    const wallet = useSelector(state => state.wallet.wallet)
 
-    console.log('this is the user wallet',wallet)
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getAllAccounts())
         dispatch(getWallet())
         dispatch(getAllTransactions())
-    },[dispatch])
+    }, [dispatch])
 
     return (
         <div className='main-page'>
@@ -37,22 +37,30 @@ const LandingPage = () => {
                 </div>
 
                 <div className='components'>
-                    <div className='wallet'>wallet</div>
+                    <div className='wallet'>
+                        <i className="fa-solid fa-wallet" /> Wallet
+                    </div>
 
-                    <div className='accounts'>Accounts</div>
-                    <div className='activity'>activity</div>
+                    <div className='accounts'>
+                        <i className="fa-solid fa-money-check-dollar" /> Accounts
+                    </div>
+
+                    <div className='activity'>
+                        <i className="fa-solid fa-clock-rotate-left" /> Activity
+                    </div>
                 </div>
 
                 <LogoutButton />
             </div>
 
-            <div className='content+footer'>
+            <div className='content-footer'>
                 <div className='content-display-box'>
-
+                    <div className='logo'></div>
+                    <WalletComp/>
                 </div>
 
                 <div className='footer'>
-
+                    <div>this is for abel</div>
                 </div>
             </div>
 
