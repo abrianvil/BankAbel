@@ -130,7 +130,7 @@ const accountReducer = (state = initialState, action) => {
         case LOAD_ONE_ACCOUNT:
             newState = { ...state }
             newState.oneAccount = { ...action.account }
-
+            return newState
         case CREATE_ACCOUNT:
             newState = { ...state.accounts, [action.newAccount.id]: action.newAccount }
             return newState
@@ -138,7 +138,7 @@ const accountReducer = (state = initialState, action) => {
         case EDIT_ACCOUNT:
             newState = { ...state, [action.account.id]: action.account }
             return newState
-            
+
         case REMOVE_ACCOUNT:
             newState = { ...state }
             delete newState[action.accountId]

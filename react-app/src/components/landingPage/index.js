@@ -7,6 +7,7 @@ import { getAllTransactions } from '../../store/transaction';
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
 import WalletComp from '../wallet';
+import TransactionComp from '../transaction';
 
 
 
@@ -55,12 +56,13 @@ const LandingPage = () => {
 
             <div className='content-footer'>
                 <div className='content-display-box'>
-                    <div className='logo'></div>
                     <WalletComp/>
+                    <TransactionComp />
                 </div>
 
                 <div className='footer'>
-                    <div>this is for abel</div>
+                    <div className='logo'></div>
+                    {/* <div>this is for abel</div> */}
                 </div>
             </div>
 

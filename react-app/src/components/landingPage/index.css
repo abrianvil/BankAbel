@@ -70,7 +70,7 @@
     height: 90%;
     display: flex;
     justify-content: center;
-    color:white;
+    color: white;
 }
 
 
@@ -81,4 +81,81 @@
     border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     height: 10%;
+}
+
+
+
+.wallet {
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.wallet::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background-color: #e3e3e3;
+    bottom: 0;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .4s ease-in-out;
+}
+
+.wallet:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.accounts {
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.accounts::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background-color: #e3e3e3;
+    bottom: 0;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .4s ease-in-out;
+}
+
+.accounts:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.activity {
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.activity::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background-color: #e3e3e3;
+    bottom: 0;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .4s ease-in-out;
+}
+
+.activity:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
 }
