@@ -11,6 +11,8 @@ import { authenticate } from './store/session';
 import SplashPage from './components/Splashpage';
 import LandingPage from './components/landingPage';
 import LogoutButton from './components/auth/LogoutButton';
+import WalletComp from './components/wallet';
+import TransactionComp from './components/transaction';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -38,6 +40,12 @@ function App() {
         </Route>
         <ProtectedRoute path='/dashboard' exact={true} >
           <LandingPage />
+        </ProtectedRoute>
+        <ProtectedRoute path='/wallet' exact={true}>
+          <WalletComp />
+        </ProtectedRoute>
+        <ProtectedRoute path='/activity' exact={true}>
+          <TransactionComp />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
