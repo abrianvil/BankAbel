@@ -56,7 +56,7 @@ const LandingPage = () => {
 
             <div className='content-footer'>
                 <div className='content-display-box'>
-                    <WalletComp/>
+                    {/* <WalletComp/> */}
                     <TransactionComp />
                 </div>
 

@@ -15,7 +15,23 @@ const TransactionComp = () => {
     const wallet = useSelector(state => state.wallet.wallet)
     const transactions = useSelector(state => Object.values(state.transaction.transactions))
 
-    console.log('this is transactions', transactions)
+    const [users, setUsers] = useState({});
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch('/api/users/');
+            const responseData = await response.json();
+            const res = {}
+            responseData.users.forEach(element => {
+                res[element.id] = element
+            });
+            delete res[user.id]
+            setUsers(res);
+        }
+        fetchData();
+    }, [dispatch]);
+
+    console.log('this is the user list', users)
 
     useEffect(() => {
         dispatch(getAllAccounts())
@@ -23,15 +39,25 @@ const TransactionComp = () => {
         dispatch(getAllTransactions())
     }, [dispatch])
 
+    console.log(users[2])
 
     return (
-        <div className='transaction-box'>
-            {transactions.map(transaction => (
-                <div key={transaction.id}>
-                    
-                </div>
-            ))}
+        <div className='trans'>
+            <div id='header'>
+                TRANSACTIONS
+            </div>
+            <div className='transaction-box'>
+                {transactions.map(transaction => (
+                    <div className='single-trans' key={transaction.id}>
+                        <div className='image'>
+                            <img src={users[transaction['receiver']].picture} />
+                        </div>
+                        <div>${transaction.amount}</div>
+                        <div>{transaction.createdAt}</div>
+                    </div>
+                ))}
 
+            </div>
         </div>
     )
 
