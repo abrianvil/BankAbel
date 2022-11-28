@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 
 const TransactionComp = () => {
     const dispatch = useDispatch()
-    const history=useHistory()
+    const history = useHistory()
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
@@ -34,7 +34,7 @@ const TransactionComp = () => {
         fetchData();
     }, []);
 
-    const clickUser=()=>{
+    const clickUser = () => {
         history.push('/dashboard')
     }
     const clickWallet = () => {
@@ -62,7 +62,7 @@ const TransactionComp = () => {
         <div className='main-page'>
             <div className='navigation-bar'>
 
-            <div className='user-card' onClick={clickUser}>
+                <div className='user-card' onClick={clickUser}>
                     <div className='image' >
                         <img src={user.picture} alt={user.id} />
                     </div>
@@ -96,7 +96,7 @@ const TransactionComp = () => {
                             {transactions.map(transaction => (
                                 <div className='single-trans' key={transaction.id}>
                                     <div className='image'>
-                                        <img src={users[transaction['receiver']].picture} />
+                                        <img src={users[transaction['receiver']]?.picture} />
                                     </div>
                                     <div>${transaction.amount}</div>
                                     <div>{transaction.createdAt}</div>
