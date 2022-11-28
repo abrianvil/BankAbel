@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAccount } from '../../store/account';
-import { updateWallet } from '../../store/wallet';
+import { getWallet, updateWallet } from '../../store/wallet';
 
 import { getAllAccounts } from '../../store/account';
 import './index.css'
@@ -20,30 +20,34 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
 
     const submit = async (e) => {
         e.preventDefault()
-        if (balance <= wallet.totalFund) {
-            dispatch(updateWallet({total_fund: wallet.totalFund-balance}))
+        if (balance > 0 && balance <= wallet.totalFund) {
+            dispatch(updateWallet({ total_fund: wallet.totalFund - balance }))
             const newAccount = {
                 id: accountId,
                 name,
-                balance:(+toEdit.balance)+(+balance)
+                balance: (+toEdit.balance) + (+balance)
             }
-            const data = dispatch(updateAccount(newAccount))
+            const data = await dispatch(updateAccount(newAccount))
+            await dispatch(getAllAccounts())
+            await dispatch(getWallet())
             if (data.errors) {
                 setShowAddFund(true)
             } else setShowAddFund(false)
-        }else console.log('not enough money to do that')
-
-        await dispatch(getAllAccounts())
+        } else {
+            // console.log('not enough money to do that')
+            setShowAddFund(true)
+        }
     }
+
 
     return (
         <div>
             <div>
                 <form className='form' onSubmit={submit}>
                     <div className='text'>
-                        <h2>Your New Account</h2>
+                        <h2>Add Funds to your account</h2>
                     </div>
-                    <div>
+                    {/* <div>
                         <label>
                             Name
                         </label>
@@ -55,18 +59,18 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
                         value={name}
                         placeholder="Account Name"
                         name='name'
-                    />
+                    /> */}
                     <div>
                         <label>Balance</label>
                     </div>
                     <input
-                        min={0}
+                        min={1}
                         type='number'
                         onChange={(e) => setBalance(e.target.value)}
                         placeholder='0.00'
                         name='balance'
                     />
-                    <button>Create Account</button>
+                    <button>Add Funds</button>
                 </form>
             </div>
         </div>

@@ -67,16 +67,22 @@ export const getOneAccount = (accountId) => async dispatch => {
 }
 
 export const createAccount = (newAccount) => async dispatch => {
-    const response = await fetch('/api/accounts', {
+    const response = await fetch('/api/accounts/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newAccount)
     })
-
+    console.log('body in the thunk', newAccount)
     if (response.ok) {
         const addedAccount = await response.json();
         dispatch(addAccount(addedAccount))
         return addedAccount
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data) {
+            return data;
+        }
+
     }
 }
 

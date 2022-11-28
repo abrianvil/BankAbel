@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllAccounts } from '../../store/account';
-import { getWallet } from '../../store/wallet';
+import { getAllAccounts, deleteAccount } from '../../store/account';
+import { getWallet, updateWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
 import { useHistory } from 'react-router-dom';
-import {Modal} from '../../context/Modal'
+import { Modal } from '../../context/Modal'
 
 import AddFundForm from '../accountModal/addFundModal';
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
+import CreateAccountForm from '../accountModal/createAccountModal';
 
 
 
@@ -19,14 +20,16 @@ const AccountComp = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [showAddFund,setShowAddFund]=useState(false)
-    const [accountId,setAccountId]=useState()
+    const [showAddFund, setShowAddFund] = useState(false)
+    const [showCreate, setShowCreate] = useState(false)
+    const [accountId, setAccountId] = useState()
 
 
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
-    const accounts = useSelector(state => Object.values(state.Accounts.accounts))
+    const accountState = useSelector(state => state.Accounts.accounts)
+    const accounts = Object.values(accountState)
 
     // console.log('this is accounts', accounts)
 
@@ -54,9 +57,23 @@ const AccountComp = () => {
     }, [dispatch])
 
 
-    const addFunds=(id)=>{
+    const addFunds = (id) => {
         setShowAddFund(true)
         setAccountId(id)
+    }
+
+    // const deleteAccount=(id)=>{
+    //     setShowAddFund(true)
+    //     setAccountId(id)
+    // }
+
+    // console.log('to edit======>', toEdit)
+    const toDelete = async (id) => {
+        const toEdit = accountState[id]
+        dispatch(updateWallet({ total_fund: wallet.totalFund + (+toEdit.balance) }))
+       await dispatch(deleteAccount(id))
+       await dispatch(getAllAccounts())
+       await dispatch(getWallet())
     }
 
     return (
@@ -97,10 +114,10 @@ const AccountComp = () => {
                                         {account.name}
                                     </div>
                                     <div className='add-delete'>
-                                        <div onClick={()=>addFunds(account.id)}>
+                                        <div onClick={() => addFunds(account.id)}>
                                             <i className="fa-solid fa-plus" />
                                         </div>
-                                        <div>
+                                        <div onClick={() => toDelete(account.id)}>
                                             <i className="fa-solid fa-trash-can" />
                                         </div>
                                     </div>
@@ -113,11 +130,17 @@ const AccountComp = () => {
                                 </div>
                             </div>
                         ))}
-                    {showAddFund && (
-                        <Modal onClose={()=>setShowAddFund(false)}>
-                            <AddFundForm accountId={accountId} setShowAddFund={setShowAddFund} />
-                        </Modal>
-                    )}
+                        {showAddFund && (
+                            <Modal onClose={() => setShowAddFund(false)}>
+                                <AddFundForm accountId={accountId} setShowAddFund={setShowAddFund} />
+                            </Modal>
+                        )}
+                        <button onClick={() => setShowCreate(true)}> Create new Account</button>
+                        {showCreate && (
+                            <Modal onClose={() => setShowCreate(false)}>
+                                <CreateAccountForm setShowCreate={setShowCreate} />
+                            </Modal>
+                        )}
                     </div>
                 </div>
 
