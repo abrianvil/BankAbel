@@ -19,7 +19,7 @@ const WalletComp = () => {
 
     const incomingTrans = transactions.filter(transaction => transaction.receiver === user.id)
 
-    const clickUser=()=>{
+    const clickUser = () => {
         history.push('/dashboard')
     }
     const clickWallet = () => {
@@ -71,7 +71,7 @@ const WalletComp = () => {
             <div className='content-footer'>
                 <div className='content-display-box'>
 
-                    <div>
+                    <div className='inner-box'>
                         <div className='info-col'>
                             <div>
                                 <label>
@@ -110,16 +110,20 @@ const WalletComp = () => {
                             {incomingTrans.length > 0 ?
                                 (
                                     incomingTrans.map(x => (
-                                        <div key={x.id}>
+                                        <div className='incoming-trans' key={x.id}>
+                                            <div className='underline'>
                                             <div>${x.amount}</div>
                                             <div>{x.createdAt}</div>
+                                            </div>
                                         </div>
                                     ))
                                 ) :
                                 (
                                     <>
-                                        <label>PENDING TRANSACTIONS</label>
-                                        <div>There no pending transactions</div>
+                                        <label>INCOMING PENDING TRANSACTIONS</label>
+                                        <div className='no-pending'>
+                                           <div> There no pending transactions</div>
+                                        </div>
                                     </>
                                 )
                             }
