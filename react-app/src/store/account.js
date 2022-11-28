@@ -137,7 +137,8 @@ const accountReducer = (state = initialState, action) => {
 
         case EDIT_ACCOUNT:
             newState = { ...state, [action.account.id]: action.account }
-
+            return newState
+            
         case REMOVE_ACCOUNT:
             newState = { ...state }
             delete newState[action.accountId]

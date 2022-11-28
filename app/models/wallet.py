@@ -9,7 +9,7 @@ class Wallet(db.Model):
     if environment == 'production':
         __table_args__={'schema': SCHEMA}
     id = db.Column(db.Integer, primary_key=True)
-    user_id=db.Column(ForeignKey(add_prefix_for_prod('users.id')))
+    user_id=db.Column(db.Integer,ForeignKey(add_prefix_for_prod('users.id')))
     total_fund=db.Column(db.Float)
     created_at = db.Column(db.DateTime(), nullable=False,
                            server_default=func.now())
@@ -25,5 +25,6 @@ class Wallet(db.Model):
             'owner':self.users.to_dict(),
             'totalFund':self.total_fund,
             'createdAt':self.created_at,
-            'updatedAt':self.updated_at
+            'updatedAt':self.updated_at,
+            'user_id':self.user_id
         }
