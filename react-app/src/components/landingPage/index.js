@@ -8,6 +8,7 @@ import LogoutButton from '../auth/LogoutButton'
 import './index.css'
 import WalletComp from '../wallet';
 import TransactionComp from '../transaction';
+import { Redirect, useHistory } from 'react-router-dom';
 
 
 
@@ -15,10 +16,31 @@ import TransactionComp from '../transaction';
 
 const LandingPage = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
+
+    // const [showWallet, setShowWallet]=useState(false)
+    // const [showTransaction, setShowTransaction]=useState(false)
+
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
 
+
+    const clickUser=()=>{
+        history.push('/dashboard')
+    }
+
+    const clickWallet = () => {
+        history.push('/wallet')
+    }
+
+    const clickAccount = () => {
+        history.push('/account')
+    }
+
+    const clickActivity = () => {
+        history.push('/activity')
+    }
 
     useEffect(() => {
         dispatch(getAllAccounts())
@@ -30,7 +52,7 @@ const LandingPage = () => {
         <div className='main-page'>
             <div className='navigation-bar'>
 
-                <div className='user-card'>
+                <div className='user-card' onClick={clickUser}>
                     <div className='image'>
                         <img src={user.picture} alt={user.id} />
                     </div>
@@ -38,15 +60,15 @@ const LandingPage = () => {
                 </div>
 
                 <div className='components'>
-                    <div className='wallet'>
+                    <div className='wallet' onClick={clickWallet}>
                         <i className="fa-solid fa-wallet" /> Wallet
                     </div>
 
-                    <div className='accounts'>
+                    <div className='accounts' onClick={clickAccount}>
                         <i className="fa-solid fa-money-check-dollar" /> Accounts
                     </div>
 
-                    <div className='activity'>
+                    <div className='activity' onClick={clickActivity}>
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
                 </div>
@@ -56,8 +78,7 @@ const LandingPage = () => {
 
             <div className='content-footer'>
                 <div className='content-display-box'>
-                    <WalletComp/>
-                    <TransactionComp />
+
                 </div>
 
                 <div className='footer'>
