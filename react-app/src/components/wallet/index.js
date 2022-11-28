@@ -12,7 +12,9 @@ const WalletComp = () => {
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
+    const transactions=useSelector(state=>state.transaction.transactions)
 
+    
     useEffect(() => {
         dispatch(getAllAccounts())
         dispatch(getWallet())
@@ -24,10 +26,19 @@ const WalletComp = () => {
             <div className='info-col'>
                 <div>
                     <label>
+                        USERNAME
+                        <div className='user-name'>
+                            <div>{user.username}</div>
+                        </div>
+                    </label>
+                </div>
+                <div>
+                    <label>
                         YOUR INFO
                         <div className='user-info'>
+                            <div>{user.firstName}</div>
+                            <div>{user.lastName}</div>
                             <div>{user.email}</div>
-                            <div>{user.username}</div>
                         </div>
                     </label>
                 </div>
@@ -41,7 +52,6 @@ const WalletComp = () => {
                                 </div>
                                 <div>${wallet.totalFund}</div>
                             </div>
-
                         </div>
                     </label>
                 </div>
