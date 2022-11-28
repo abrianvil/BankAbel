@@ -3,40 +3,38 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccounts } from '../../store/account';
 import { getWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
-import LogoutButton from '../auth/LogoutButton';
-import './index.css'
 import { useHistory } from 'react-router-dom';
+import {Modal} from '../../context/Modal'
+
+import AddFundForm from '../accountModal/addFundModal';
+import LogoutButton from '../auth/LogoutButton'
+import './index.css'
 
 
 
 
-const TransactionComp = () => {
+
+
+const AccountComp = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    const [showAddFund,setShowAddFund]=useState(false)
+    const [accountId,setAccountId]=useState()
+
+
+
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
-    const transactions = useSelector(state => Object.values(state.transaction.transactions))
+    const accounts = useSelector(state => Object.values(state.Accounts.accounts))
 
-    const [users, setUsers] = useState({});
+    // console.log('this is accounts', accounts)
 
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch('/api/users/');
-            const responseData = await response.json();
-            const res = {}
-            responseData.users.forEach(element => {
-                res[element.id] = element
-            });
-            delete res[user.id]
-            setUsers(res);
-        }
-        fetchData();
-    }, []);
 
     const clickUser = () => {
         history.push('/dashboard')
     }
+
     const clickWallet = () => {
         history.push('/wallet')
     }
@@ -55,15 +53,18 @@ const TransactionComp = () => {
         dispatch(getAllTransactions())
     }, [dispatch])
 
-    console.log(users[2])
+
+    const addFunds=(id)=>{
+        setShowAddFund(true)
+        setAccountId(id)
+    }
 
     return (
-
         <div className='main-page'>
             <div className='navigation-bar'>
 
                 <div className='user-card' onClick={clickUser}>
-                    <div className='image' >
+                    <div className='image'>
                         <img src={user.picture} alt={user.id} />
                     </div>
                     <div>{user.firstName} {user.lastName}</div>
@@ -88,37 +89,47 @@ const TransactionComp = () => {
 
             <div className='content-footer'>
                 <div className='content-display-box'>
-                    <div className='trans'>
-                        <div id='header'>
-                            TRANSACTIONS
-                        </div>
-                        <div className='transaction-box'>
-                            {transactions.map(transaction => (
-                                <div className='single-trans' key={transaction.id}>
-                                    <div className='image'>
-                                        <img src={users[transaction['receiver']]?.picture} />
+                    <div className='container'>
+                        {accounts.map(account => (
+                            <div className='single-account'>
+                                <div className='account-name'>
+                                    <div>
+                                        {account.name}
                                     </div>
-                                    <div>${transaction.amount}</div>
-                                    <div>{transaction.createdAt}</div>
+                                    <div className='add-delete'>
+                                        <div onClick={()=>addFunds(account.id)}>
+                                            <i className="fa-solid fa-plus" />
+                                        </div>
+                                        <div>
+                                            <i className="fa-solid fa-trash-can" />
+                                        </div>
+                                    </div>
                                 </div>
-                            ))}
-
-                        </div>
+                                <div className='underline'>
+                                    <div>
+                                        <i className="fa-solid fa-sack-dollar" /> Balance
+                                    </div>
+                                    <div>${account.balance}</div>
+                                </div>
+                            </div>
+                        ))}
+                    {showAddFund && (
+                        <Modal onClose={()=>setShowAddFund(false)}>
+                            <AddFundForm accountId={accountId} setShowAddFund={setShowAddFund} />
+                        </Modal>
+                    )}
                     </div>
                 </div>
 
                 <div className='footer'>
                     <div className='logo'></div>
-                   
+
                 </div>
             </div>
 
         </div>
-
-
     )
-
 }
 
 
-export default TransactionComp
+export default AccountComp

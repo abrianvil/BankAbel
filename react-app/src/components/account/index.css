@@ -1,0 +1,54 @@
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.single-account{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: solid 1px white;
+    background-color: #38345f;
+    width: 320px;
+    min-height: 100px;
+    border-radius: 8px;
+    padding: 5px 15px;
+    border: none;
+    font-size: 25px;
+    gap: 13px;
+    border-bottom: solid white 0.7px;
+}
+
+.account-name{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 2px 5px;
+}
+
+
+.add-delete{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+}
+
+.add-delete div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: red solid 1px; */
+    width: 30px;
+}
+.add-delete div:hover{
+    border-radius: 8px;
+    background-color: #38345f;
+}
