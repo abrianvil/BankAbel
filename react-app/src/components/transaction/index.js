@@ -103,7 +103,7 @@ const TransactionComp = () => {
 
                         </div>
                     </div>
-                </div>
+                </div> 
 
                 <div className='footer'>
                     <div className='logo'></div>
