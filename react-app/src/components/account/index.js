@@ -23,15 +23,25 @@ const AccountComp = () => {
     const [showAddFund, setShowAddFund] = useState(false)
     const [showCreate, setShowCreate] = useState(false)
     const [accountId, setAccountId] = useState()
-
+    const [loaded, setLoaded] = useState(false)
 
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
     const accountState = useSelector(state => state.Accounts.accounts)
-    const accounts = Object.values(accountState)
+    console.log('this is accounts', accountState)
 
-    // console.log('this is accounts', accounts)
+    useEffect(() => {
+        dispatch(getAllAccounts()).then(() => setLoaded(true))
+        dispatch(getWallet())
+        dispatch(getAllTransactions())
+    }, [dispatch])
+
+    let accounts = []
+    if (accountState) {
+        accounts = Object.values(accountState)
+    } else return null
+
 
 
     const clickUser = () => {
@@ -50,11 +60,7 @@ const AccountComp = () => {
         history.push('/activity')
     }
 
-    useEffect(() => {
-        dispatch(getAllAccounts())
-        dispatch(getWallet())
-        dispatch(getAllTransactions())
-    }, [dispatch])
+
 
 
     const addFunds = (id) => {
@@ -71,9 +77,9 @@ const AccountComp = () => {
     const toDelete = async (id) => {
         const toEdit = accountState[id]
         dispatch(updateWallet({ total_fund: wallet.totalFund + (+toEdit.balance) }))
-       await dispatch(deleteAccount(id))
-       await dispatch(getAllAccounts())
-       await dispatch(getWallet())
+        await dispatch(deleteAccount(id))
+        await dispatch(getAllAccounts())
+        await dispatch(getWallet())
     }
 
     return (
@@ -107,6 +113,9 @@ const AccountComp = () => {
             <div className='content-footer'>
                 <div className='content-display-box'>
                     <div className='container'>
+                        <div className='header'>
+                            <button onClick={() => setShowCreate(true)}> Create new Account</button>
+                        </div>
                         {accounts.map(account => (
                             <div className='single-account'>
                                 <div className='account-name'>
@@ -116,6 +125,9 @@ const AccountComp = () => {
                                     <div className='add-delete'>
                                         <div onClick={() => addFunds(account.id)}>
                                             <i className="fa-solid fa-plus" />
+                                        </div>
+                                        <div>
+                                            <i className="fa-solid fa-pen-to-square" />
                                         </div>
                                         <div onClick={() => toDelete(account.id)}>
                                             <i className="fa-solid fa-trash-can" />
@@ -135,7 +147,6 @@ const AccountComp = () => {
                                 <AddFundForm accountId={accountId} setShowAddFund={setShowAddFund} />
                             </Modal>
                         )}
-                        <button onClick={() => setShowCreate(true)}> Create new Account</button>
                         {showCreate && (
                             <Modal onClose={() => setShowCreate(false)}>
                                 <CreateAccountForm setShowCreate={setShowCreate} />
@@ -151,6 +162,9 @@ const AccountComp = () => {
             </div>
 
         </div>
+
+
+
     )
 }
 
