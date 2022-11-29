@@ -23,16 +23,15 @@ const AccountComp = () => {
     const [showAddFund, setShowAddFund] = useState(false)
     const [showCreate, setShowCreate] = useState(false)
     const [accountId, setAccountId] = useState()
-    const [loaded, setLoaded] = useState(false)
 
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
     const accountState = useSelector(state => state.Accounts.accounts)
-    console.log('this is accounts', accountState)
+
 
     useEffect(() => {
-        dispatch(getAllAccounts()).then(() => setLoaded(true))
+        dispatch(getAllAccounts())
         dispatch(getWallet())
         dispatch(getAllTransactions())
     }, [dispatch])
@@ -68,12 +67,6 @@ const AccountComp = () => {
         setAccountId(id)
     }
 
-    // const deleteAccount=(id)=>{
-    //     setShowAddFund(true)
-    //     setAccountId(id)
-    // }
-
-    // console.log('to edit======>', toEdit)
     const toDelete = async (id) => {
         const toEdit = accountState[id]
         dispatch(updateWallet({ total_fund: wallet.totalFund + (+toEdit.balance) }))

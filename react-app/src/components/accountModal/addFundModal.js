@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAccount } from '../../store/account';
 import { getWallet, updateWallet } from '../../store/wallet';
@@ -13,8 +13,8 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
     const wallet = useSelector(state => state.wallet.wallet)
     const accounts = useSelector(state => state.Accounts.accounts)
     const toEdit = accounts[accountId]
-    console.log('====>', wallet.totalFund)
-    const [name, setName] = useState(`${toEdit.name}`)
+
+    const [name] = useState(`${toEdit.name}`)
     const [balance, setBalance] = useState(0.00)
 
 
@@ -34,7 +34,6 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
                 setShowAddFund(true)
             } else setShowAddFund(false)
         } else {
-            // console.log('not enough money to do that')
             setShowAddFund(true)
         }
     }
@@ -47,19 +46,6 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
                     <div className='text'>
                         <h2>Add Funds to your account</h2>
                     </div>
-                    {/* <div>
-                        <label>
-                            Name
-                        </label>
-                    </div>
-                    <input
-                        type='text'
-                        className='inp'
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                        placeholder="Account Name"
-                        name='name'
-                    /> */}
                     <div>
                         <label>Balance</label>
                     </div>

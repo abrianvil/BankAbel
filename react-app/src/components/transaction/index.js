@@ -15,7 +15,6 @@ const TransactionComp = () => {
     const history = useHistory()
 
     const user = useSelector(state => state.session.user)
-    const wallet = useSelector(state => state.wallet.wallet)
     const transactions = useSelector(state => Object.values(state.transaction.transactions))
 
     const [users, setUsers] = useState({});
@@ -109,7 +108,7 @@ const TransactionComp = () => {
 
                 <div className='footer'>
                     <div className='logo'></div>
-                   
+
                 </div>
             </div>
 

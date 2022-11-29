@@ -1,17 +1,14 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import LoginForm from '../auth/LoginForm'
 import bank from '../../Images/img1.webp'
 import debitCard from '../../Images/debitCard.png'
 import assets_nav_spend2 from '../../Images/assets_nav_spend2.png'
-// import assets_nav_spend from '../../Images/assets_nav_spend.png'
-import NavBar from '../NavBar'
 import './index.css'
 
 
 function SplashPage() {
-const history=useHistory()
-    function buttonClick(e){
+    const history = useHistory()
+    function buttonClick(e) {
         e.preventDefault()
         history.push('/getstarted')
     }
@@ -41,10 +38,6 @@ const history=useHistory()
                                 <div className='title-2'>Spend</div>
                                 <div className='tag'>Save on everyday spending</div>
                             </div>
-
-                            {/* <div className='photo'>
-                            <img src={assets_nav_spend} alt='' />
-                        </div> */}
 
                             <div className='photo'>
                                 <img src={assets_nav_spend2} alt='' />

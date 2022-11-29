@@ -72,7 +72,7 @@ export const createAccount = (newAccount) => async dispatch => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newAccount)
     })
-    console.log('body in the thunk', newAccount)
+    
     if (response.ok) {
         const addedAccount = await response.json();
         dispatch(addAccount(addedAccount))
