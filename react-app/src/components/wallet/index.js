@@ -34,6 +34,10 @@ const WalletComp = () => {
         history.push('/activity')
     }
 
+    const sendMoney=()=>{
+        history.push('/transaction')
+    }
+
     useEffect(() => {
         dispatch(getAllAccounts())
         dispatch(getWallet())
@@ -62,6 +66,10 @@ const WalletComp = () => {
 
                     <div className='activity' onClick={clickActivity}>
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
+                    </div>
+
+                    <div className='sendMoney' onClick={sendMoney}>
+                        <i className="fa-solid fa-money-bill-transfer" /> Send Money
                     </div>
                 </div>
 
@@ -112,8 +120,8 @@ const WalletComp = () => {
                                     incomingTrans.map(x => (
                                         <div className='incoming-trans' key={x.id}>
                                             <div className='underline'>
-                                            <div>${x.amount}</div>
-                                            <div>{x.createdAt}</div>
+                                                <div>${x.amount}</div>
+                                                <div>{x.createdAt}</div>
                                             </div>
                                         </div>
                                     ))
@@ -122,7 +130,7 @@ const WalletComp = () => {
                                     <>
                                         <label>INCOMING PENDING TRANSACTIONS</label>
                                         <div className='no-pending'>
-                                           <div> There no pending transactions</div>
+                                            <div> There no pending transactions</div>
                                         </div>
                                     </>
                                 )
