@@ -66,7 +66,7 @@ export const getOneTransaction = (transactionId) => async dispatch => {
 }
 
 export const createTransaction = (newTransaction) => async dispatch => {
-    const response = await fetch('/api/transactions', {
+    const response = await fetch('/api/transactions/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTransaction)
@@ -76,7 +76,7 @@ export const createTransaction = (newTransaction) => async dispatch => {
         const newTransaction = await response.json()
         dispatch(addTransaction(newTransaction))
         return newTransaction
-    }
+    }else console.log('in create trans thunk', response)
 }
 
 export const updateTransaction = (transaction) => async dispatch => {
