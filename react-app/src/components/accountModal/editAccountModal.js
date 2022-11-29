@@ -1,12 +1,12 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {  updateAccount } from '../../store/account';
+import { updateAccount } from '../../store/account';
 
 import { getAllAccounts } from '../../store/account';
 import './index.css'
 
 
-const EditAccountForm = ({account,setShowEdit}) => {
+const EditAccountForm = ({ account, setShowEdit }) => {
     const dispatch = useDispatch()
 
     const [name, setName] = useState(account.name)
@@ -18,10 +18,9 @@ const EditAccountForm = ({account,setShowEdit}) => {
 
         const data = await dispatch(updateAccount({ id: account.id, name, balance: account.balance }))
         await dispatch(getAllAccounts())
-        // console.log('this is data from backend', data)
-        if(data.errors){
+        if (data.errors) {
             setShowEdit(true)
-        }else setShowEdit(false)
+        } else setShowEdit(false)
 
         setName(account.name)
     }
