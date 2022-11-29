@@ -1,24 +1,28 @@
-import React, { useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllAccounts } from '../../store/account';
-import { getWallet } from '../../store/wallet';
-import { getAllTransactions } from '../../store/transaction';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllAccounts } from "../../store/account";
+import { createTransaction } from "../../store/transaction";
+import { useHistory } from "react-router-dom";
 
-import LogoutButton from '../auth/LogoutButton'
+import LogoutButton from "../auth/LogoutButton";
 import './index.css'
-import {  useHistory } from 'react-router-dom';
 
 
-
-
-
-const LandingPage = () => {
+const MoneyTransaction = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+
+    const accounts = useSelector(state => Object.values(state.Accounts.accounts))
+
     const user = useSelector(state => state.session.user)
 
-    const clickUser=()=>{
+    useEffect(() => {
+        dispatch(getAllAccounts())
+        // dispatch(getWallet())
+    }, [dispatch])
+
+    const clickUser = () => {
         history.push('/dashboard')
     }
 
@@ -34,15 +38,9 @@ const LandingPage = () => {
         history.push('/activity')
     }
 
-    const sendMoney=()=>{
+    const sendMoney = () => {
         history.push('/transaction')
     }
-
-    useEffect(() => {
-        dispatch(getAllAccounts())
-        dispatch(getWallet())
-        dispatch(getAllTransactions())
-    }, [dispatch])
 
     return (
         <div className='main-page'>
@@ -69,7 +67,7 @@ const LandingPage = () => {
                     </div>
 
                     <div className='sendMoney' onClick={sendMoney}>
-                    <i className="fa-solid fa-money-bill-transfer"/> Send Money
+                        <i className="fa-solid fa-money-bill-transfer" /> Send Money
                     </div>
                 </div>
 
@@ -78,7 +76,28 @@ const LandingPage = () => {
 
             <div className='content-footer'>
                 <div className='content-display-box'>
-
+                    <div className='container'>
+                        {accounts.map(account => (
+                            <div className='single-account'>
+                                <div className='account-name'>
+                                    <div>
+                                        {account.name}
+                                    </div>
+                                    <div className='add-delete'>
+                                        <div>
+                                            <i className="fa-sharp fa-solid fa-money-bill-transfer"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='underline'>
+                                    <div>
+                                        <i className="fa-solid fa-sack-dollar" /> Balance
+                                    </div>
+                                    <div>${account.balance}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 <div className='footer'>
@@ -90,5 +109,4 @@ const LandingPage = () => {
     )
 }
 
-
-export default LandingPage
+export default MoneyTransaction
