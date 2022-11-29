@@ -48,6 +48,10 @@ const TransactionComp = () => {
         history.push('/activity')
     }
 
+    const sendMoney=()=>{
+        history.push('/transaction')
+    }
+
     useEffect(() => {
         dispatch(getAllAccounts())
         dispatch(getWallet())
@@ -79,6 +83,10 @@ const TransactionComp = () => {
                     <div className='activity' onClick={clickActivity}>
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
+
+                   <div className='sendMoney' onClick={sendMoney}>
+                    <i className="fa-solid fa-money-bill-transfer"/> Send Money
+                    </div>
                 </div>
 
                 <LogoutButton />
@@ -103,7 +111,7 @@ const TransactionComp = () => {
 
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <div className='footer'>
                     <div className='logo'></div>
