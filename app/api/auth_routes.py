@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, Wallet, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -69,6 +69,14 @@ def sign_up():
         )
         db.session.add(user)
         db.session.commit()
+
+        wallet = Wallet(
+            user_id=user.id,
+            total_fund=1000.00
+        )
+        db.session.add(wallet)
+        db.session.commit()
+
         login_user(user)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

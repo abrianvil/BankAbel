@@ -67,7 +67,7 @@ export const getOneAccount = (accountId) => async dispatch => {
 }
 
 export const createAccount = (newAccount) => async dispatch => {
-    const response = await fetch('/api/accounts', {
+    const response = await fetch('/api/accounts/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newAccount)
@@ -77,6 +77,12 @@ export const createAccount = (newAccount) => async dispatch => {
         const addedAccount = await response.json();
         dispatch(addAccount(addedAccount))
         return addedAccount
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data) {
+            return data;
+        }
+
     }
 }
 
@@ -130,18 +136,19 @@ const accountReducer = (state = initialState, action) => {
         case LOAD_ONE_ACCOUNT:
             newState = { ...state }
             newState.oneAccount = { ...action.account }
-
+            return newState
         case CREATE_ACCOUNT:
             newState = { ...state.accounts, [action.newAccount.id]: action.newAccount }
             return newState
 
         case EDIT_ACCOUNT:
             newState = { ...state, [action.account.id]: action.account }
+            return newState
 
         case REMOVE_ACCOUNT:
             newState = { ...state }
             delete newState[action.accountId]
-
+            return newState
         case CLEAR_ACCOUNT:
             newState = { ...state }
             newState.accounts = {}
