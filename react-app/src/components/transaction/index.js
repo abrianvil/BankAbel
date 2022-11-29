@@ -54,7 +54,6 @@ const TransactionComp = () => {
         dispatch(getAllTransactions())
     }, [dispatch])
 
-    console.log(users[2])
 
     return (
 
@@ -95,7 +94,7 @@ const TransactionComp = () => {
                             {transactions.map(transaction => (
                                 <div className='single-trans' key={transaction.id}>
                                     <div className='image'>
-                                        <img src={users[transaction['receiver']]?.picture} />
+                                        <img src={users[transaction['receiver']]?.picture} alt={transaction.id} />
                                     </div>
                                     <div>${transaction.amount}</div>
                                     <div>{transaction.createdAt}</div>

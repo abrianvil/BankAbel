@@ -72,7 +72,7 @@ export const createAccount = (newAccount) => async dispatch => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newAccount)
     })
-    
+
     if (response.ok) {
         const addedAccount = await response.json();
         dispatch(addAccount(addedAccount))
@@ -148,7 +148,7 @@ const accountReducer = (state = initialState, action) => {
         case REMOVE_ACCOUNT:
             newState = { ...state }
             delete newState[action.accountId]
-
+            return newState
         case CLEAR_ACCOUNT:
             newState = { ...state }
             newState.accounts = {}

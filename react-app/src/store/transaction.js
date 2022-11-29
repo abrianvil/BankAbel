@@ -142,7 +142,7 @@ const transactionReducer = (state = initialState, action) => {
         case REMOVE_TRANSACTION:
             newState = { ...state }
             delete newState[action.transactionId]
-
+            return newState
         case CLEAR_TRANSACTION:
             newState = { ...state }
             newState.transactions = {}
