@@ -15,7 +15,6 @@ const TransactionComp = () => {
     const history = useHistory()
 
     const user = useSelector(state => state.session.user)
-    const wallet = useSelector(state => state.wallet.wallet)
     const transactions = useSelector(state => Object.values(state.transaction.transactions))
 
     const [users, setUsers] = useState({});
@@ -55,7 +54,6 @@ const TransactionComp = () => {
         dispatch(getAllTransactions())
     }, [dispatch])
 
-    console.log(users[2])
 
     return (
 
@@ -96,7 +94,7 @@ const TransactionComp = () => {
                             {transactions.map(transaction => (
                                 <div className='single-trans' key={transaction.id}>
                                     <div className='image'>
-                                        <img src={users[transaction['receiver']]?.picture} />
+                                        <img src={users[transaction['receiver']]?.picture} alt={transaction.id} />
                                     </div>
                                     <div>${transaction.amount}</div>
                                     <div>{transaction.createdAt}</div>
@@ -109,7 +107,7 @@ const TransactionComp = () => {
 
                 <div className='footer'>
                     <div className='logo'></div>
-                    {/* <div>this is for abel</div> */}
+
                 </div>
             </div>
 

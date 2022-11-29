@@ -67,6 +67,7 @@ const walletReducer=(state=initialState, action)=>{
         case EDIT_WALLET:
             newState={...state}
             newState.wallet={...action.wallet}
+            return newState
         default:
             return state
     }

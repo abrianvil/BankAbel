@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccounts } from '../../store/account';
 import { getWallet } from '../../store/wallet';
@@ -6,9 +6,7 @@ import { getAllTransactions } from '../../store/transaction';
 
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
-import WalletComp from '../wallet';
-import TransactionComp from '../transaction';
-import { Redirect, useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 
 
 
@@ -18,13 +16,7 @@ const LandingPage = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    // const [showWallet, setShowWallet]=useState(false)
-    // const [showTransaction, setShowTransaction]=useState(false)
-
-
     const user = useSelector(state => state.session.user)
-    const wallet = useSelector(state => state.wallet.wallet)
-
 
     const clickUser=()=>{
         history.push('/dashboard')
@@ -83,7 +75,6 @@ const LandingPage = () => {
 
                 <div className='footer'>
                     <div className='logo'></div>
-                    {/* <div>this is for abel</div> */}
                 </div>
             </div>
 
