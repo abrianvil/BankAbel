@@ -97,6 +97,7 @@ const WalletComp = () => {
                         <i className="fa-sharp fa-solid fa-money-bill-transfer" />
                         Create a transaction
                     </div>
+                    
                     {showTransModal && (
                         <Modal onClose={() => setShowTransModal(false)}>
                             <CreateTransaction wallet={wallet} setShowTransModal={setShowTransModal} />
