@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import { getAllAccounts } from '../../store/account';
 import { getWallet, updateWallet } from '../../store/wallet';
-import { getAllTransactions, deleteTransaction } from '../../store/transaction';
+import { getAllTransactions, deleteTransaction, updateTransaction } from '../../store/transaction';
 import CreateTransaction from '../moneyTransactionModal/createTransactionForm';
 import EditTransaction from '../moneyTransactionModal/editTransactionForm';
 import LogoutButton from '../auth/LogoutButton';
@@ -17,8 +17,8 @@ const WalletComp = () => {
     const history = useHistory()
     const [users, setUsers] = useState([]);
     const [showTransModal, setShowTransModal] = useState(false)
-    const [showEditTransaction, setShowEditTransaction]=useState(false)
-    const [toEdit, setToEdit]=useState({})
+    const [showEditTransaction, setShowEditTransaction] = useState(false)
+    const [toEdit, setToEdit] = useState({})
 
 
     const user = useSelector(state => state.session.user)
@@ -57,14 +57,21 @@ const WalletComp = () => {
         history.push('/activity')
     }
 
-    const editTrans=(transaction)=>{
+    const editTrans = (transaction) => {
         setToEdit(transaction)
         setShowEditTransaction(true)
     }
 
-    const deleteTrans= async (transaction)=>{
-        await dispatch(deleteTransaction(transaction.id))
+    const completeTransaction= async (transaction)=>{
+        transaction.receiver_id=transaction.receiver
+        transaction.status='Complete'
+        await dispatch(updateTransaction(transaction))
         await dispatch(updateWallet({ total_fund: wallet.totalFund + transaction.amount}))
+    }
+
+    const deleteTrans = async (transaction) => {
+        await dispatch(deleteTransaction(transaction.id))
+        await dispatch(updateWallet({ total_fund: wallet.totalFund + transaction.amount }))
         await dispatch(getWallet())
         await dispatch(getAllTransactions())
     }
@@ -159,6 +166,12 @@ const WalletComp = () => {
                                 (
                                     incomingTrans.map(x => (
                                         <div className='incoming-trans' key={x.id}>
+                                            <div className='accept'>
+                                                <div>From: {x['sender'].username}</div>
+                                                <div className='check' onClick={()=>completeTransaction(x)}>
+                                                    <i className="fa-regular fa-square-check" />
+                                                </div>
+                                            </div>
                                             <div className='underline'>
                                                 <div>${x.amount}</div>
                                                 <div>{x.createdAt.slice(0, 17)}</div>
@@ -183,10 +196,10 @@ const WalletComp = () => {
                                     <div className="account-name">
                                         <div> {users[transaction['receiver']]?.username}</div>
                                         <div className="add-delete">
-                                            <div onClick={()=>editTrans(transaction)}>
+                                            <div onClick={() => editTrans(transaction)}>
                                                 <i className="fa-solid fa-pen-to-square" />
                                             </div>
-                                            <div onClick={()=>deleteTrans(transaction)}>
+                                            <div onClick={() => deleteTrans(transaction)}>
                                                 <i className="fa-solid fa-rectangle-xmark" />
                                             </div>
                                         </div>
@@ -206,7 +219,7 @@ const WalletComp = () => {
                             }
                         </div>
                         {showEditTransaction && (
-                            <Modal onClose={()=>setShowEditTransaction(false)}>
+                            <Modal onClose={() => setShowEditTransaction(false)}>
                                 <EditTransaction transaction={toEdit} setShowEditTransaction={setShowEditTransaction} />
                             </Modal>
                         )}
