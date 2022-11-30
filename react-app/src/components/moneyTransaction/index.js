@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAccounts } from "../../store/account";
-import { createTransaction } from "../../store/transaction";
+import { createTransaction, getAllTransactions } from "../../store/transaction";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 
@@ -15,14 +15,37 @@ const MoneyTransaction = () => {
     const history = useHistory()
     const [account, setAccount] = useState({})
     const [showTransModal, setShowTransModal] = useState(false)
-
-    const accounts = useSelector(state => Object.values(state.Accounts.accounts))
+    const [users, setUsers] = useState([]);
 
     const user = useSelector(state => state.session.user)
+    const accounts = useSelector(state => Object.values(state.Accounts.accounts))
+    const transactions = useSelector(state => Object.values(state.transaction.transactions))
+
+    const outGoingTransactions = transactions.filter(transaction => transaction.sender.id === user.id && transaction.status === 'pending')
+
+    // console.log('this is sending transaction', outGoingTransactions)
+
+
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch('/api/users/');
+            const responseData = await response.json();
+            const res = {}
+            responseData.users.forEach(element => {
+                res[element.id] = element
+            });
+            delete res[user.id]
+            setUsers(res);
+        }
+        fetchData();
+    }, []);
+
+
 
     useEffect(() => {
         dispatch(getAllAccounts())
-        // dispatch(getWallet())
+        dispatch(getAllTransactions())
     }, [dispatch])
 
     const clickUser = () => {
@@ -84,32 +107,57 @@ const MoneyTransaction = () => {
 
             <div className='content-footer'>
                 <div className='content-display-box'>
-                    <div className='container'>
-                        {accounts.map(account => (
-                            <div className='single-account'>
-                                <div className='account-name'>
-                                    <div>
-                                        {account.name}
-                                    </div>
-                                    <div className='add-delete'>
-                                        <div onClick={() => clickTrans(account)}>
-                                            <i className="fa-sharp fa-solid fa-money-bill-transfer"></i>
+                    <div className='container trans'>
+                        <div>
+                            <div className="text">Accounts:</div>
+                            {accounts.map(account => (
+                                <div className='single-account forMoney'>
+                                    <div className='account-name'>
+                                        <div>
+                                            {account.name}
+                                        </div>
+                                        <div className='add-delete'>
+                                            <div onClick={() => clickTrans(account)}>
+                                                <i className="fa-sharp fa-solid fa-money-bill-transfer"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className='underline'>
-                                    <div>
-                                        <i className="fa-solid fa-sack-dollar" /> Balance
+                                    <div className='underline'>
+                                        <div>
+                                            <i className="fa-solid fa-sack-dollar" /> Balance
+                                        </div>
+                                        <div>${account.balance}</div>
                                     </div>
-                                    <div>${account.balance}</div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                         {showTransModal && (
                             <Modal onClose={() => setShowTransModal(false)}>
                                 <CreateTransaction account={account} setShowTransModal={setShowTransModal} />
                             </Modal>
                         )}
+                        <div>
+                            <div className="text">Pending Transactions:</div>
+                            {outGoingTransactions.map(transaction => (
+                                <div className="single-account forMoney" key={transaction.id}>
+                                    <div className="account-name">
+                                        <div> {users[transaction['receiver']]?.username}</div>
+                                        <div className="add-delete">
+                                            <div>
+                                                <i className="fa-solid fa-pen-to-square" />
+                                            </div>
+                                            <div>
+                                                <i className="fa-solid fa-rectangle-xmark" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="underline">
+                                        <div>${transaction.amount}</div>
+                                        <div>{transaction.createdAt.slice(0, 17)}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 

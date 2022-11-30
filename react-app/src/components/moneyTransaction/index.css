@@ -1,0 +1,16 @@
+.trans{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 900px;
+    /* border: solid red 1px; */
+    gap: 200px;
+}
+
+.forMoney{
+margin-top: 20px;
+}
+
+.text{
+    font-size: 35px;
+}
