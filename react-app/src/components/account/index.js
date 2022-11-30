@@ -6,6 +6,7 @@ import { getAllTransactions } from '../../store/transaction';
 import { useHistory } from 'react-router-dom';
 import { Modal } from '../../context/Modal'
 
+import EditAccountForm from '../accountModal/editAccountModal';
 import AddFundForm from '../accountModal/addFundModal';
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
@@ -23,7 +24,8 @@ const AccountComp = () => {
     const [showAddFund, setShowAddFund] = useState(false)
     const [showCreate, setShowCreate] = useState(false)
     const [accountId, setAccountId] = useState()
-
+    const [account, setAccount] = useState()
+    const [showEdit, setShowEdit] = useState(false)
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
@@ -36,11 +38,7 @@ const AccountComp = () => {
         dispatch(getAllTransactions())
     }, [dispatch])
 
-    let accounts = []
-    if (accountState) {
-        accounts = Object.values(accountState)
-    } else return null
-
+    let accounts = Object.values(accountState)
 
 
     const clickUser = () => {
@@ -61,7 +59,6 @@ const AccountComp = () => {
 
 
 
-
     const addFunds = (id) => {
         setShowAddFund(true)
         setAccountId(id)
@@ -73,6 +70,11 @@ const AccountComp = () => {
         await dispatch(deleteAccount(id))
         await dispatch(getAllAccounts())
         await dispatch(getWallet())
+    }
+
+    const toEdit = async (account) => {
+        setShowEdit(true)
+        setAccount(account)
     }
 
     return (
@@ -98,6 +100,7 @@ const AccountComp = () => {
                     <div className='activity' onClick={clickActivity}>
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
+
                 </div>
 
                 <LogoutButton />
@@ -119,7 +122,7 @@ const AccountComp = () => {
                                         <div onClick={() => addFunds(account.id)}>
                                             <i className="fa-solid fa-plus" />
                                         </div>
-                                        <div>
+                                        <div onClick={() => toEdit(account)}>
                                             <i className="fa-solid fa-pen-to-square" />
                                         </div>
                                         <div onClick={() => toDelete(account.id)}>
@@ -143,6 +146,11 @@ const AccountComp = () => {
                         {showCreate && (
                             <Modal onClose={() => setShowCreate(false)}>
                                 <CreateAccountForm setShowCreate={setShowCreate} />
+                            </Modal>
+                        )}
+                        {showEdit && (
+                            <Modal onClose={() => setShowEdit(false)}>
+                                <EditAccountForm account={account} setShowEdit={setShowEdit} />
                             </Modal>
                         )}
                     </div>

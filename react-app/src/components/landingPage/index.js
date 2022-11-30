@@ -34,6 +34,7 @@ const LandingPage = () => {
         history.push('/activity')
     }
 
+
     useEffect(() => {
         dispatch(getAllAccounts())
         dispatch(getWallet())
@@ -63,6 +64,7 @@ const LandingPage = () => {
                     <div className='activity' onClick={clickActivity}>
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
+
                 </div>
 
                 <LogoutButton />

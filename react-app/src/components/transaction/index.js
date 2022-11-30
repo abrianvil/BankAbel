@@ -27,7 +27,7 @@ const TransactionComp = () => {
             responseData.users.forEach(element => {
                 res[element.id] = element
             });
-            delete res[user.id]
+            // delete res[user.id]
             setUsers(res);
         }
         fetchData();
@@ -47,6 +47,7 @@ const TransactionComp = () => {
     const clickActivity = () => {
         history.push('/activity')
     }
+
 
     useEffect(() => {
         dispatch(getAllAccounts())
@@ -96,7 +97,13 @@ const TransactionComp = () => {
                                     <div className='image'>
                                         <img src={users[transaction['receiver']]?.picture} alt={transaction.id} />
                                     </div>
-                                    <div>${transaction.amount}</div>
+                                    {+users[transaction['receiver']]?.id === user.id ? (
+                                        <div>received ${transaction.amount}</div>
+
+                                    ) :
+                                        <div>Was sent ${transaction.amount}</div>
+
+                                    }
                                     <div>{transaction.createdAt}</div>
                                 </div>
                             ))}

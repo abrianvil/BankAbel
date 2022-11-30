@@ -55,6 +55,7 @@ function App() {
           <AccountComp />
         </ProtectedRoute>
 
+
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>

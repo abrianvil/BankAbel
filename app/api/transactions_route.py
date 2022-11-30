@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Transaction, db
 from ..forms.transaction_form import New_transaction
+from sqlalchemy.sql import func
 
 transaction_routes = Blueprint('transaction', __name__)
 
@@ -45,11 +46,14 @@ def create_transaction():
         transaction = Transaction()
         form.populate_obj(transaction)
         transaction.sender_id = current_user.id
+        transaction.due_date= func.now()
 
         db.session.add(transaction)
         db.session.commit()
 
         return transaction.to_dict(), 200
+    else:
+        return {'error': "there is an error"}
 
 
 # SECTION - UPDATE A TRANSACTION
@@ -65,7 +69,11 @@ def update_transaction(id):
             form.populate_obj(to_update)
             db.session.commit()
             return to_update.to_dict(), 200
+        else:
+            print("""
 
+
+            """,form.errors)
     else:
         return {
             'errors': 'Transaction not found',
@@ -91,4 +99,3 @@ def delete_transaction(id):
             'errors': 'Transaction not found',
             'Status code': 404
         }, 404
-

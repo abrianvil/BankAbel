@@ -1,25 +1,28 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createAccount } from '../../store/account';
+import { updateAccount } from '../../store/account';
 
 import { getAllAccounts } from '../../store/account';
 import './index.css'
 
 
-const CreateAccountForm = ({setShowCreate}) => {
+const EditAccountForm = ({ account, setShowEdit }) => {
     const dispatch = useDispatch()
 
-    const [name, setName] = useState('')
+    const [name, setName] = useState(account.name)
+
+
 
     const submit = async (e) => {
         e.preventDefault()
 
-        const data = await dispatch(createAccount({ name, balance: 0.00 }))
+        const data = await dispatch(updateAccount({ id: account.id, name, balance: account.balance }))
         await dispatch(getAllAccounts())
-        // console.log('this is data from backend', data)
-        if(data.errors){
-            setShowCreate(true)
-        }else setShowCreate(false)
+        if (data.errors) {
+            setShowEdit(true)
+        } else setShowEdit(false)
+
+        setName(account.name)
     }
 
 
@@ -28,7 +31,7 @@ const CreateAccountForm = ({setShowCreate}) => {
             <div>
                 <form className='form' onSubmit={submit}>
                     <div className='text'>
-                        <h2>Your New Account</h2>
+                        <h2>Edit Account</h2>
                     </div>
                     <div>
                         <label>
@@ -40,15 +43,13 @@ const CreateAccountForm = ({setShowCreate}) => {
                         className='inp'
                         onChange={(e) => setName(e.target.value)}
                         value={name}
-                        placeholder="Account Name"
                         name='name'
                     />
-                    <button>Create Account</button>
+                    <button>Update Account</button>
                 </form>
             </div>
         </div>
     )
 }
 
-
-export default CreateAccountForm
+export default EditAccountForm
