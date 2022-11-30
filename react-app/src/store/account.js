@@ -79,7 +79,7 @@ export const createAccount = (newAccount) => async dispatch => {
         return addedAccount
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data) {
+        if (data.errors) {
             return data;
         }
 

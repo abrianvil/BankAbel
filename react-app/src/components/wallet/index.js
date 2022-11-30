@@ -6,6 +6,7 @@ import { getAllAccounts } from '../../store/account';
 import { getWallet, updateWallet } from '../../store/wallet';
 import { getAllTransactions, deleteTransaction } from '../../store/transaction';
 import CreateTransaction from '../moneyTransactionModal/createTransactionForm';
+import EditTransaction from '../moneyTransactionModal/editTransactionForm';
 import LogoutButton from '../auth/LogoutButton';
 import './index.css'
 
@@ -16,6 +17,8 @@ const WalletComp = () => {
     const history = useHistory()
     const [users, setUsers] = useState([]);
     const [showTransModal, setShowTransModal] = useState(false)
+    const [showEditTransaction, setShowEditTransaction]=useState(false)
+    const [toEdit, setToEdit]=useState({})
 
 
     const user = useSelector(state => state.session.user)
@@ -54,6 +57,10 @@ const WalletComp = () => {
         history.push('/activity')
     }
 
+    const editTrans=(transaction)=>{
+        setToEdit(transaction)
+        setShowEditTransaction(true)
+    }
 
     const deleteTrans= async (transaction)=>{
         await dispatch(deleteTransaction(transaction.id))
@@ -97,7 +104,7 @@ const WalletComp = () => {
                         <i className="fa-sharp fa-solid fa-money-bill-transfer" />
                         Create a transaction
                     </div>
-                    
+
                     {showTransModal && (
                         <Modal onClose={() => setShowTransModal(false)}>
                             <CreateTransaction wallet={wallet} setShowTransModal={setShowTransModal} />
@@ -176,7 +183,7 @@ const WalletComp = () => {
                                     <div className="account-name">
                                         <div> {users[transaction['receiver']]?.username}</div>
                                         <div className="add-delete">
-                                            <div>
+                                            <div onClick={()=>editTrans(transaction)}>
                                                 <i className="fa-solid fa-pen-to-square" />
                                             </div>
                                             <div onClick={()=>deleteTrans(transaction)}>
@@ -198,6 +205,11 @@ const WalletComp = () => {
                                 </>
                             }
                         </div>
+                        {showEditTransaction && (
+                            <Modal onClose={()=>setShowEditTransaction(false)}>
+                                <EditTransaction transaction={toEdit} setShowEditTransaction={setShowEditTransaction} />
+                            </Modal>
+                        )}
                     </div>
                 </div>
 
