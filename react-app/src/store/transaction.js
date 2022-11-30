@@ -76,7 +76,13 @@ export const createTransaction = (newTransaction) => async dispatch => {
         const newTransaction = await response.json()
         dispatch(addTransaction(newTransaction))
         return newTransaction
-    }else console.log('in create trans thunk', response)
+    }else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+
+    }
 }
 
 export const updateTransaction = (transaction) => async dispatch => {
@@ -90,6 +96,14 @@ export const updateTransaction = (transaction) => async dispatch => {
         const updatedTransaction = await response.json()
         dispatch(editTransaction(updatedTransaction))
         return updatedTransaction
+    }else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+
+    } else {
+        console.log('response in update trans. thunk',response)
     }
 
 }
