@@ -5,6 +5,7 @@ import { login } from '../../store/session';
 import SignUpForm from './SignUpForm';
 import './index.css'
 
+
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
@@ -20,6 +21,16 @@ const LoginForm = () => {
       setErrors(data);
     }
   };
+
+  const demo1 = async (e) => {
+    e.preventDefault()
+    await dispatch(login('demo@aa.io', 'password'))
+  }
+
+  const demo2 = async (e) => {
+    e.preventDefault()
+    await dispatch(login('bobbie@aa.io', 'password'))
+  }
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -45,25 +56,26 @@ const LoginForm = () => {
                 ))}
               </div>
 
-                <label htmlFor='email'>Email</label>
-                <input
-                  name='email'
-                  type='text'
-                  placeholder='Email'
-                  value={email}
-                  onChange={updateEmail}
-                />
+              <label htmlFor='email'>Email</label>
+              <input
+                name='email'
+                type='text'
+                placeholder='Email'
+                value={email}
+                onChange={updateEmail}
+              />
 
-                <label htmlFor='password'>Password</label>
-                <input
-                  name='password'
-                  type='password'
-                  placeholder='Password'
-                  value={password}
-                  onChange={updatePassword}
-                />
-                <button type='submit'>Login</button>
-
+              <label htmlFor='password'>Password</label>
+              <input
+                name='password'
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={updatePassword}
+              />
+              <button type='submit'>Login</button>
+              <button onClick={demo1}>Demo 1</button>
+              <button onClick={demo2}>Demo 2</button>
             </form>
           </div>
 
