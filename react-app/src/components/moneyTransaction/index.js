@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAccounts } from "../../store/account";
 import { createTransaction } from "../../store/transaction";
 import { useHistory } from "react-router-dom";
+import { Modal } from "../../context/Modal";
 
+import CreateTransaction from "../moneyTransactionModal/createTransactionForm";
 import LogoutButton from "../auth/LogoutButton";
 import './index.css'
 
@@ -11,7 +13,8 @@ import './index.css'
 const MoneyTransaction = () => {
     const dispatch = useDispatch()
     const history = useHistory()
-
+    const [account, setAccount] = useState({})
+    const [showTransModal, setShowTransModal] = useState(false)
 
     const accounts = useSelector(state => Object.values(state.Accounts.accounts))
 
@@ -40,6 +43,11 @@ const MoneyTransaction = () => {
 
     const sendMoney = () => {
         history.push('/transaction')
+    }
+
+    const clickTrans = (account) => {
+        setAccount(account)
+        setShowTransModal(true)
     }
 
     return (
@@ -84,7 +92,7 @@ const MoneyTransaction = () => {
                                         {account.name}
                                     </div>
                                     <div className='add-delete'>
-                                        <div>
+                                        <div onClick={() => clickTrans(account)}>
                                             <i className="fa-sharp fa-solid fa-money-bill-transfer"></i>
                                         </div>
                                     </div>
@@ -97,6 +105,11 @@ const MoneyTransaction = () => {
                                 </div>
                             </div>
                         ))}
+                        {showTransModal && (
+                            <Modal onClose={() => setShowTransModal(false)}>
+                                <CreateTransaction account={account} setShowTransModal={setShowTransModal} />
+                            </Modal>
+                        )}
                     </div>
                 </div>
 

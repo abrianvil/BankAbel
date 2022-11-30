@@ -38,11 +38,7 @@ const AccountComp = () => {
         dispatch(getAllTransactions())
     }, [dispatch])
 
-    let accounts = []
-    if (accountState) {
-        accounts = Object.values(accountState)
-    } else return null
-
+    let accounts = Object.values(accountState)
 
 
     const clickUser = () => {
