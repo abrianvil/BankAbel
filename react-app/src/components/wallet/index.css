@@ -113,4 +113,21 @@
     border-bottom: solid white 0.7px;
 }
 
+.accept{
+    display: flex;
+    justify-content: space-between;
 
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 2px 5px;
+}
+
+.check:hover{
+    color: #63bf7d;
+    cursor: pointer;
+}
