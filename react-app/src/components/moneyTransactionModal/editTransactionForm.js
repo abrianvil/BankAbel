@@ -1,42 +1,63 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTransactions } from '../../store/transaction';
-import { getAllAccounts } from '../../store/account';
 
-import { updateAccount } from '../../store/account';
+import { getWallet, updateWallet } from '../../store/wallet';
 import { updateTransaction } from '../../store/transaction';
 import './index.css'
 
 
-const EditTransaction = ({ setShowCreate, transaction }) => {
+const EditTransaction = ({ setShowEditTransaction, transaction }) => {
     const dispatch = useDispatch()
 
-    const user = useSelector(state => state.session.user)
+    const wallet = useSelector(state => state.wallet.wallet)
     const [amount, setAmount] = useState(transaction.amount)
-    const [status] = useState('pending')
-    const [receiverId, setReceiverId] = useState(transaction.receiver)
-    const [users, setUsers] = useState([]);
 
+    useEffect(() => {
+        dispatch(getWallet())
+    }, [dispatch])
 
 
     const submit = async (e) => {
         e.preventDefault()
-        console.log('==========>', receiverId)
-        if (account.balance >= amount && +receiverId > 0) {
-            const newTransaction = {...transaction}
-            newTransaction.amount=amount
+        console.log('wallet after first update', wallet)
+        if (wallet.totalFund >= amount) {
+            const newTransaction = { ...transaction }
+            newTransaction.amount = amount
+            newTransaction.receiver_id = newTransaction.receiver
+            if (newTransaction.amount > transaction.amount) {
 
-            console.log(newTransaction)
-            const data = await dispatch(updateTransaction(newTransaction))
-            await dispatch(getAllTransactions())
-            await dispatch(updateAccount({id:account.id, name:account.name, balance:account.balance-(+amount)}))
-            await dispatch(getAllAccounts())
-            // console.log('this is data from backend', data)
-            // if (data.errors) {
-            //     setShowCreate(true)
-            // } else setShowCreate(false)
-        } else{
-        console.log('+++++++++++>', 'not enough money for transfer')
+               const newAmount=(+newTransaction.amount) - (+transaction.amount)
+                const data = await dispatch(updateTransaction(newTransaction))
+
+
+                await dispatch(updateWallet({ total_fund: wallet.totalFund - newAmount }))
+                await dispatch(getAllTransactions())
+                await dispatch(getWallet())
+                console.log('wallet after second update', wallet)
+
+
+                if (data.errors) {
+
+                    setShowEditTransaction(true)
+                } else setShowEditTransaction(false)
+            } else if (newTransaction.amount < transaction.amount){
+
+               const newAmount= (+transaction.amount)- (+newTransaction.amount)
+               const data = await dispatch(updateTransaction(newTransaction))
+
+
+               await dispatch(updateWallet({ total_fund: wallet.totalFund + newAmount }))
+               await dispatch(getAllTransactions())
+               await dispatch(getWallet())
+               console.log('wallet after second update', wallet)
+
+
+               if (data.errors) {
+
+                   setShowEditTransaction(true)
+               } else setShowEditTransaction(false)
+            }
         }
     }
 
@@ -46,7 +67,7 @@ const EditTransaction = ({ setShowCreate, transaction }) => {
             <div>
                 <form className='form' onSubmit={submit}>
                     <div className='text'>
-                        <h2>New Transaction</h2>
+                        <h2>Edit Transaction</h2>
                     </div>
                     <div>
                         <label>Amount</label>
@@ -59,21 +80,8 @@ const EditTransaction = ({ setShowCreate, transaction }) => {
                         placeholder={0.00}
                         name='amount'
                     ></input>
-                    <div>
-                        <label>
-                            Receiver
-                        </label>
-                    </div>
-                    <select
-                        value={receiverId}
-                        onChange={(e) => setReceiverId(e.target.value)}
-                    >
-                        <option value={0}>Select Receiver</option>
-                        {users.map(user => (
-                            <option key={user.id} value={user.id}>{user.username}</option>
-                        ))}
-                    </select>
-                    <button>Send Money</button>
+
+                    <button>Update Transaction</button>
                 </form>
             </div>
         </div>

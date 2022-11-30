@@ -69,7 +69,11 @@ def update_transaction(id):
             form.populate_obj(to_update)
             db.session.commit()
             return to_update.to_dict(), 200
+        else:
+            print("""
 
+
+            """,form.errors)
     else:
         return {
             'errors': 'Transaction not found',
