@@ -34,9 +34,6 @@ const LandingPage = () => {
         history.push('/activity')
     }
 
-    const sendMoney=()=>{
-        history.push('/transaction')
-    }
 
     useEffect(() => {
         dispatch(getAllAccounts())
@@ -68,9 +65,6 @@ const LandingPage = () => {
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
 
-                    <div className='sendMoney' onClick={sendMoney}>
-                    <i className="fa-solid fa-money-bill-transfer"/> Send Money
-                    </div>
                 </div>
 
                 <LogoutButton />
