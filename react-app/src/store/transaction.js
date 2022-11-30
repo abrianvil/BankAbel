@@ -132,7 +132,7 @@ const transactionReducer = (state = initialState, action) => {
             return newState
 
         case CREATE_TRANSACTION:
-            newState = { ...state.transactions, [action.newTransaction.id]: action.newTransaction }
+            newState.transactions = { ...state.transactions, [action.newTransaction.id]: action.newTransaction }
             return newState
 
         case EDIT_TRANSACTION:

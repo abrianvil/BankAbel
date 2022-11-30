@@ -2,67 +2,41 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTransactions } from '../../store/transaction';
 import { getAllAccounts } from '../../store/account';
-import { getWallet, updateWallet } from '../../store/wallet';
 
 import { updateAccount } from '../../store/account';
-import { createTransaction } from '../../store/transaction';
+import { updateTransaction } from '../../store/transaction';
 import './index.css'
 
 
-const CreateTransaction = ({ setShowTransModal }) => {
+const EditTransaction = ({ setShowCreate, transaction }) => {
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.session.user)
-    const wallet = useSelector(state => state.wallet.wallet)
-
-    const [amount, setAmount] = useState()
-    //NOTE - TO BE IMPLEMENTED/CHANGE FOR FUTURE FEATURE
-    // const [due_date] = useState(new Date().toLocaleDateString('eng-US'))
+    const [amount, setAmount] = useState(transaction.amount)
     const [status] = useState('pending')
-    const [receiverId, setReceiverId] = useState()
+    const [receiverId, setReceiverId] = useState(transaction.receiver)
     const [users, setUsers] = useState([]);
 
-    useEffect(() => {
-        dispatch(getWallet())
-    }, [dispatch])
-
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch('/api/users/');
-            const responseData = await response.json();
-            const res = []
-            responseData.users.forEach(element => {
-                if (element.id !== user.id) {
-                    res.push(element)
-                }
-            });
-            setUsers(res);
-        }
-        fetchData();
-    }, [dispatch]);
 
 
     const submit = async (e) => {
         e.preventDefault()
         console.log('==========>', receiverId)
-        if (wallet.totalFund >= amount && +receiverId > 0) {
-            const newTransaction = {
-                amount,
-                status,
-                receiver_id: +receiverId
-            }
-            const data = await dispatch(createTransaction(newTransaction))
+        if (account.balance >= amount && +receiverId > 0) {
+            const newTransaction = {...transaction}
+            newTransaction.amount=amount
+
+            console.log(newTransaction)
+            const data = await dispatch(updateTransaction(newTransaction))
             await dispatch(getAllTransactions())
-            await dispatch(updateWallet({ total_fund: wallet.totalFund - amount }))
-            await dispatch(getWallet())
-            console.log('this is data from backend', data)
-            if (data.errors) {
-                setShowTransModal(true)
-            } else {
-                setShowTransModal(false)
-            }
-        } else {
-            console.log('+++++++++++>', 'not enough money for transfer')
+            await dispatch(updateAccount({id:account.id, name:account.name, balance:account.balance-(+amount)}))
+            await dispatch(getAllAccounts())
+            // console.log('this is data from backend', data)
+            // if (data.errors) {
+            //     setShowCreate(true)
+            // } else setShowCreate(false)
+        } else{
+        console.log('+++++++++++>', 'not enough money for transfer')
         }
     }
 
@@ -107,4 +81,4 @@ const CreateTransaction = ({ setShowTransModal }) => {
 }
 
 
-export default CreateTransaction
+export default EditTransaction

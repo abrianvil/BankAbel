@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Modal } from '../../context/Modal';
 import { getAllAccounts } from '../../store/account';
-import { getWallet } from '../../store/wallet';
-import { getAllTransactions } from '../../store/transaction';
+import { getWallet, updateWallet } from '../../store/wallet';
+import { getAllTransactions, deleteTransaction } from '../../store/transaction';
+import CreateTransaction from '../moneyTransactionModal/createTransactionForm';
 import LogoutButton from '../auth/LogoutButton';
 import './index.css'
 
@@ -12,12 +14,30 @@ import './index.css'
 const WalletComp = () => {
     const dispatch = useDispatch()
     const history = useHistory()
+    const [users, setUsers] = useState([]);
+    const [showTransModal, setShowTransModal] = useState(false)
+
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
     const transactions = useSelector(state => Object.values(state.transaction.transactions))
 
-    const incomingTrans = transactions.filter(transaction => transaction.receiver === user.id)
+    const incomingTrans = transactions.filter(transaction => transaction.receiver === user.id && transaction.status === 'pending')
+    const outGoingTransactions = transactions.filter(transaction => transaction.sender.id === user.id && transaction.status === 'pending')
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch('/api/users/');
+            const responseData = await response.json();
+            const res = {}
+            responseData.users.forEach(element => {
+                res[element.id] = element
+            });
+            delete res[user.id]
+            setUsers(res);
+        }
+        fetchData();
+    }, []);
 
     const clickUser = () => {
         history.push('/dashboard')
@@ -34,8 +54,12 @@ const WalletComp = () => {
         history.push('/activity')
     }
 
-    const sendMoney=()=>{
-        history.push('/transaction')
+
+    const deleteTrans= async (transaction)=>{
+        await dispatch(deleteTransaction(transaction.id))
+        await dispatch(updateWallet({ total_fund: wallet.totalFund + transaction.amount}))
+        await dispatch(getWallet())
+        await dispatch(getAllTransactions())
     }
 
     useEffect(() => {
@@ -68,9 +92,16 @@ const WalletComp = () => {
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
 
-                    <div className='sendMoney' onClick={sendMoney}>
-                        <i className="fa-solid fa-money-bill-transfer" /> Send Money
+
+                    <div onClick={() => setShowTransModal(true)}>
+                        <i className="fa-sharp fa-solid fa-money-bill-transfer" />
+                        Create a transaction
                     </div>
+                    {showTransModal && (
+                        <Modal onClose={() => setShowTransModal(false)}>
+                            <CreateTransaction wallet={wallet} setShowTransModal={setShowTransModal} />
+                        </Modal>
+                    )}
                 </div>
 
                 <LogoutButton />
@@ -115,13 +146,14 @@ const WalletComp = () => {
                         </div>
 
                         <div className='pending-trans'>
+                            {incomingTrans.length > 0 && <label>INCOMING PENDING TRANSACTIONS</label>}
                             {incomingTrans.length > 0 ?
                                 (
                                     incomingTrans.map(x => (
                                         <div className='incoming-trans' key={x.id}>
                                             <div className='underline'>
                                                 <div>${x.amount}</div>
-                                                <div>{x.createdAt}</div>
+                                                <div>{x.createdAt.slice(0, 17)}</div>
                                             </div>
                                         </div>
                                     ))
@@ -136,8 +168,38 @@ const WalletComp = () => {
                                 )
                             }
                         </div>
+                        <div>
+                            <label>OUTGOING PENDING TRANSACTIONS</label>
+                            {outGoingTransactions.length > 0 ? (outGoingTransactions.map(transaction => (
+                                <div className="single-account forMoney" key={transaction.id}>
+                                    <div className="account-name">
+                                        <div> {users[transaction['receiver']]?.username}</div>
+                                        <div className="add-delete">
+                                            <div>
+                                                <i className="fa-solid fa-pen-to-square" />
+                                            </div>
+                                            <div onClick={()=>deleteTrans(transaction)}>
+                                                <i className="fa-solid fa-rectangle-xmark" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="underline">
+                                        <div>${transaction.amount}</div>
+                                        <div>{transaction.createdAt.slice(0, 17)}</div>
+                                    </div>
+                                </div>
+                            ))) :
+                                <>
+
+                                    <div className='no-pending'>
+                                        <div> There no pending transactions</div>
+                                    </div>
+                                </>
+                            }
+                        </div>
                     </div>
                 </div>
+
 
                 <div className='footer'>
                     <div className='logo'></div>
