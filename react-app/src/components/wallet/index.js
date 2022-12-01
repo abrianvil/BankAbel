@@ -184,7 +184,7 @@ const WalletComp = () => {
                                     <>
                                         <label>INCOMING PENDING TRANSACTIONS</label>
                                         <div className='no-pending'>
-                                            <div> There no pending transactions</div>
+                                            <div> There are no pending transactions</div>
                                         </div>
                                     </>
                                 )
@@ -214,7 +214,7 @@ const WalletComp = () => {
                                 <>
 
                                     <div className='no-pending'>
-                                        <div> There no pending transactions</div>
+                                        <div> There are no pending transactions</div>
                                     </div>
                                 </>
                             }

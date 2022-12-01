@@ -37,6 +37,8 @@ const CreateAccountForm = ({ setShowCreate }) => {
             setNameErr('Name must be 2 or more characters')
         } else if (name.length > 20) {
             setNameErr('Name must be 20 or less characters')
+        } else{
+            setNameErr('')
         }
     }, [name])
 
