@@ -1,9 +1,4 @@
 .page {
-    /* background-size: cover; */
-    /* background-color: rgb(12, 12, 80); */
-    /* -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover; */
     height: 96vh;
     object-fit: fill;
     background-image: url('../../Images/pexels-dana-tentis-370799.jpg');

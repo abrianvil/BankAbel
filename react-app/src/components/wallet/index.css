@@ -3,6 +3,8 @@
     flex-direction: column;
     gap: 30px;
 }
+
+
 .inner-box{
     display: flex;
     gap: 30px;
@@ -96,6 +98,11 @@
     border-bottom: solid white 0.7px;
 }
 
+.pending-trans{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
 .incoming-trans{
     display: flex;
@@ -111,6 +118,7 @@
     font-size: 25px;
     gap: 7px;
     border-bottom: solid white 0.7px;
+
 }
 
 .accept{
@@ -130,4 +138,10 @@
 .check:hover{
     color: #63bf7d;
     cursor: pointer;
+}
+
+.outgoing{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }

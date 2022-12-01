@@ -54,7 +54,7 @@
 }
 
 .form label {
-    color: white;
+    /* color: white; */
     font-size: 20px;
 }
 
@@ -106,7 +106,7 @@
 }
 
 
-.logout-b>button {
+.logout-b > button {
     margin-top: 30px;
     width: 95%;
     background-color: #38345f;
@@ -117,4 +117,13 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
+}
+
+
+.renderError {
+    color: #cc7c80;
+}
+
+.noRenderError {
+    color: white;
 }
