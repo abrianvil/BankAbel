@@ -4,6 +4,7 @@ import bank from '../../Images/img1.webp'
 import debitCard from '../../Images/debitCard.png'
 import assets_nav_spend2 from '../../Images/assets_nav_spend2.png'
 import './index.css'
+import logo from '../../Images/logo.png'
 
 
 function SplashPage() {
@@ -16,7 +17,9 @@ function SplashPage() {
     return (
         <div className='page'>
             <div className='nav-bar'>
-                <div>Home</div>
+                <div className='logo-div'>
+                    <img src={logo} alt='logo' />
+                </div>
                 <button onClick={buttonClick} className='user-login'>
                     <i className="fa-solid fa-bars"></i>
                 </button>
