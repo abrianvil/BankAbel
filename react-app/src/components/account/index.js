@@ -8,9 +8,11 @@ import { Modal } from '../../context/Modal'
 
 import EditAccountForm from '../accountModal/editAccountModal';
 import AddFundForm from '../accountModal/addFundModal';
+import CreateAccountForm from '../accountModal/createAccountModal';
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
-import CreateAccountForm from '../accountModal/createAccountModal';
+import logo from '../../Images/logo.png'
+
 
 
 
@@ -157,7 +159,9 @@ const AccountComp = () => {
                 </div>
 
                 <div className='footer'>
-                    <div className='logo'></div>
+                    <div className='logo-div'>
+                        <img src={logo} alt='logo' />
+                    </div>
 
                 </div>
             </div>

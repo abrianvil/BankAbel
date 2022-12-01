@@ -9,6 +9,8 @@ import CreateTransaction from '../moneyTransactionModal/createTransactionForm';
 import EditTransaction from '../moneyTransactionModal/editTransactionForm';
 import LogoutButton from '../auth/LogoutButton';
 import './index.css'
+import logo from '../../Images/logo.png'
+
 
 
 
@@ -227,7 +229,9 @@ const WalletComp = () => {
 
 
                 <div className='footer'>
-                    <div className='logo'></div>
+                    <div className='logo-div'>
+                        <img src={logo} alt='logo' />
+                    </div>
                 </div>
             </div>
 
