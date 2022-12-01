@@ -1,16 +1,24 @@
 .page {
-    height: 96vh;
+    height: 100vh;
     object-fit: fill;
     background-image: url('../../Images/pexels-dana-tentis-370799.jpg');
 }
 
+.logo-div{
+    height: 70px;
+    object-fit: contain;
+}
+.logo-div img{
+    height: 70px;
+    border-radius: 10px;
+}
 
 .landing-page {
-    height: auto;
+    height: 80vh;
     width: auto;
     display: flex;
     justify-content: center;
-
+    align-items: center;
     background: linear-gradient(
         135deg,
         rgba(159, 159, 160, 0.4),
@@ -53,9 +61,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 40px;
     border-bottom: .3px solid white;
-    height: 50px;
+    height: 70px;
     padding: 15px 100px;
 }
 
