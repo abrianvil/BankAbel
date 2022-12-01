@@ -115,15 +115,17 @@ const CreateTransaction = ({ setShowTransModal }) => {
                                 Receiver
                             </label>}
                     </div>
-                    <select
-                        value={receiverId}
-                        onChange={(e) => setReceiverId(e.target.value)}
-                    >
-                        <option value={0}>Select Receiver</option>
-                        {users.map(user => (
-                            <option key={user.id} value={user.id}>{user.username}</option>
-                        ))}
-                    </select>
+                    <div className='custom-select'>
+                        <select
+                            value={receiverId}
+                            onChange={(e) => setReceiverId(e.target.value)}
+                        >
+                            <option value={0}>Select Receiver</option>
+                            {users.map(user => (
+                                <option key={user.id} value={user.id}>{user.username}</option>
+                            ))}
+                        </select>
+                    </div>
                     <button>Send Money</button>
                 </form>
             </div>
