@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createAccount } from '../../store/account';
 
@@ -6,22 +6,39 @@ import { getAllAccounts } from '../../store/account';
 import './index.css'
 
 
-const CreateAccountForm = ({setShowCreate}) => {
+const CreateAccountForm = ({ setShowCreate }) => {
     const dispatch = useDispatch()
 
     const [name, setName] = useState('')
+    const [nameErr, setNameErr] = useState('')
+    const [renderErr, setRenderErr] = useState(false);
+
 
     const submit = async (e) => {
         e.preventDefault()
-
-        const data = await dispatch(createAccount({ name, balance: 0.00 }))
-        await dispatch(getAllAccounts())
-        // console.log('this is data from backend', data)
-        if(data.errors){
+        setRenderErr(true)
+        if (!nameErr) {
+            const data = await dispatch(createAccount({ name, balance: 0.00 }))
+            await dispatch(getAllAccounts())
+            // console.log('this is data from backend', data)
+            // if (data.errors) {
+            // setShowCreate(true)
+            setShowCreate(false)
+        } else {
             setShowCreate(true)
-        }else setShowCreate(false)
+        }
     }
 
+
+    useEffect(() => {
+        if (!name.length) {
+            setNameErr('A name is required')
+        } else if (name.length < 2) {
+            setNameErr('Name must be 2 or more characters')
+        } else if (name.length > 20) {
+            setNameErr('Name must be 20 or less characters')
+        }
+    }, [name])
 
     return (
         <div>
@@ -31,9 +48,9 @@ const CreateAccountForm = ({setShowCreate}) => {
                         <h2>Your New Account</h2>
                     </div>
                     <div>
-                        <label>
-                            Name
-                        </label>
+                        {renderErr && nameErr ?
+                            <label className='renderError'>{nameErr}</label> :
+                            <label className='text noRenderError'> Name </label>}
                     </div>
                     <input
                         type='text'

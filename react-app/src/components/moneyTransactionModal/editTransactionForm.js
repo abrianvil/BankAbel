@@ -12,6 +12,9 @@ const EditTransaction = ({ setShowEditTransaction, transaction }) => {
 
     const wallet = useSelector(state => state.wallet.wallet)
     const [amount, setAmount] = useState(transaction.amount)
+    const [renderErr, setRenderErr] = useState(false);
+    const [amountError, setAmountError] = useState('')
+
 
     useEffect(() => {
         dispatch(getWallet())
@@ -20,48 +23,53 @@ const EditTransaction = ({ setShowEditTransaction, transaction }) => {
 
     const submit = async (e) => {
         e.preventDefault()
-        console.log('wallet after first update', wallet)
-        if (wallet.totalFund >= amount) {
+
+        setRenderErr(true)
+
+        if (!amountError) {
             const newTransaction = { ...transaction }
             newTransaction.amount = amount
             newTransaction.receiver_id = newTransaction.receiver
             if (newTransaction.amount > transaction.amount) {
 
-               const newAmount=(+newTransaction.amount) - (+transaction.amount)
+                const newAmount = (+newTransaction.amount) - (+transaction.amount)
                 const data = await dispatch(updateTransaction(newTransaction))
 
 
                 await dispatch(updateWallet({ total_fund: wallet.totalFund - newAmount }))
                 await dispatch(getAllTransactions())
                 await dispatch(getWallet())
-                console.log('wallet after second update', wallet)
+
+                setShowEditTransaction(false)
+
+            } else if (newTransaction.amount < transaction.amount) {
+
+                const newAmount = (+transaction.amount) - (+newTransaction.amount)
+                const data = await dispatch(updateTransaction(newTransaction))
 
 
-                if (data.errors) {
+                await dispatch(updateWallet({ total_fund: wallet.totalFund + newAmount }))
+                await dispatch(getAllTransactions())
+                await dispatch(getWallet())
 
-                    setShowEditTransaction(true)
-                } else setShowEditTransaction(false)
-            } else if (newTransaction.amount < transaction.amount){
-
-               const newAmount= (+transaction.amount)- (+newTransaction.amount)
-               const data = await dispatch(updateTransaction(newTransaction))
-
-
-               await dispatch(updateWallet({ total_fund: wallet.totalFund + newAmount }))
-               await dispatch(getAllTransactions())
-               await dispatch(getWallet())
-               console.log('wallet after second update', wallet)
-
-
-               if (data.errors) {
-
-                   setShowEditTransaction(true)
-               } else setShowEditTransaction(false)
+                setShowEditTransaction(false)
             }
+        } else {
+            setShowEditTransaction(true)
         }
     }
 
+    useEffect(() => {
+        if (amount <= 0) {
+            setAmountError('Transaction of 0 dollars not allowed')
+        } else if (amount > wallet.totalFund) {
+            setAmountError('Amount exceeds you wallet Funds')
+        } else {
+            setAmountError('')
+        }
 
+    }, [amount])
+    console.log(amountError)
     return (
         <div>
             <div>
@@ -70,10 +78,14 @@ const EditTransaction = ({ setShowEditTransaction, transaction }) => {
                         <h2>Edit Transaction</h2>
                     </div>
                     <div>
-                        <label>Amount</label>
+                        {renderErr && amountError ?
+                            <label className='renderError'>{amountError}</label> :
+                            <label className='text noRenderError'>Amount</label>
+                        }
+
                     </div>
                     <input
-                        min={1}
+                        // min={1}
                         type='number'
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}

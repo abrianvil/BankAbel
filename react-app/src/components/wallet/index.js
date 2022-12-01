@@ -62,11 +62,11 @@ const WalletComp = () => {
         setShowEditTransaction(true)
     }
 
-    const completeTransaction= async (transaction)=>{
-        transaction.receiver_id=transaction.receiver
-        transaction.status='Complete'
+    const completeTransaction = async (transaction) => {
+        transaction.receiver_id = transaction.receiver
+        transaction.status = 'Complete'
         await dispatch(updateTransaction(transaction))
-        await dispatch(updateWallet({ total_fund: wallet.totalFund + transaction.amount}))
+        await dispatch(updateWallet({ total_fund: wallet.totalFund + transaction.amount }))
     }
 
     const deleteTrans = async (transaction) => {
@@ -106,8 +106,7 @@ const WalletComp = () => {
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
 
-
-                    <div onClick={() => setShowTransModal(true)}>
+                    <div className='activity' onClick={() => setShowTransModal(true)}>
                         <i className="fa-sharp fa-solid fa-money-bill-transfer" />
                         Create a transaction
                     </div>
@@ -168,7 +167,7 @@ const WalletComp = () => {
                                         <div className='incoming-trans' key={x.id}>
                                             <div className='accept'>
                                                 <div>From: {x['sender'].username}</div>
-                                                <div className='check' onClick={()=>completeTransaction(x)}>
+                                                <div className='check' onClick={() => completeTransaction(x)}>
                                                     <i className="fa-regular fa-square-check" />
                                                 </div>
                                             </div>
@@ -189,10 +188,10 @@ const WalletComp = () => {
                                 )
                             }
                         </div>
-                        <div>
+                        <div className='outgoing'>
                             <label>OUTGOING PENDING TRANSACTIONS</label>
                             {outGoingTransactions.length > 0 ? (outGoingTransactions.map(transaction => (
-                                <div className="single-account forMoney" key={transaction.id}>
+                                <div className="single-account" key={transaction.id}>
                                     <div className="account-name">
                                         <div> {users[transaction['receiver']]?.username}</div>
                                         <div className="add-delete">
