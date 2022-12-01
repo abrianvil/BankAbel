@@ -7,7 +7,7 @@ import './index.css'
 
 
 const LoginForm = () => {
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [form, setForm] = useState(true)
@@ -18,7 +18,13 @@ const LoginForm = () => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
-      setErrors(data);
+      let err = {}
+      for (let error of data) {
+        if (error.startsWith('email')) err.email = 'Invalid Credential'
+        if (error.startsWith('password')) err.password = 'Invalid Password'
+      }
+      setErrors(err);
+
     }
   };
 
@@ -50,13 +56,9 @@ const LoginForm = () => {
         <>
           <div className='form-container'>
             <form className='form' onSubmit={onLogin}>
-              <div>
-                {errors.map((error, ind) => (
-                  <div key={ind}>{error}</div>
-                ))}
-              </div>
 
-              <label htmlFor='email'>Email</label>
+              {errors.email ? <label className="renderError">{errors.email}</label> :
+                <label className='text noRenderError' htmlFor='email'>Email</label>}
               <input
                 name='email'
                 type='text'
@@ -65,7 +67,8 @@ const LoginForm = () => {
                 onChange={updateEmail}
               />
 
-              <label htmlFor='password'>Password</label>
+              {errors.password ? <label className="renderError">{errors.password}</label> :
+                <label className='text noRenderError' htmlFor='password'>Password</label>}
               <input
                 name='password'
                 type='password'

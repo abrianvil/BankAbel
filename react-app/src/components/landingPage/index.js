@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccounts } from '../../store/account';
 import { getWallet } from '../../store/wallet';
@@ -6,7 +6,7 @@ import { getAllTransactions } from '../../store/transaction';
 
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
-import {  useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -18,7 +18,7 @@ const LandingPage = () => {
 
     const user = useSelector(state => state.session.user)
 
-    const clickUser=()=>{
+    const clickUser = () => {
         history.push('/dashboard')
     }
 
@@ -72,6 +72,9 @@ const LandingPage = () => {
 
             <div className='content-footer'>
                 <div className='content-display-box'>
+                    <div id='home-header'>
+                        Welcome to BankAbel
+                    </div>
 
                 </div>
 
