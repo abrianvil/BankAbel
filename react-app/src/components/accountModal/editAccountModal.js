@@ -28,7 +28,7 @@ const EditAccountForm = ({ account, setShowEdit, accounts }) => {
     }
 
     useEffect(() => {
-        if (!name.length) {
+        if (!name.trim().length) {
             setNameErr('A name is required')
         } else if (accounts.find(account => account.name.toLowerCase() === name.toLowerCase())) {
             setNameErr('Account with that name already exist')
