@@ -45,28 +45,28 @@ export const updateWallet = (wallet) => async dispatch => {
         const wallet = await response.json()
         dispatch(editWallet(wallet));
         return wallet
-    }
+    } console.log('response from update wallet thunk', response)
 }
 
 
 /************************REDUCER************************** */
 
 const initialState = {
-    wallet:{}
+    wallet: {}
 }
 
 
-const walletReducer=(state=initialState, action)=>{
-    let newState={}
+const walletReducer = (state = initialState, action) => {
+    let newState = {}
 
     switch (action.type) {
         case LOAD_WALLET:
-            newState={...state}
-            newState.wallet={...action.wallet}
+            newState = { ...state }
+            newState.wallet = { ...action.wallet }
             return newState
         case EDIT_WALLET:
-            newState={...state}
-            newState.wallet={...action.wallet}
+            newState = { ...state }
+            newState.wallet = { ...action.wallet }
             return newState
         default:
             return state
