@@ -74,8 +74,8 @@ const CreateTransaction = ({ setShowTransModal }) => {
             setAmountError('Transaction of 0 dollars not allowed')
         } else if (amount > wallet.totalFund) {
             setAmountError('Amount exceeds you wallet Funds')
-        }else if(wallet.totalFund - amount === 0) {
-            setAmountError('Your not allowed to Empty your wallet')
+        // }else if(wallet.totalFund - amount === 0) {
+        //     setAmountError('Your not allowed to Empty your wallet')
         } else {
             setAmountError('')
         }

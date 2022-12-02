@@ -6,7 +6,7 @@ import { getAllAccounts } from '../../store/account';
 import './index.css'
 
 
-const CreateAccountForm = ({ setShowCreate }) => {
+const CreateAccountForm = ({ setShowCreate, accounts }) => {
     const dispatch = useDispatch()
 
     const [name, setName] = useState('')
@@ -30,6 +30,8 @@ const CreateAccountForm = ({ setShowCreate }) => {
     useEffect(() => {
         if (!name.length) {
             setNameErr('A name is required')
+        }else if(accounts.find(account=>account.name.toLowerCase() ===name.toLowerCase())){
+            setNameErr('Account with that name already exist')
         } else if (name.length < 2) {
             setNameErr('Name must be 2 or more characters')
         } else if (name.length > 20) {

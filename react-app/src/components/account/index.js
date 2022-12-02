@@ -147,12 +147,12 @@ const AccountComp = () => {
                         )}
                         {showCreate && (
                             <Modal onClose={() => setShowCreate(false)}>
-                                <CreateAccountForm setShowCreate={setShowCreate} />
+                                <CreateAccountForm setShowCreate={setShowCreate} accounts={accounts} />
                             </Modal>
                         )}
                         {showEdit && (
                             <Modal onClose={() => setShowEdit(false)}>
-                                <EditAccountForm account={account} setShowEdit={setShowEdit} />
+                                <EditAccountForm account={account} setShowEdit={setShowEdit} accounts={accounts}/>
                             </Modal>
                         )}
                     </div>
