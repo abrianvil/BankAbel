@@ -90,7 +90,9 @@ const WalletComp = () => {
 
                 <div className='user-card' onClick={clickUser}>
                     <div className='image' >
-                        <img src={user.picture} alt={user.id} />
+                        <img src={user.picture} alt={user.id}
+                        onError={e => { e.currentTarget.src = "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"; }}
+                        />
                     </div>
                     <div>{user.firstName} {user.lastName}</div>
                 </div>
@@ -154,7 +156,7 @@ const WalletComp = () => {
                                             <div>
                                                 <i className="fa-solid fa-sack-dollar" /> Balance
                                             </div>
-                                            <div>${wallet.totalFund}</div>
+                                            <div>${wallet.totalFund.toFixed(2)}</div>
                                         </div>
                                     </div>
                                 </label>
@@ -174,7 +176,7 @@ const WalletComp = () => {
                                                 </div>
                                             </div>
                                             <div className='underline'>
-                                                <div>${x.amount}</div>
+                                                <div>${x.amount.toFixed(2)}</div>
                                                 <div>{x.createdAt.slice(0, 17)}</div>
                                             </div>
                                         </div>
@@ -206,7 +208,7 @@ const WalletComp = () => {
                                         </div>
                                     </div>
                                     <div className="underline">
-                                        <div>${transaction.amount}</div>
+                                        <div>${transaction.amount.toFixed(2)}</div>
                                         <div>{transaction.createdAt.slice(0, 17)}</div>
                                     </div>
                                 </div>

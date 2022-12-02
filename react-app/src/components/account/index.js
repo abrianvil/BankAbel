@@ -85,7 +85,9 @@ const AccountComp = () => {
 
                 <div className='user-card' onClick={clickUser}>
                     <div className='image'>
-                        <img src={user.picture} alt={user.id} />
+                        <img src={user.picture} alt={user.id}
+                        onError={e => { e.currentTarget.src = "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"; }}
+                        />
                     </div>
                     <div>{user.firstName} {user.lastName}</div>
                 </div>
@@ -136,7 +138,7 @@ const AccountComp = () => {
                                     <div>
                                         <i className="fa-solid fa-sack-dollar" /> Balance
                                     </div>
-                                    <div>${account.balance}</div>
+                                    <div>${account.balance.toFixed(2)}</div>
                                 </div>
                             </div>
                         ))}

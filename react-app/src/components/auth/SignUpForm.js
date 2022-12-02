@@ -95,7 +95,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     //email error handling
-    if (email.length && !validateEmail(email)) {
+    if (email.trim().length || !validateEmail(email)) {
       setEmailErr('Invalid Email')
     } else if (!email.length) {
       setEmailErr('Email is required')
@@ -104,7 +104,9 @@ const SignUpForm = () => {
     }
 
     //username error handling
-    if (username.length < 4) {
+    if(!username.trim().length){
+      setUsernameErr('Username Required')
+    }else if (username.length < 4) {
       setUsernameErr('Username must be at least 4 characters')
     } else if (username.length > 20) {
       setUsernameErr('Username must be less than 20 characters ')
@@ -113,7 +115,9 @@ const SignUpForm = () => {
     }
 
     //firstName error handling
-    if (firstName.length < 2) {
+    if(!firstName.trim().length){
+      setFirstNameErr('First Name Required')
+    }else if (firstName.length < 2) {
       setFirstNameErr('First Name must be at least 2 characters')
     } else if (firstName.length > 20) {
       setFirstNameErr('First Name must be less than 20 characters ')
@@ -122,7 +126,9 @@ const SignUpForm = () => {
     }
 
     //lastName error handling
-    if (lastName.length < 2) {
+    if(!lastName.trim().length){
+      setLastNameErr('Last Name Required')
+    } else if (lastName.length < 2) {
       setLastNameErr('Last Name must be at least 2 characters')
     } else if (lastName.length > 20) {
       setLastNameErr('Last Name must be less than 20 characters ')
@@ -131,7 +137,7 @@ const SignUpForm = () => {
     }
 
     //password error handling
-    if (!password.length) {
+    if (!password.trim().length) {
       setPasswordErr('Password is required')
     } else if (password.length && password.length < 6) {
       setPasswordErr('Password must be greater than 6 characters')
@@ -140,7 +146,7 @@ const SignUpForm = () => {
     }
 
     //confirm password error handling
-    if (!repeatPassword.length) {
+    if (!repeatPassword.trim().length) {
       setConfirmPasswordErr('Confirm Password is required')
     } else if (repeatPassword.length && repeatPassword !== password) {
       setConfirmPasswordErr('Confirm passwords must match')
@@ -149,7 +155,7 @@ const SignUpForm = () => {
     }
 
     //imgUrl error handling
-    if (!profile_pic.length) {
+    if (!profile_pic.trim().length) {
       // setUrlErr('Image URL is required')
       setProfile_pic("https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg")
 
@@ -163,16 +169,16 @@ const SignUpForm = () => {
   }, [username, email, password, profile_pic, repeatPassword, firstName, lastName])
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/dashboard' />;
   }
 
   return (
     <div className='form-container'>
       <form className='form' onSubmit={onSignUp}>
 
-        {errors.map((error, ind) => (
+        {/* {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
-        ))}
+        ))} */}
 
         {renderErr && firstNameErr ? (
           <label className=" renderError">
