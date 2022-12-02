@@ -140,7 +140,9 @@ const SignUpForm = () => {
     }
 
     //confirm password error handling
-    if (repeatPassword.length && repeatPassword !== password) {
+    if (!repeatPassword.length) {
+      setConfirmPasswordErr('Confirm Password is required')
+    } else if (repeatPassword.length && repeatPassword !== password) {
       setConfirmPasswordErr('Confirm passwords must match')
     } else {
       setConfirmPasswordErr("");

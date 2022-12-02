@@ -20,12 +20,11 @@ const EditAccountForm = ({ account, setShowEdit }) => {
         if (!nameErr) {
             const data = await dispatch(updateAccount({ id: account.id, name, balance: account.balance }))
             await dispatch(getAllAccounts())
-            // if (data.errors) {
+            
             setShowEdit(false)
         } else {
             setShowEdit(true)
         }
-        setName(account.name)
     }
 
     useEffect(() => {
@@ -40,6 +39,7 @@ const EditAccountForm = ({ account, setShowEdit }) => {
         }
     }, [name])
 
+    console.log('this is name Error',nameErr)
 
     return (
         <div>

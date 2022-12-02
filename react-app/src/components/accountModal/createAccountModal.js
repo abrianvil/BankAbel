@@ -20,9 +20,6 @@ const CreateAccountForm = ({ setShowCreate }) => {
         if (!nameErr) {
             const data = await dispatch(createAccount({ name, balance: 0.00 }))
             await dispatch(getAllAccounts())
-            // console.log('this is data from backend', data)
-            // if (data.errors) {
-            // setShowCreate(true)
             setShowCreate(false)
         } else {
             setShowCreate(true)

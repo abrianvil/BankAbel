@@ -61,12 +61,9 @@ const CreateTransaction = ({ setShowTransModal }) => {
             await dispatch(getAllTransactions())
             await dispatch(updateWallet({ total_fund: wallet.totalFund - amount }))
             await dispatch(getWallet())
-            console.log('this is data from backend', data)
-            // if (data.errors) {
-            //     setShowTransModal(true)
-            // } else {
+
             setShowTransModal(false)
-            // }
+
         } else {
             setShowTransModal(true)
         }
@@ -77,6 +74,8 @@ const CreateTransaction = ({ setShowTransModal }) => {
             setAmountError('Transaction of 0 dollars not allowed')
         } else if (amount > wallet.totalFund) {
             setAmountError('Amount exceeds you wallet Funds')
+        }else if(wallet.totalFund - amount === 0) {
+            setAmountError('Your not allowed to Empty your wallet')
         } else {
             setAmountError('')
         }
@@ -104,6 +103,7 @@ const CreateTransaction = ({ setShowTransModal }) => {
                     </div>
                     <input
                         type='number'
+                        step={0.01}
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                         placeholder={0.00}
