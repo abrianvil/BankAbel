@@ -72,3 +72,11 @@
     border: none;
     cursor: pointer;
 }
+
+.content-display-box{
+    overflow-y: scroll;
+}
+
+.content-display-box::-webkit-scrollbar {
+    display: none;
+}
