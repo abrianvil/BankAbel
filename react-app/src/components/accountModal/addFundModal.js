@@ -45,6 +45,8 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
             setBalanceErr('Transaction of 0 dollars not allowed')
         } else if (balance > wallet.totalFund) {
             setBalanceErr('Amount exceeds you wallet Funds')
+        } else if (wallet.totalFund - balance === 0) {
+            setBalanceErr('Your not allowed to Empty your wallet')
         } else {
             setBalanceErr('')
         }
@@ -68,7 +70,8 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
                         min={1}
                         type='number'
                         onChange={(e) => setBalance(e.target.value)}
-                        placeholder='0.00'
+                        placeholder={0}
+                        step={0.01}
                         name='balance'
                     />
                     <button>Add Funds</button>

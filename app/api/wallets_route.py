@@ -29,7 +29,8 @@ def update_wallet():
             form.populate_obj(to_update)
             db.session.commit()
             return to_update.to_dict(), 201
-
+        else:
+            return{'errors': form.errors},404
     else:
         return {
             'errors': 'wallet not found',
