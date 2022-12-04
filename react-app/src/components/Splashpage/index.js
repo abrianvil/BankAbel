@@ -4,6 +4,7 @@ import bank from '../../Images/img1.webp'
 import debitCard from '../../Images/debitCard.png'
 import assets_nav_spend2 from '../../Images/assets_nav_spend2.png'
 import './index.css'
+import logo from '../../Images/logo.png'
 
 
 function SplashPage() {
@@ -16,9 +17,12 @@ function SplashPage() {
     return (
         <div className='page'>
             <div className='nav-bar'>
-                <div>Home</div>
+                <div className='logo-div'>
+                    <img src={logo} alt='logo' />
+                </div>
                 <button onClick={buttonClick} className='user-login'>
-                    <i className="fa-solid fa-bars"></i>
+                    {/* <i className="fa-solid fa-bars"></i> */}
+                    Get Started
                 </button>
 
             </div>
@@ -46,10 +50,14 @@ function SplashPage() {
                             </div>
                         </div>
                         <div className='links-box'>
-                            <div>Support</div>
-                            <div>links</div>
+                            <Link
+                                className='links'
+                                to={{ pathname: 'https://www.aspca.org/' }}
+                                target='_blank'
+                            >links
+                            </Link>
                             <div>
-                                Stay in touch
+                                Stay in touch:
                                 <Link
                                     className='contact-button'
                                     to={{

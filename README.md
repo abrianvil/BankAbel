@@ -1,148 +1,41 @@
-# Flask React Project
+# BankAbel
 
-This is the starter for the Flask React project.
+### BankAbel is an application inspired by Venmo and Cashapp. That allows a user  to create, edit and delete accounts. User also have the capability of sending money to other users on the application.
 
-## Getting started
-1. Clone this repository (only this branch)
-
-2. Install dependencies
-
-      ```bash
-      pipenv install -r requirements.txt
-      ```
-
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-
-4. Make sure the SQLite3 database connection URL is in the **.env** file
-
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
-
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+![image](https://user-images.githubusercontent.com/106001687/205478736-4a050ff8-751b-44ff-b88e-6d885c58a755.png)
 
 
-## Deployment through Render.com
+## Login 
+![image](https://user-images.githubusercontent.com/106001687/205478839-91b7eb53-4417-4c75-ad4f-9637e95ed971.png)
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
+## Signup 
+![image](https://user-images.githubusercontent.com/106001687/205478853-a13bd18e-67ce-45d2-bde8-7269597eec7d.png)
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
+## Landing page
+![image](https://user-images.githubusercontent.com/106001687/205478876-48d06e2e-52d3-40f0-9656-440eec25ebfd.png)
 
-### Part A: Configure the Start and Build Commands
+## Wallet
+![image](https://user-images.githubusercontent.com/106001687/205478891-24a7f07a-8659-4048-a8e8-02f87006aac9.png)
 
-Start by giving your application a name.
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
+## Accounts
+![image](https://user-images.githubusercontent.com/106001687/205478904-6da0059b-bd91-4147-8f7a-dad6a015829b.png)
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
+![image](https://user-images.githubusercontent.com/106001687/205478913-d91e580a-7d86-4368-a28c-c9d3acdf0f90.png)
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+## Transactions
+![image](https://user-images.githubusercontent.com/106001687/205478940-5b3a43e1-ca03-42eb-ac2b-9d011bd77f21.png)
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
+![image](https://user-images.githubusercontent.com/106001687/205479018-bd94ab26-3db8-4b86-92a9-87ff5a04d136.png)
 
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
 
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
 
-Now, add your start command in the Start field:
+## Tech Stack
 
-```shell
-# start script
-gunicorn app:app
-```
+[<img src="https://user-images.githubusercontent.com/105324675/190725431-5033a82c-51ff-4a9a-b9ff-48ad606a2a5e.svg" width="75" height="75">](https://www.javascript.com/) [<img src="https://user-images.githubusercontent.com/105324675/190726531-63e5fa0c-5e9a-4e12-a4df-ac578bdfefb3.svg" width="75" height="75">](https://whatwg.org/) [<img src="https://user-images.githubusercontent.com/105324675/190727242-21af03e1-b793-4257-bdc5-14996fb8da63.svg" width="75" height="75">](https://www.css3.com/) [<img src="https://user-images.githubusercontent.com/105324675/190727472-da7d5a51-ef2e-4f71-b90c-333debd2d147.svg" width="75" height="75">](https://reactjs.org/) [<img src="https://user-images.githubusercontent.com/105324675/190727697-f61e28b7-1597-4be0-9dc4-dbc443790f86.svg" width="75" height="75">](https://redux.js.org/) [<img src="https://user-images.githubusercontent.com/105324675/190729715-5aeed1a2-0914-413e-ac4b-de23aa7ed802.svg" width="75" height="75">](https://nodejs.org/en) [<img src="https://user-images.githubusercontent.com/105324675/190729918-773ddf18-90d3-4d52-aa81-c02731d413bf.svg" width="75" height="75">](https://www.npmjs.com/)
 
-_If you are using websockets, use the following start command instead for increased performance:_
 
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+## Database
+[<img src="https://user-images.githubusercontent.com/105324675/190727354-8f322958-5b34-4c96-b052-358d06d0d9ef.svg" width="75" height="75">](https://www.postgresql.org) [<img src="https://user-images.githubusercontent.com/105324675/190739700-864f937c-4e43-48ea-9216-00edb49d301d.svg" width="75" height="75">](https://sequelize.org/)

@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAccount } from '../../store/account';
 import { getWallet, updateWallet } from '../../store/wallet';
@@ -16,11 +16,14 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
 
     const [name] = useState(`${toEdit.name}`)
     const [balance, setBalance] = useState(0.00)
+    const [balanceErr, setBalanceErr] = useState('')
+    const [renderErr, setRenderErr] = useState(false);
 
 
     const submit = async (e) => {
         e.preventDefault()
-        if (balance > 0 && balance <= wallet.totalFund) {
+        setRenderErr(true)
+        if (!balanceErr) {
             dispatch(updateWallet({ total_fund: wallet.totalFund - balance }))
             const newAccount = {
                 id: accountId,
@@ -30,14 +33,25 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
             const data = await dispatch(updateAccount(newAccount))
             await dispatch(getAllAccounts())
             await dispatch(getWallet())
-            if (data.errors) {
-                setShowAddFund(true)
-            } else setShowAddFund(false)
+
+            setShowAddFund(false)
         } else {
             setShowAddFund(true)
         }
     }
 
+    useEffect(() => {
+        if (balance <= 0) {
+            setBalanceErr('Transaction of 0 dollars not allowed')
+        } else if (balance > wallet.totalFund) {
+            setBalanceErr('Amount exceeds you wallet Funds')
+        // } else if (wallet.totalFund - balance === 0) {
+        //     setBalanceErr('Your not allowed to Empty your wallet')
+        } else {
+            setBalanceErr('')
+        }
+
+    }, [balance])
 
     return (
         <div>
@@ -47,13 +61,17 @@ const AddFundForm = ({ accountId, setShowAddFund }) => {
                         <h2>Add Funds to your account</h2>
                     </div>
                     <div>
-                        <label>Balance</label>
+                        {renderErr && balanceErr ?
+                            <label className='renderError'>{balanceErr}</label> :
+                            <label className='text noRenderError'>Balance</label>
+                        }
                     </div>
                     <input
                         min={1}
                         type='number'
                         onChange={(e) => setBalance(e.target.value)}
-                        placeholder='0.00'
+                        placeholder={0}
+                        step={0.01}
                         name='balance'
                     />
                     <button>Add Funds</button>

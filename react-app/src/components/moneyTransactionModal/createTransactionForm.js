@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTransactions } from '../../store/transaction';
-import { getAllAccounts } from '../../store/account';
+// import { getAllAccounts } from '../../store/account';
 import { getWallet, updateWallet } from '../../store/wallet';
 
-import { updateAccount } from '../../store/account';
+// import { updateAccount } from '../../store/account';
 import { createTransaction } from '../../store/transaction';
 import './index.css'
 
@@ -15,12 +15,17 @@ const CreateTransaction = ({ setShowTransModal }) => {
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
 
-    const [amount, setAmount] = useState()
+    const [amount, setAmount] = useState(0)
     //NOTE - TO BE IMPLEMENTED/CHANGE FOR FUTURE FEATURE
     // const [due_date] = useState(new Date().toLocaleDateString('eng-US'))
     const [status] = useState('pending')
-    const [receiverId, setReceiverId] = useState()
+    const [receiverId, setReceiverId] = useState(0)
     const [users, setUsers] = useState([]);
+    const [amountError, setAmountError] = useState('')
+    const [receiverError, setReceiverError] = useState('')
+    const [renderErr, setRenderErr] = useState(false);
+
+
 
     useEffect(() => {
         dispatch(getWallet())
@@ -44,8 +49,9 @@ const CreateTransaction = ({ setShowTransModal }) => {
 
     const submit = async (e) => {
         e.preventDefault()
-        console.log('==========>', receiverId)
-        if (wallet.totalFund >= amount && +receiverId > 0) {
+        setRenderErr(true)
+
+        if (!receiverError && !amountError) {
             const newTransaction = {
                 amount,
                 status,
@@ -55,16 +61,33 @@ const CreateTransaction = ({ setShowTransModal }) => {
             await dispatch(getAllTransactions())
             await dispatch(updateWallet({ total_fund: wallet.totalFund - amount }))
             await dispatch(getWallet())
-            console.log('this is data from backend', data)
-            if (data.errors) {
-                setShowTransModal(true)
-            } else {
-                setShowTransModal(false)
-            }
+
+            setShowTransModal(false)
+
         } else {
-            console.log('+++++++++++>', 'not enough money for transfer')
+            setShowTransModal(true)
         }
     }
+
+    useEffect(() => {
+        if (amount <= 0) {
+            setAmountError('Transaction of 0 dollars not allowed')
+        } else if (amount > wallet.totalFund) {
+            setAmountError('Amount exceeds you wallet Funds')
+        // }else if(wallet.totalFund - amount === 0) {
+        //     setAmountError('Your not allowed to Empty your wallet')
+        } else {
+            setAmountError('')
+        }
+
+        if (receiverId <= 0) {
+            setReceiverError('Please select a receiver')
+        } else {
+            setReceiverError('')
+        }
+
+    }, [amount, receiverId])
+
 
 
     return (
@@ -75,30 +98,34 @@ const CreateTransaction = ({ setShowTransModal }) => {
                         <h2>New Transaction</h2>
                     </div>
                     <div>
-                        <label>Amount</label>
+                        {renderErr && amountError ? <label className='renderError'>{amountError}</label> :
+                            <label className='text noRenderError'>Amount</label>}
                     </div>
                     <input
-                        min={1}
                         type='number'
+                        step={0.01}
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                         placeholder={0.00}
                         name='amount'
                     ></input>
                     <div>
-                        <label>
-                            Receiver
-                        </label>
+                        {renderErr && receiverError ? <label className='renderError'>{receiverError}</label> :
+                            <label className='text noRenderError'>
+                                Receiver
+                            </label>}
                     </div>
-                    <select
-                        value={receiverId}
-                        onChange={(e) => setReceiverId(e.target.value)}
-                    >
-                        <option value={0}>Select Receiver</option>
-                        {users.map(user => (
-                            <option key={user.id} value={user.id}>{user.username}</option>
-                        ))}
-                    </select>
+                    <div className='custom-select'>
+                        <select
+                            value={receiverId}
+                            onChange={(e) => setReceiverId(e.target.value)}
+                        >
+                            <option value={0}>Select Receiver</option>
+                            {users.map(user => (
+                                <option key={user.id} value={user.id}>{user.username}</option>
+                            ))}
+                        </select>
+                    </div>
                     <button>Send Money</button>
                 </form>
             </div>

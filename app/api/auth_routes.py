@@ -62,17 +62,19 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        user = User(
-            username=form.data['username'],
-            email=form.data['email'],
-            password=form.data['password']
-        )
+        # user = User(
+        #     username=form.data['username'],
+        #     email=form.data['email'],
+        #     password=form.data['password']
+        # )
+        user=User()
+        form.populate_obj(user)
         db.session.add(user)
         db.session.commit()
 
         wallet = Wallet(
             user_id=user.id,
-            total_fund=1000.00
+            total_fund=100000.00
         )
         db.session.add(wallet)
         db.session.commit()

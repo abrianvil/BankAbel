@@ -6,6 +6,7 @@ import { getAllTransactions } from '../../store/transaction';
 import LogoutButton from '../auth/LogoutButton';
 import './index.css'
 import { useHistory } from 'react-router-dom';
+import logo from '../../Images/logo.png'
 
 
 
@@ -15,7 +16,7 @@ const TransactionComp = () => {
     const history = useHistory()
 
     const user = useSelector(state => state.session.user)
-    const transactions = useSelector(state => Object.values(state.transaction.transactions))
+    const transactions = (useSelector(state => Object.values(state.transaction.transactions))).reverse()
 
     const [users, setUsers] = useState({});
 
@@ -113,7 +114,9 @@ const TransactionComp = () => {
                 </div>
 
                 <div className='footer'>
-                    <div className='logo'></div>
+                    <div className='logo-div'>
+                        <img src={logo} alt='logo' />
+                    </div>
 
                 </div>
             </div>

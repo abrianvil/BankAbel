@@ -1,12 +1,13 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getAllAccounts } from '../../store/account';
 import { getWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
 
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
-import {  useHistory } from 'react-router-dom';
+import logo from '../../Images/logo.png'
 
 
 
@@ -18,7 +19,7 @@ const LandingPage = () => {
 
     const user = useSelector(state => state.session.user)
 
-    const clickUser=()=>{
+    const clickUser = () => {
         history.push('/dashboard')
     }
 
@@ -47,7 +48,9 @@ const LandingPage = () => {
 
                 <div className='user-card' onClick={clickUser}>
                     <div className='image'>
-                        <img src={user.picture} alt={user.id} />
+                        <img src={user.picture} alt={user.id}
+                        onError={e => { e.currentTarget.src = "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"; }}
+                         />
                     </div>
                     <div>{user.firstName} {user.lastName}</div>
                 </div>
@@ -72,11 +75,24 @@ const LandingPage = () => {
 
             <div className='content-footer'>
                 <div className='content-display-box'>
-
+                    <div className='inside-container'>
+                        <div id='home-header'>
+                            Welcome to BankAbel
+                        </div>
+                        <div className='direction'>
+                            <div> Go to the wallet tab to make,edit and cancel a transaction.</div>
+                            <div>
+                                Go to the accounts tab to see, create and add funds to your account
+                            </div>
+                            <div>Select the activity tab to see your transaction history</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className='footer'>
-                    <div className='logo'></div>
+                    <div className='logo-div'>
+                        <img src={logo} alt='logo' />
+                    </div>
                 </div>
             </div>
 

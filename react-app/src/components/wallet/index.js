@@ -4,11 +4,13 @@ import { useHistory } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import { getAllAccounts } from '../../store/account';
 import { getWallet, updateWallet } from '../../store/wallet';
-import { getAllTransactions, deleteTransaction } from '../../store/transaction';
+import { getAllTransactions, deleteTransaction, updateTransaction } from '../../store/transaction';
 import CreateTransaction from '../moneyTransactionModal/createTransactionForm';
 import EditTransaction from '../moneyTransactionModal/editTransactionForm';
 import LogoutButton from '../auth/LogoutButton';
 import './index.css'
+import logo from '../../Images/logo.png'
+
 
 
 
@@ -17,16 +19,16 @@ const WalletComp = () => {
     const history = useHistory()
     const [users, setUsers] = useState([]);
     const [showTransModal, setShowTransModal] = useState(false)
-    const [showEditTransaction, setShowEditTransaction]=useState(false)
-    const [toEdit, setToEdit]=useState({})
+    const [showEditTransaction, setShowEditTransaction] = useState(false)
+    const [toEdit, setToEdit] = useState({})
 
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
     const transactions = useSelector(state => Object.values(state.transaction.transactions))
 
-    const incomingTrans = transactions.filter(transaction => transaction.receiver === user.id && transaction.status === 'pending')
-    const outGoingTransactions = transactions.filter(transaction => transaction.sender.id === user.id && transaction.status === 'pending')
+    const incomingTrans = transactions.filter(transaction => transaction.receiver === user.id && transaction.status === 'pending').reverse()
+    const outGoingTransactions = transactions.filter(transaction => transaction.sender.id === user.id && transaction.status === 'pending').reverse()
 
     useEffect(() => {
         async function fetchData() {
@@ -57,14 +59,21 @@ const WalletComp = () => {
         history.push('/activity')
     }
 
-    const editTrans=(transaction)=>{
+    const editTrans = (transaction) => {
         setToEdit(transaction)
         setShowEditTransaction(true)
     }
 
-    const deleteTrans= async (transaction)=>{
+    const completeTransaction = async (transaction) => {
+        transaction.receiver_id = transaction.receiver
+        transaction.status = 'Complete'
+        await dispatch(updateTransaction(transaction))
+        await dispatch(updateWallet({ total_fund: wallet.totalFund + transaction.amount }))
+    }
+
+    const deleteTrans = async (transaction) => {
         await dispatch(deleteTransaction(transaction.id))
-        await dispatch(updateWallet({ total_fund: wallet.totalFund + transaction.amount}))
+        await dispatch(updateWallet({ total_fund: wallet.totalFund + transaction.amount }))
         await dispatch(getWallet())
         await dispatch(getAllTransactions())
     }
@@ -81,7 +90,9 @@ const WalletComp = () => {
 
                 <div className='user-card' onClick={clickUser}>
                     <div className='image' >
-                        <img src={user.picture} alt={user.id} />
+                        <img src={user.picture} alt={user.id}
+                        onError={e => { e.currentTarget.src = "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"; }}
+                        />
                     </div>
                     <div>{user.firstName} {user.lastName}</div>
                 </div>
@@ -99,8 +110,7 @@ const WalletComp = () => {
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
 
-
-                    <div onClick={() => setShowTransModal(true)}>
+                    <div className='activity' onClick={() => setShowTransModal(true)}>
                         <i className="fa-sharp fa-solid fa-money-bill-transfer" />
                         Create a transaction
                     </div>
@@ -146,7 +156,7 @@ const WalletComp = () => {
                                             <div>
                                                 <i className="fa-solid fa-sack-dollar" /> Balance
                                             </div>
-                                            <div>${wallet.totalFund}</div>
+                                            <div>${(wallet.totalFund)?.toFixed(2)}</div>
                                         </div>
                                     </div>
                                 </label>
@@ -159,8 +169,14 @@ const WalletComp = () => {
                                 (
                                     incomingTrans.map(x => (
                                         <div className='incoming-trans' key={x.id}>
+                                            <div className='accept'>
+                                                <div>From: {x['sender'].username}</div>
+                                                <div className='check' onClick={() => completeTransaction(x)}>
+                                                    <i className="fa-regular fa-square-check" />
+                                                </div>
+                                            </div>
                                             <div className='underline'>
-                                                <div>${x.amount}</div>
+                                                <div>${x.amount.toFixed(2)}</div>
                                                 <div>{x.createdAt.slice(0, 17)}</div>
                                             </div>
                                         </div>
@@ -170,29 +186,29 @@ const WalletComp = () => {
                                     <>
                                         <label>INCOMING PENDING TRANSACTIONS</label>
                                         <div className='no-pending'>
-                                            <div> There no pending transactions</div>
+                                            <div> There are no pending transactions</div>
                                         </div>
                                     </>
                                 )
                             }
                         </div>
-                        <div>
+                        <div className='outgoing'>
                             <label>OUTGOING PENDING TRANSACTIONS</label>
                             {outGoingTransactions.length > 0 ? (outGoingTransactions.map(transaction => (
-                                <div className="single-account forMoney" key={transaction.id}>
+                                <div className="single-account" key={transaction.id}>
                                     <div className="account-name">
                                         <div> {users[transaction['receiver']]?.username}</div>
                                         <div className="add-delete">
-                                            <div onClick={()=>editTrans(transaction)}>
+                                            <div onClick={() => editTrans(transaction)}>
                                                 <i className="fa-solid fa-pen-to-square" />
                                             </div>
-                                            <div onClick={()=>deleteTrans(transaction)}>
+                                            <div onClick={() => deleteTrans(transaction)}>
                                                 <i className="fa-solid fa-rectangle-xmark" />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="underline">
-                                        <div>${transaction.amount}</div>
+                                        <div>${transaction.amount.toFixed(2)}</div>
                                         <div>{transaction.createdAt.slice(0, 17)}</div>
                                     </div>
                                 </div>
@@ -200,13 +216,13 @@ const WalletComp = () => {
                                 <>
 
                                     <div className='no-pending'>
-                                        <div> There no pending transactions</div>
+                                        <div> There are no pending transactions</div>
                                     </div>
                                 </>
                             }
                         </div>
                         {showEditTransaction && (
-                            <Modal onClose={()=>setShowEditTransaction(false)}>
+                            <Modal onClose={() => setShowEditTransaction(false)}>
                                 <EditTransaction transaction={toEdit} setShowEditTransaction={setShowEditTransaction} />
                             </Modal>
                         )}
@@ -215,7 +231,9 @@ const WalletComp = () => {
 
 
                 <div className='footer'>
-                    <div className='logo'></div>
+                    <div className='logo-div'>
+                        <img src={logo} alt='logo' />
+                    </div>
                 </div>
             </div>
 
