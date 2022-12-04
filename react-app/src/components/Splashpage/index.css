@@ -105,8 +105,22 @@ color: white;
 }
 
 .user-login{
-    /* color: white; */
-    height: 30px;
-    width: 50px;
+    color: white;
+    background-color: #38345f;
+    height: 35px;
+    width: 90px;
+    border: none;
     border-radius: 15px;
+}
+
+.user-login:hover{
+    height: 40px;
+    width: 100px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.links{
+    color: white;
+   text-decoration: none;
 }
