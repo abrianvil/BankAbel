@@ -4,6 +4,8 @@
     flex-direction: column;
     gap: 20px;
     overflow-y: scroll;
+    /* border: red solid 2px; */
+    width: 100%;
 }
 .container::-webkit-scrollbar{
     display: none;
@@ -23,6 +25,13 @@
     font-size: 25px;
     gap: 13px;
     border-bottom: solid white 0.7px;
+}
+.account-list{
+    /* border: blue solid 2px; */
+    display: flex;
+    flex-wrap: wrap ;
+    gap: 30px;
+    padding: 0px 40px;
 }
 
 .account-name{
@@ -59,7 +68,7 @@
 }
 
 .header{
-    width: 100%;
+    width: 30%;
     display: flex;
     justify-content: flex-end;
 }

@@ -86,7 +86,7 @@ const AccountComp = () => {
                 <div className='user-card' onClick={clickUser}>
                     <div className='image'>
                         <img src={user.picture} alt={user.id}
-                        onError={e => { e.currentTarget.src = "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"; }}
+                            onError={e => { e.currentTarget.src = "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"; }}
                         />
                     </div>
                     <div>{user.firstName} {user.lastName}</div>
@@ -116,32 +116,34 @@ const AccountComp = () => {
                         <div className='header'>
                             <button onClick={() => setShowCreate(true)}> Create new Account</button>
                         </div>
-                        {accounts.map(account => (
-                            <div className='single-account'>
-                                <div className='account-name'>
-                                    <div>
-                                        {account.name}
+                        <div className='account-list'>
+                            {accounts.map(account => (
+                                <div className='single-account'>
+                                    <div className='account-name'>
+                                        <div>
+                                            {account.name}
+                                        </div>
+                                        <div className='add-delete'>
+                                            <div onClick={() => addFunds(account.id)}>
+                                                <i className="fa-solid fa-plus" />
+                                            </div>
+                                            <div onClick={() => toEdit(account)}>
+                                                <i className="fa-solid fa-pen-to-square" />
+                                            </div>
+                                            <div onClick={() => toDelete(account.id)}>
+                                                <i className="fa-solid fa-trash-can" />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className='add-delete'>
-                                        <div onClick={() => addFunds(account.id)}>
-                                            <i className="fa-solid fa-plus" />
+                                    <div className='underline'>
+                                        <div>
+                                            <i className="fa-solid fa-sack-dollar" /> Balance
                                         </div>
-                                        <div onClick={() => toEdit(account)}>
-                                            <i className="fa-solid fa-pen-to-square" />
-                                        </div>
-                                        <div onClick={() => toDelete(account.id)}>
-                                            <i className="fa-solid fa-trash-can" />
-                                        </div>
+                                        <div>${account.balance.toFixed(2)}</div>
                                     </div>
                                 </div>
-                                <div className='underline'>
-                                    <div>
-                                        <i className="fa-solid fa-sack-dollar" /> Balance
-                                    </div>
-                                    <div>${account.balance.toFixed(2)}</div>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                         {showAddFund && (
                             <Modal onClose={() => setShowAddFund(false)}>
                                 <AddFundForm accountId={accountId} setShowAddFund={setShowAddFund} />
@@ -154,7 +156,7 @@ const AccountComp = () => {
                         )}
                         {showEdit && (
                             <Modal onClose={() => setShowEdit(false)}>
-                                <EditAccountForm account={account} setShowEdit={setShowEdit} accounts={accounts}/>
+                                <EditAccountForm account={account} setShowEdit={setShowEdit} accounts={accounts} />
                             </Modal>
                         )}
                     </div>
