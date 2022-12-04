@@ -16,7 +16,7 @@ const TransactionComp = () => {
     const history = useHistory()
 
     const user = useSelector(state => state.session.user)
-    const transactions = useSelector(state => Object.values(state.transaction.transactions))
+    const transactions = (useSelector(state => Object.values(state.transaction.transactions))).reverse()
 
     const [users, setUsers] = useState({});
 

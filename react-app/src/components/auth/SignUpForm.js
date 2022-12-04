@@ -95,7 +95,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     //email error handling
-    if (email.trim().length || !validateEmail(email)) {
+    if (email.trim().length && !validateEmail(email)) {
       setEmailErr('Invalid Email')
     } else if (!email.length) {
       setEmailErr('Email is required')

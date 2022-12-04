@@ -3,3 +3,7 @@ body{
     margin: 0px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+body::-webkit-scrollbar {
+    display: none;
+}

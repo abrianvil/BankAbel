@@ -21,7 +21,8 @@ function SplashPage() {
                     <img src={logo} alt='logo' />
                 </div>
                 <button onClick={buttonClick} className='user-login'>
-                    <i className="fa-solid fa-bars"></i>
+                    {/* <i className="fa-solid fa-bars"></i> */}
+                    Get Started
                 </button>
 
             </div>
@@ -49,10 +50,14 @@ function SplashPage() {
                             </div>
                         </div>
                         <div className='links-box'>
-                            <div>Support</div>
-                            <div>links</div>
+                            <Link
+                                className='links'
+                                to={{ pathname: 'https://www.aspca.org/' }}
+                                target='_blank'
+                            >links
+                            </Link>
                             <div>
-                                Stay in touch
+                                Stay in touch:
                                 <Link
                                     className='contact-button'
                                     to={{

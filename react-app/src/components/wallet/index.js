@@ -27,8 +27,8 @@ const WalletComp = () => {
     const wallet = useSelector(state => state.wallet.wallet)
     const transactions = useSelector(state => Object.values(state.transaction.transactions))
 
-    const incomingTrans = transactions.filter(transaction => transaction.receiver === user.id && transaction.status === 'pending')
-    const outGoingTransactions = transactions.filter(transaction => transaction.sender.id === user.id && transaction.status === 'pending')
+    const incomingTrans = transactions.filter(transaction => transaction.receiver === user.id && transaction.status === 'pending').reverse()
+    const outGoingTransactions = transactions.filter(transaction => transaction.sender.id === user.id && transaction.status === 'pending').reverse()
 
     useEffect(() => {
         async function fetchData() {
@@ -156,7 +156,7 @@ const WalletComp = () => {
                                             <div>
                                                 <i className="fa-solid fa-sack-dollar" /> Balance
                                             </div>
-                                            <div>${wallet.totalFund.toFixed(2)}</div>
+                                            <div>${(wallet.totalFund)?.toFixed(2)}</div>
                                         </div>
                                     </div>
                                 </label>
