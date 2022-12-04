@@ -5,13 +5,18 @@
 }
 
 
-.inner-box{
+.inner-box {
     display: flex;
     gap: 30px;
     padding: 60px 0px;
+    overflow-y: scroll;
 }
 
-.user-name{
+.inner-box::-webkit-scrollbar {
+    display: none;
+}
+
+.user-name {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,7 +32,7 @@
     border-bottom: solid white 0.7px;
 }
 
-.user-name div{
+.user-name div {
     width: 100%;
     border-bottom: solid white 0.7px;
 }
@@ -77,7 +82,7 @@
     width: 100%;
 }
 
-.no-pending{
+.no-pending {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -93,18 +98,18 @@
     border-bottom: solid white 0.7px;
 }
 
-.no-pending div{
+.no-pending div {
     width: 100%;
     border-bottom: solid white 0.7px;
 }
 
-.pending-trans{
+.pending-trans {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.incoming-trans{
+.incoming-trans {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -121,7 +126,7 @@
 
 }
 
-.accept{
+.accept {
     display: flex;
     justify-content: space-between;
 
@@ -135,12 +140,12 @@
     padding: 2px 5px;
 }
 
-.check:hover{
+.check:hover {
     color: #63bf7d;
     cursor: pointer;
 }
 
-.outgoing{
+.outgoing {
     display: flex;
     flex-direction: column;
     gap: 15px;
