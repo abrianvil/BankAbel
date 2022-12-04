@@ -1,6 +1,36 @@
 # BankAbel
 
-### BankAbel is an application inspired by Venmo and Cashapp. The features include creating, editing and deleting accounts. User also have the capability of sending money to other users on the application
+### BankAbel is an application inspired by Venmo and Cashapp. That allows a user  to create, edit and delete accounts. User also have the capability of sending money to other users on the application.
+
+![image](https://user-images.githubusercontent.com/106001687/205478736-4a050ff8-751b-44ff-b88e-6d885c58a755.png)
+
+
+## Login 
+![image](https://user-images.githubusercontent.com/106001687/205478839-91b7eb53-4417-4c75-ad4f-9637e95ed971.png)
+
+
+## Signup 
+![image](https://user-images.githubusercontent.com/106001687/205478853-a13bd18e-67ce-45d2-bde8-7269597eec7d.png)
+
+
+## Landing page
+![image](https://user-images.githubusercontent.com/106001687/205478876-48d06e2e-52d3-40f0-9656-440eec25ebfd.png)
+
+## Wallet
+![image](https://user-images.githubusercontent.com/106001687/205478891-24a7f07a-8659-4048-a8e8-02f87006aac9.png)
+
+
+## Accounts
+![image](https://user-images.githubusercontent.com/106001687/205478904-6da0059b-bd91-4147-8f7a-dad6a015829b.png)
+
+![image](https://user-images.githubusercontent.com/106001687/205478913-d91e580a-7d86-4368-a28c-c9d3acdf0f90.png)
+
+## Transactions
+![image](https://user-images.githubusercontent.com/106001687/205478940-5b3a43e1-ca03-42eb-ac2b-9d011bd77f21.png)
+
+![image](https://user-images.githubusercontent.com/106001687/205479018-bd94ab26-3db8-4b86-92a9-87ff5a04d136.png)
+
+
 
 ## Tech Stack
 
