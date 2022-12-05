@@ -33,21 +33,22 @@
 
 
 ## Landing page
-![image](https://user-images.githubusercontent.com/106001687/205478876-48d06e2e-52d3-40f0-9656-440eec25ebfd.png)
+![image](https://user-images.githubusercontent.com/106001687/205600955-00f4db18-887c-4cc6-97cb-4d73908495ec.png)
+
 
 ## Wallet
-![image](https://user-images.githubusercontent.com/106001687/205478891-24a7f07a-8659-4048-a8e8-02f87006aac9.png)
+![image](https://user-images.githubusercontent.com/106001687/205601131-00c0a989-2d7e-41bf-8814-b3f042f41c2b.png)
 
 
 ## Accounts
-![image](https://user-images.githubusercontent.com/106001687/205478904-6da0059b-bd91-4147-8f7a-dad6a015829b.png)
+![image](https://user-images.githubusercontent.com/106001687/205601302-06d252b1-43e5-4dc7-820f-ef731971c2fb.png)
 
-![image](https://user-images.githubusercontent.com/106001687/205478913-d91e580a-7d86-4368-a28c-c9d3acdf0f90.png)
+![image](https://user-images.githubusercontent.com/106001687/205601583-a8a56901-29f8-406f-9402-0f0d739b1e15.png)
 
 ## Transactions
-![image](https://user-images.githubusercontent.com/106001687/205478940-5b3a43e1-ca03-42eb-ac2b-9d011bd77f21.png)
+![image](https://user-images.githubusercontent.com/106001687/205601752-f197e536-32dc-4219-bec6-d5e138c22fe2.png)
 
-![image](https://user-images.githubusercontent.com/106001687/205479018-bd94ab26-3db8-4b86-92a9-87ff5a04d136.png)
+![image](https://user-images.githubusercontent.com/106001687/205601815-7de4279b-152a-4727-8090-9c7a11f9a6b3.png)
 
 
 
