@@ -46,11 +46,15 @@
 ![image](https://user-images.githubusercontent.com/106001687/205601583-a8a56901-29f8-406f-9402-0f0d739b1e15.png)
 
 ## Transactions
-![image](https://user-images.githubusercontent.com/106001687/205601752-f197e536-32dc-4219-bec6-d5e138c22fe2.png)
+![image](https://user-images.githubusercontent.com/106001687/205602229-8c5b2594-5a1b-4627-b571-5d322b745bdc.png)
 
 ![image](https://user-images.githubusercontent.com/106001687/205601815-7de4279b-152a-4727-8090-9c7a11f9a6b3.png)
 
-
+# Future implememtation Goals
+- shared account feature
+- Money request
+- Messaging
+- color them picker
 
 ## Contact :
 ### https://www.linkedin.com/in/abel-brianvil-ba4320170/
