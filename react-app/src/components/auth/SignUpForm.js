@@ -28,12 +28,6 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    // if (password === repeatPassword) {
-    //   const data = await dispatch(signUp(username, email, password, ));
-    //   if (data) {
-    //     setErrors(data)
-    //   }
-    // }
     setRenderErr(true)
     if (password === repeatPassword &&
       !usernameErr &&
@@ -104,9 +98,9 @@ const SignUpForm = () => {
     }
 
     //username error handling
-    if(!username.trim().length){
+    if (!username.trim().length) {
       setUsernameErr('Username Required')
-    }else if (username.length < 4) {
+    } else if (username.length < 4) {
       setUsernameErr('Username must be at least 4 characters')
     } else if (username.length > 20) {
       setUsernameErr('Username must be less than 20 characters ')
@@ -115,9 +109,9 @@ const SignUpForm = () => {
     }
 
     //firstName error handling
-    if(!firstName.trim().length){
+    if (!firstName.trim().length) {
       setFirstNameErr('First Name Required')
-    }else if (firstName.length < 2) {
+    } else if (firstName.length < 2) {
       setFirstNameErr('First Name must be at least 2 characters')
     } else if (firstName.length > 20) {
       setFirstNameErr('First Name must be less than 20 characters ')
@@ -126,7 +120,7 @@ const SignUpForm = () => {
     }
 
     //lastName error handling
-    if(!lastName.trim().length){
+    if (!lastName.trim().length) {
       setLastNameErr('Last Name Required')
     } else if (lastName.length < 2) {
       setLastNameErr('Last Name must be at least 2 characters')
@@ -156,7 +150,6 @@ const SignUpForm = () => {
 
     //imgUrl error handling
     if (!profile_pic.trim().length) {
-      // setUrlErr('Image URL is required')
       setProfile_pic("https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg")
 
     } else if (profile_pic.length && !urlValidation(profile_pic)) {
@@ -176,10 +169,6 @@ const SignUpForm = () => {
     <div className='form-container'>
       <form className='form' onSubmit={onSignUp}>
 
-        {/* {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))} */}
-
         {renderErr && firstNameErr ? (
           <label className=" renderError">
             {firstNameErr}
@@ -190,7 +179,7 @@ const SignUpForm = () => {
           </label>
         )}
 
-        {/* <label>First Name</label> */}
+
         <input
           min={2}
           max={20}
@@ -207,10 +196,10 @@ const SignUpForm = () => {
           </label>
         ) : (
           <label className="text noRenderError" >
-           Last Name
+            Last Name
           </label>
         )}
-        {/* <label>Last Name</label> */}
+
         <input
           min={2}
           max={20}
@@ -230,7 +219,7 @@ const SignUpForm = () => {
             Username
           </label>
         )}
-        {/* <label>UserName</label> */}
+
         <input
           min={2}
           max={20}
@@ -250,7 +239,7 @@ const SignUpForm = () => {
             Email
           </label>
         )}
-        {/* <label>Email</label> */}
+
         <input
           type='text'
           name='email'
@@ -263,11 +252,13 @@ const SignUpForm = () => {
             {urlErr}
           </label>
         ) : (
-          <label className="text noRenderError">
-            Profile picture
-          </label>
+          <>
+            <label className="text noRenderError">
+              Profile picture
+            <small id='option' style={{color:'salmon'}}> *optional</small>
+            </label>
+          </>
         )}
-        {/* <label>Picture</label> */}
         <input
           type='text'
           name='picture'
@@ -285,7 +276,6 @@ const SignUpForm = () => {
             Password
           </label>
         )}
-        {/* <label>Password</label> */}
         <input
           type='password'
           name='password'
@@ -303,7 +293,7 @@ const SignUpForm = () => {
             Confirm Password
           </label>
         )}
-        {/* <label>Confirm Password</label> */}
+
         <input
           type='password'
           name='repeat_password'

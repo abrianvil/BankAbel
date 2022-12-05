@@ -21,7 +21,6 @@ function SplashPage() {
                     <img src={logo} alt='logo' />
                 </div>
                 <button onClick={buttonClick} className='user-login'>
-                    {/* <i className="fa-solid fa-bars"></i> */}
                     Get Started
                 </button>
 
