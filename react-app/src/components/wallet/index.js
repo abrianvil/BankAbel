@@ -197,7 +197,7 @@ const WalletComp = () => {
                             {outGoingTransactions.length > 0 ? (outGoingTransactions.map(transaction => (
                                 <div className="single-account" key={transaction.id}>
                                     <div className="account-name">
-                                        <div> {users[transaction['receiver']]?.username}</div>
+                                        <div>To: {users[transaction['receiver']]?.username}</div>
                                         <div className="add-delete">
                                             <div onClick={() => editTrans(transaction)}>
                                                 <i className="fa-solid fa-pen-to-square" />

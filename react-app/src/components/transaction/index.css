@@ -5,8 +5,8 @@
     justify-content: space-between;
     height: 100px;
     position: relative;
-    cursor: pointer;
-
+    cursor: default;
+    padding: 7px 0px;
 }
 
 .single-trans::before {

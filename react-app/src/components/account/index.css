@@ -24,6 +24,7 @@
     font-size: 25px;
     gap: 13px;
     border-bottom: solid white 0.7px;
+    cursor: default;
 }
 .account-list{
     display: flex;
