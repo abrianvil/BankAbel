@@ -28,12 +28,6 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    // if (password === repeatPassword) {
-    //   const data = await dispatch(signUp(username, email, password, ));
-    //   if (data) {
-    //     setErrors(data)
-    //   }
-    // }
     setRenderErr(true)
     if (password === repeatPassword &&
       !usernameErr &&
@@ -156,7 +150,6 @@ const SignUpForm = () => {
 
     //imgUrl error handling
     if (!profile_pic.trim().length) {
-      // setUrlErr('Image URL is required')
       setProfile_pic("https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg")
 
     } else if (profile_pic.length && !urlValidation(profile_pic)) {
@@ -176,10 +169,6 @@ const SignUpForm = () => {
     <div className='form-container'>
       <form className='form' onSubmit={onSignUp}>
 
-        {/* {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))} */}
-
         {renderErr && firstNameErr ? (
           <label className=" renderError">
             {firstNameErr}
@@ -190,7 +179,7 @@ const SignUpForm = () => {
           </label>
         )}
 
-        {/* <label>First Name</label> */}
+
         <input
           min={2}
           max={20}
@@ -210,7 +199,7 @@ const SignUpForm = () => {
             Last Name
           </label>
         )}
-        {/* <label>Last Name</label> */}
+
         <input
           min={2}
           max={20}
@@ -230,7 +219,7 @@ const SignUpForm = () => {
             Username
           </label>
         )}
-        {/* <label>UserName</label> */}
+
         <input
           min={2}
           max={20}
@@ -250,7 +239,7 @@ const SignUpForm = () => {
             Email
           </label>
         )}
-        {/* <label>Email</label> */}
+
         <input
           type='text'
           name='email'
@@ -270,7 +259,6 @@ const SignUpForm = () => {
             </label>
           </>
         )}
-        {/* <label>Picture</label> */}
         <input
           type='text'
           name='picture'
@@ -288,7 +276,6 @@ const SignUpForm = () => {
             Password
           </label>
         )}
-        {/* <label>Password</label> */}
         <input
           type='password'
           name='password'
@@ -306,7 +293,7 @@ const SignUpForm = () => {
             Confirm Password
           </label>
         )}
-        {/* <label>Confirm Password</label> */}
+
         <input
           type='password'
           name='repeat_password'

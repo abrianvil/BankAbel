@@ -8,12 +8,12 @@ def seed_wallets():
 
     wallet2=Wallet(
         user_id=2,
-        total_fund=10000
+        total_fund=100000
     )
 
     wallet3= Wallet(
         user_id=3,
-        total_fund=1000
+        total_fund=100000
     )
 
     db.session.add(wallet1)
