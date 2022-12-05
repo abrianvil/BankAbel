@@ -13,10 +13,9 @@
 
 ### Links to Project wiki
 
+- [User Story](https://github.com/abrianvil/BankAbel/wiki/User-Stories)
 - [Database Schema](https://github.com/abrianvil/BankAbel/wiki/DB-Schemas)
-- [Api Routes](https://github.com/abrianvil/API-project/wiki/Api-Routes)
-- [Redux Store State Shape](https://github.com/abrianvil/API-project/wiki/Redux-store-state-shape)
-- [Feature List](https://github.com/abrianvil/API-project/wiki/FeatureList)
+- [Feature List](https://github.com/abrianvil/BankAbel/wiki/Features-List)
 
 
 ![image](https://user-images.githubusercontent.com/106001687/205478736-4a050ff8-751b-44ff-b88e-6d885c58a755.png)
