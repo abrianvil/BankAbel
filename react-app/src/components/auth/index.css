@@ -127,3 +127,7 @@
 .noRenderError {
     color: white;
 }
+
+#option{
+    font-size: 14px;
+}
