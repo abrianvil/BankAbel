@@ -4,7 +4,6 @@
     flex-direction: column;
     gap: 20px;
     overflow-y: scroll;
-    /* border: red solid 2px; */
     width: 100%;
 }
 .container::-webkit-scrollbar{
@@ -27,7 +26,6 @@
     border-bottom: solid white 0.7px;
 }
 .account-list{
-    /* border: blue solid 2px; */
     display: flex;
     flex-wrap: wrap ;
     gap: 30px;
@@ -58,7 +56,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border: red solid 1px; */
     width: 30px;
 }
 .add-delete div:hover{

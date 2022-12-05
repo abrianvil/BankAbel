@@ -139,7 +139,6 @@ const accountReducer = (state = initialState, action) => {
             return newState
         case CREATE_ACCOUNT:
             newState.accounts = { ...state.accounts,[action.newAccount.id]:action.newAccount }
-            // newState.accounts[action.newAccount.id]=action.newAccount
             return newState
 
         case EDIT_ACCOUNT:

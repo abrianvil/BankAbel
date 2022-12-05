@@ -28,7 +28,6 @@ const TransactionComp = () => {
             responseData.users.forEach(element => {
                 res[element.id] = element
             });
-            // delete res[user.id]
             setUsers(res);
         }
         fetchData();
