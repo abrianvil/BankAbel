@@ -51,6 +51,7 @@
 .transaction-box {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
     overflow-y: scroll;
     height: 100%;
