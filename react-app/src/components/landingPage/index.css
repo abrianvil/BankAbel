@@ -40,7 +40,7 @@
 
 
 .components {
-    height: 60%;
+    height: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,6 +88,7 @@
     height: 20px;
     position: relative;
     cursor: pointer;
+    padding: 5px 0px;
 }
 
 .wallet::before {
@@ -113,6 +114,7 @@
     height: 20px;
     position: relative;
     cursor: pointer;
+    padding: 5px 0px;
 }
 
 .accounts::before {
@@ -138,6 +140,7 @@
     height: 20px;
     position: relative;
     cursor: pointer;
+    padding: 5px 0px;
 }
 
 .activity::before {
@@ -164,6 +167,7 @@
     height: 20px;
     position: relative;
     cursor: pointer;
+    padding: 5px 0px;
 }
 
 .sendMoney::before {
