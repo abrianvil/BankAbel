@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { getAllAccounts } from '../../store/account';
 import { getWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
@@ -49,8 +49,8 @@ const LandingPage = () => {
                 <div className='user-card' onClick={clickUser}>
                     <div className='image'>
                         <img src={user.picture} alt={user.id}
-                        onError={e => { e.currentTarget.src = "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"; }}
-                         />
+                            onError={e => { e.currentTarget.src = "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"; }}
+                        />
                     </div>
                     <div>{user.firstName} {user.lastName}</div>
                 </div>
@@ -90,9 +90,31 @@ const LandingPage = () => {
                 </div>
 
                 <div className='footer'>
+                    <Link
+                        className='contact-button'
+                        to={{
+                            pathname:
+                                'https://www.linkedin.com/in/abel-brianvil-ba4320170/',
+                        }}
+                        target='_blank'
+                    >
+                        <div className='icon'>
+                            <i className='fa-brands fa-linkedin'></i>
+                        </div>
+                    </Link>
                     <div className='logo-div'>
                         <img src={logo} alt='logo' />
                     </div>
+
+                    <Link
+                        className='contact-button'
+                        to={{ pathname: 'https://github.com/abrianvil' }}
+                        target='_blank'
+                    >
+                        <div className='icon'>
+                            <i className='fa-brands fa-square-github' />
+                        </div>
+                    </Link>
                 </div>
             </div>
 
