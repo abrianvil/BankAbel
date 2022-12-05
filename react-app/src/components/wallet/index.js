@@ -130,36 +130,36 @@ const WalletComp = () => {
 
                     <div className='inner-box'>
                         <div className='info-col'>
-                            <div>
+                            <div className='personal-info'>
                                 <label>
                                     USERNAME
-                                    <div className='user-name'>
-                                        <div>{user.username}</div>
-                                    </div>
                                 </label>
+                                <div className='user-name'>
+                                    <div>{user.username}</div>
+                                </div>
                             </div>
-                            <div>
+                            <div className='personal-info'>
                                 <label>
                                     YOUR INFO
-                                    <div className='user-info'>
-                                        <div>{user.firstName}</div>
-                                        <div>{user.lastName}</div>
-                                        <div>{user.email}</div>
-                                    </div>
                                 </label>
+                                <div className='user-info'>
+                                    <div>{user.firstName}</div>
+                                    <div>{user.lastName}</div>
+                                    <div>{user.email}</div>
+                                </div>
                             </div>
-                            <div>
+                            <div className='personal-info'>
                                 <label>
                                     FUNDS
-                                    <div className='funds'>
-                                        <div className='underline'>
-                                            <div>
-                                                <i className="fa-solid fa-sack-dollar" /> Balance
-                                            </div>
-                                            <div>${(wallet.totalFund)?.toFixed(2)}</div>
-                                        </div>
-                                    </div>
                                 </label>
+                                <div className='funds'>
+                                    <div className='underline'>
+                                        <div>
+                                            <i className="fa-solid fa-sack-dollar" /> Balance
+                                        </div>
+                                        <div>${(wallet.totalFund)?.toFixed(2)}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

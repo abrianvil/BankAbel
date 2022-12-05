@@ -30,7 +30,7 @@ const CreateAccountForm = ({ setShowCreate, accounts }) => {
     useEffect(() => {
         if (!name.trim().length) {
             setNameErr('A name is required')
-        }else if(accounts.find(account=>account.name.toLowerCase() ===name.toLowerCase())){
+        }else if(accounts.find(account=>account.name.trim().toLowerCase() ===name.trim().toLowerCase())){
             setNameErr('Account with that name already exist')
         } else if (name.length < 2) {
             setNameErr('Name must be 2 or more characters')
