@@ -49,12 +49,6 @@ function SplashPage() {
                             </div>
                         </div>
                         <div className='links-box'>
-                            <Link
-                                className='links'
-                                to={{ pathname: 'https://www.aspca.org/' }}
-                                target='_blank'
-                            >links
-                            </Link>
                             <div>
                                 Stay in touch:
                                 <Link
