@@ -5,7 +5,7 @@ import { getWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
 import LogoutButton from '../auth/LogoutButton';
 import './index.css'
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import logo from '../../Images/logo.png'
 
 
@@ -113,9 +113,31 @@ const TransactionComp = () => {
                 </div>
 
                 <div className='footer'>
+                    <Link
+                        className='contact-button'
+                        to={{
+                            pathname:
+                                'https://www.linkedin.com/in/abel-brianvil-ba4320170/',
+                        }}
+                        target='_blank'
+                    >
+                        <div className='icon'>
+                            <i className='fa-brands fa-linkedin'></i>
+                        </div>
+                    </Link>
                     <div className='logo-div'>
                         <img src={logo} alt='logo' />
                     </div>
+
+                    <Link
+                        className='contact-button'
+                        to={{ pathname: 'https://github.com/abrianvil' }}
+                        target='_blank'
+                    >
+                        <div className='icon'>
+                            <i className='fa-brands fa-square-github' />
+                        </div>
+                    </Link>
 
                 </div>
             </div>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccounts, deleteAccount } from '../../store/account';
 import { getWallet, updateWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Modal } from '../../context/Modal'
 
 import EditAccountForm from '../accountModal/editAccountModal';
@@ -163,9 +163,31 @@ const AccountComp = () => {
                 </div>
 
                 <div className='footer'>
+                    <Link
+                        className='contact-button'
+                        to={{
+                            pathname:
+                                'https://www.linkedin.com/in/abel-brianvil-ba4320170/',
+                        }}
+                        target='_blank'
+                    >
+                        <div className='icon'>
+                            <i className='fa-brands fa-linkedin'></i>
+                        </div>
+                    </Link>
                     <div className='logo-div'>
                         <img src={logo} alt='logo' />
                     </div>
+
+                    <Link
+                        className='contact-button'
+                        to={{ pathname: 'https://github.com/abrianvil' }}
+                        target='_blank'
+                    >
+                        <div className='icon'>
+                            <i className='fa-brands fa-square-github' />
+                        </div>
+                    </Link>
 
                 </div>
             </div>
