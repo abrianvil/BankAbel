@@ -77,11 +77,6 @@ export const signUp = (payload) => async (dispatch) => {
       'Content-Type': 'application/json',
     },
     body:JSON.stringify(payload)
-    // body: JSON.stringify({
-    //   username,
-    //   email,
-    //   password,
-    // }),
   });
 
   if (response.ok) {

@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTransactions } from '../../store/transaction';
-// import { getAllAccounts } from '../../store/account';
+
 import { getWallet, updateWallet } from '../../store/wallet';
 
-// import { updateAccount } from '../../store/account';
 import { createTransaction } from '../../store/transaction';
 import './index.css'
 
@@ -74,8 +73,6 @@ const CreateTransaction = ({ setShowTransModal }) => {
             setAmountError('Transaction of 0 dollars not allowed')
         } else if (amount > wallet.totalFund) {
             setAmountError('Amount exceeds you wallet Funds')
-        // }else if(wallet.totalFund - amount === 0) {
-        //     setAmountError('Your not allowed to Empty your wallet')
         } else {
             setAmountError('')
         }

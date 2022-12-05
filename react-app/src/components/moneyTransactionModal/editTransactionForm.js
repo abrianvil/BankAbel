@@ -64,8 +64,6 @@ const EditTransaction = ({ setShowEditTransaction, transaction }) => {
             setAmountError('Transaction of 0 dollars not allowed')
         } else if (amount - transaction.amount > wallet.totalFund) {
             setAmountError('Amount exceeds you wallet Funds')
-        // } else if (wallet.totalFund - (amount - transaction.amount) === 0) {
-        //     setAmountError('Your not allowed to Empty your wallet')
         } else {
             setAmountError('')
         }
@@ -87,7 +85,6 @@ const EditTransaction = ({ setShowEditTransaction, transaction }) => {
 
                     </div>
                     <input
-                        // min={1}
                         type='number'
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}

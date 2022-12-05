@@ -50,7 +50,6 @@
 }
 
 .links-box {
-    /* border: solid white 1px; */
     color: aliceblue;
     display: flex;
     flex-direction: column;
