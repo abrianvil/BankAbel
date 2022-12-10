@@ -1,6 +1,6 @@
 # BankAbel
 
-### BankAbel is an application inspired by Venmo and Cashapp. That allows a user  to create, edit and delete accounts. User also have the capability of sending money to other users on the application.
+### BankAbel is a Full stack application, similar to Venmo, built using a variety of languages and frameworks. These include JavaScript, Python, React, and Flask. The application was designed to be user-friendly and intuitive, with a focus on providing a seamless and convenient payment experience. The front-end interface was created using React, while the back-end logic and server-side functionality were implemented using Python and Flask. This combination of technologies allows for a robust and efficient application that can handle a wide range of payment scenarios and user requests..
 
 #### live site: https://bankabel.onrender.com
 
