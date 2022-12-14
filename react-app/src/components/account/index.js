@@ -139,7 +139,11 @@ const AccountComp = () => {
                                         <div>
                                             <i className="fa-solid fa-sack-dollar" /> Balance
                                         </div>
-                                        <div>${account.balance.toFixed(2)}</div>
+                                        <div>{account.balance.toLocaleString('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                        })
+                                        }</div>
                                     </div>
                                 </div>
                             ))}
