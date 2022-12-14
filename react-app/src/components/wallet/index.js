@@ -157,7 +157,13 @@ const WalletComp = () => {
                                         <div>
                                             <i className="fa-solid fa-sack-dollar" /> Balance
                                         </div>
-                                        <div>${(wallet.totalFund)?.toFixed(2)}</div>
+                                        <div>{
+                                            (wallet.totalFund)?.toLocaleString('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD',
+                                            })
+                                        }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +182,11 @@ const WalletComp = () => {
                                                 </div>
                                             </div>
                                             <div className='underline'>
-                                                <div>${x.amount.toFixed(2)}</div>
+                                                <div>{x.amount.toLocaleString('en-US', {
+                                                    style: 'currency',
+                                                    currency: 'USD',
+                                                })
+                                                }</div>
                                                 <div>{x.createdAt.slice(0, 17)}</div>
                                             </div>
                                         </div>
@@ -208,7 +218,11 @@ const WalletComp = () => {
                                         </div>
                                     </div>
                                     <div className="underline">
-                                        <div>${transaction.amount.toFixed(2)}</div>
+                                        <div>{transaction.amount.toLocaleString('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                        })
+                                        }</div>
                                         <div>{transaction.createdAt.slice(0, 17)}</div>
                                     </div>
                                 </div>

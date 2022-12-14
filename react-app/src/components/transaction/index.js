@@ -98,11 +98,18 @@ const TransactionComp = () => {
                                         <img src={users[transaction['receiver']]?.picture} alt={transaction.id} />
                                     </div>
                                     {+users[transaction['receiver']]?.id === user.id ? (
-                                        <div>received ${transaction.amount}</div>
+                                        <div>received {transaction.amount.toLocaleString('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                        })
+                                        }</div>
 
                                     ) :
-                                        <div>Was sent ${transaction.amount}</div>
-
+                                        <div>Was sent {transaction.amount.toLocaleString('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                        })
+                                        }</div>
                                     }
                                     <div>{transaction.createdAt}</div>
                                 </div>
