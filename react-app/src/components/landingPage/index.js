@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { getAllAccounts } from '../../store/account';
 import { getWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
+import { getAllRequests } from '../../store/request';
 
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
@@ -40,6 +41,7 @@ const LandingPage = () => {
         dispatch(getAllAccounts())
         dispatch(getWallet())
         dispatch(getAllTransactions())
+        dispatch(getAllRequests())
     }, [dispatch])
 
     return (
