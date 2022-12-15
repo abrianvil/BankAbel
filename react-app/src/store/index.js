@@ -4,12 +4,14 @@ import session from './session'
 import accountReducer from './account';
 import walletReducer from './wallet';
 import transactionReducer from './transaction';
+import requestReducer from './request';
 
 const rootReducer = combineReducers({
   session,
   Accounts:accountReducer,
   wallet:walletReducer,
-  transaction:transactionReducer
+  transaction:transactionReducer,
+  request:requestReducer
 });
 
 
