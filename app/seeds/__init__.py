@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .account import seed_accounts, undo_accounts
 from .transaction import seed_transactions, undo_transactions
 from .wallet import seed_wallets, undo_wallets
+from .request import seed_requests, undo_requests
 
 from app.models.db import db, environment, SCHEMA
 
@@ -22,11 +23,13 @@ def seed():
         undo_wallets()
         undo_transactions()
         undo_accounts()
+        undo_requests()
         undo_users()
     seed_users()
     seed_accounts()
     seed_transactions()
     seed_wallets()
+    seed_requests()
     # Add other seed functions here
 
 
@@ -37,4 +40,5 @@ def undo():
     undo_accounts()
     undo_transactions()
     undo_wallets()
+    undo_requests()
     # Add other undo functions here

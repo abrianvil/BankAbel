@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     accounts=db.relationship('Account', back_populates='users', cascade='all,delete')
     transactions=db.relationship('Transaction', back_populates='users', cascade='all, delete')
     wallets=db.relationship('Wallet', back_populates='users', cascade='all, delete')
+    requests= db.relationship('Request', back_populates='users', cascade='all, delete')
 
     @property
     def password(self):

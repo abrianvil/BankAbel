@@ -7,6 +7,7 @@ def seed_transactions():
         sender_id=1,
         receiver_id=3,
         amount=99.99,
+        message='this for food',
         due_date=datetime.date(2022,12,20),
         status='pending'
     )
@@ -15,6 +16,7 @@ def seed_transactions():
         sender_id=1,
         receiver_id=2,
         amount=99.99,
+        message='this for the trip',
         due_date=datetime.date(2022,12,20),
         status='pending'
     )
@@ -23,6 +25,7 @@ def seed_transactions():
         sender_id=2,
         receiver_id=1,
         amount=99.99,
+        message='enjoy your date',
         due_date=datetime.date(2022,12,20),
         status='pending'
     )
@@ -31,6 +34,7 @@ def seed_transactions():
         sender_id=2,
         receiver_id=3,
         amount=99.99,
+        message='can you also get my ticket',
         due_date=datetime.date(2022,12,20),
         status='pending'
     )
@@ -39,6 +43,7 @@ def seed_transactions():
         sender_id=3,
         receiver_id=1,
         amount=99.99,
+        message='i pay my debts',
         due_date=datetime.date(2022,12,20),
         status='pending'
     )
@@ -47,6 +52,7 @@ def seed_transactions():
         sender_id=3,
         receiver_id=2,
         amount=99.99,
+        message='you win this time',
         due_date=datetime.date(2022,12,20),
         status='pending'
     )
