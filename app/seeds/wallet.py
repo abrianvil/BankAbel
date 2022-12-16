@@ -3,17 +3,17 @@ from app.models import db, Wallet, environment, SCHEMA
 def seed_wallets():
     wallet1= Wallet(
         user_id=1,
-        total_fund=100000
+        total_fund=15000000
     )
 
     wallet2=Wallet(
         user_id=2,
-        total_fund=100000
+        total_fund=1500000
     )
 
     wallet3= Wallet(
         user_id=3,
-        total_fund=100000
+        total_fund=1500000
     )
 
     db.session.add(wallet1)
