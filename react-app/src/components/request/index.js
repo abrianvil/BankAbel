@@ -1,41 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom';
 import { getAllAccounts } from '../../store/account';
 import { getWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
-import LogoutButton from '../auth/LogoutButton';
+import { getAllRequests } from '../../store/request';
+
+import LogoutButton from '../auth/LogoutButton'
 import './index.css'
-import { useHistory, Link } from 'react-router-dom';
 import logo from '../../Images/logo.png'
 
 
 
 
-const TransactionComp = () => {
+
+const RequestComp = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
     const user = useSelector(state => state.session.user)
-    const transactions = (useSelector(state => Object.values(state.transaction.transactions))).reverse()
+    const requests= useSelector(state=>state.request.requests)
 
-    const [users, setUsers] = useState({});
-
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch('/api/users/');
-            const responseData = await response.json();
-            const res = {}
-            responseData.users.forEach(element => {
-                res[element.id] = element
-            });
-            setUsers(res);
-        }
-        fetchData();
-    }, []);
+    console.log('this is request', requests)
 
     const clickUser = () => {
         history.push('/dashboard')
     }
+
     const clickWallet = () => {
         history.push('/wallet')
     }
@@ -48,7 +39,7 @@ const TransactionComp = () => {
         history.push('/activity')
     }
 
-     const clickRequest =()=>{
+    const clickRequest =()=>{
         history.push('/request')
     }
 
@@ -57,17 +48,18 @@ const TransactionComp = () => {
         dispatch(getAllAccounts())
         dispatch(getWallet())
         dispatch(getAllTransactions())
+        dispatch(getAllRequests())
     }, [dispatch])
 
-
     return (
-
         <div className='main-page'>
             <div className='navigation-bar'>
 
                 <div className='user-card' onClick={clickUser}>
-                    <div className='image' >
-                        <img src={user.picture} alt={user.id} />
+                    <div className='image'>
+                        <img src={user.picture} alt={user.id}
+                            onError={e => { e.currentTarget.src = "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"; }}
+                        />
                     </div>
                     <div>{user.firstName} {user.lastName}</div>
                 </div>
@@ -96,35 +88,17 @@ const TransactionComp = () => {
 
             <div className='content-footer'>
                 <div className='content-display-box'>
-                    <div className='trans'>
-                        <div id='header'>
-                            TRANSACTIONS
+                    <div className='inside-container'>
+                        {/* <div id='home-header'>
+                            Welcome to BankAbel
                         </div>
-                        <div className='transaction-box'>
-                            {transactions.map(transaction => (
-                                <div className='single-trans' key={transaction.id}>
-                                    <div className='image'>
-                                        <img src={users[transaction['receiver']]?.picture} alt={transaction.id} />
-                                    </div>
-                                    {+users[transaction['receiver']]?.id === user.id ? (
-                                        <div>received {transaction.amount.toLocaleString('en-US', {
-                                            style: 'currency',
-                                            currency: 'USD',
-                                        })
-                                        }</div>
-
-                                    ) :
-                                        <div>Was sent {transaction.amount.toLocaleString('en-US', {
-                                            style: 'currency',
-                                            currency: 'USD',
-                                        })
-                                        }</div>
-                                    }
-                                    <div>{transaction.createdAt}</div>
-                                </div>
-                            ))}
-
-                        </div>
+                        <div className='direction'>
+                            <div> Go to the wallet tab to make,edit and cancel a transaction.</div>
+                            <div>
+                                Go to the accounts tab to see, create and add funds to your account
+                            </div>
+                            <div>Select the activity tab to see your transaction history</div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -154,16 +128,12 @@ const TransactionComp = () => {
                             <i className='fa-brands fa-square-github' />
                         </div>
                     </Link>
-
                 </div>
             </div>
 
         </div>
-
-
     )
-
 }
 
 
-export default TransactionComp
+export default RequestComp

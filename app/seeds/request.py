@@ -63,4 +63,9 @@ def seed_requests():
 
 
 def undo_requests():
-    pass
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.requests RESTART IDENTITY CASCADE;")
+    else:
+        db.session.execute("DELETE FROM requests")
+
+    db.session.commit()

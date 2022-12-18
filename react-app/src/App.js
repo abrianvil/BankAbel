@@ -11,6 +11,7 @@ import LandingPage from './components/landingPage';
 import WalletComp from './components/wallet';
 import TransactionComp from './components/transaction';
 import AccountComp from './components/account';
+import RequestComp from './components/request';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -53,6 +54,10 @@ function App() {
 
         <ProtectedRoute path='/account' exact={true}>
           <AccountComp />
+        </ProtectedRoute>
+
+        <ProtectedRoute path='/request' exact={true}>
+          <RequestComp />
         </ProtectedRoute>
 
 
