@@ -54,7 +54,7 @@
 - shared account feature
 - Money request
 - Messaging
-- color them picker
+- color theme picker
 
 ## Contact :
 ### https://www.linkedin.com/in/abel-brianvil-ba4320170/
