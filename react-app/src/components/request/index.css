@@ -1,0 +1,24 @@
+.single-request {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: solid 1px white;
+    background-color: #38345f;
+    width: auto;
+    min-height: 100px;
+    border-radius: 8px;
+    padding: 5px 15px;
+    border: none;
+    font-size: 25px;
+    gap: 13px;
+    border-bottom: solid white 0.7px;
+    cursor: default;
+}
+
+#pending{
+    color: #cc7c80;
+}
+
+#resolved{
+    color: green;
+}
