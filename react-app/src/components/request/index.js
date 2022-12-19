@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { getAllAccounts } from '../../store/account';
@@ -14,14 +14,32 @@ import logo from '../../Images/logo.png'
 
 
 
+
 const RequestComp = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const user = useSelector(state => state.session.user)
-    const requests= useSelector(state=>state.request.requests)
+    const [usersObj, setUsersObj] = useState({})
 
-    console.log('this is request', requests)
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch('/api/users/');
+            const responseData = await response.json();
+            const res = {}
+            responseData.users.forEach(element => {
+                res[element.id] = element
+            });
+            setUsersObj(res);
+        }
+        fetchData();
+    }, []);
+
+    const user = useSelector(state => state.session.user)
+    const requests = useSelector(state => Object.values(state.request.requests)).reverse()
+
+    // console.log('this is request', requests)
+    console.log('this is usersObj', usersObj)
+
 
     const clickUser = () => {
         history.push('/dashboard')
@@ -39,7 +57,7 @@ const RequestComp = () => {
         history.push('/activity')
     }
 
-    const clickRequest =()=>{
+    const clickRequest = () => {
         history.push('/request')
     }
 
@@ -78,7 +96,7 @@ const RequestComp = () => {
                     </div>
 
                     <div className='wallet' onClick={clickRequest}>
-                        <i className="fa-solid fa-hand-holding-dollar"/>  Request
+                        <i className="fa-solid fa-hand-holding-dollar" />  Request
                     </div>
 
                 </div>
@@ -89,16 +107,43 @@ const RequestComp = () => {
             <div className='content-footer'>
                 <div className='content-display-box'>
                     <div className='inside-container'>
-                        {/* <div id='home-header'>
-                            Welcome to BankAbel
-                        </div>
-                        <div className='direction'>
-                            <div> Go to the wallet tab to make,edit and cancel a transaction.</div>
-                            <div>
-                                Go to the accounts tab to see, create and add funds to your account
-                            </div>
-                            <div>Select the activity tab to see your transaction history</div>
-                        </div> */}
+                        {
+                            requests.map(request => (
+                                <div className='single-request' key={request.id}>
+
+                                    {request['sender']?.id === user.id ?
+                                        (
+                                            <>
+                                                <div>
+                                                    You requested {request.amount.toLocaleString('en-US', {
+                                                        style: 'currency',
+                                                        currency: 'USD',
+                                                    })} from {usersObj[request['receiver']]?.username}
+                                                </div>
+                                                {request.status === 'pending' ?
+                                                    (<small id='pending'>{request.status}</small>) :
+                                                    (<small id='resolved'>{request.status}</small>)
+                                                }
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div>
+                                                    {request['sender']?.username} requested {request.amount.toLocaleString('en-US', {
+                                                        style: 'currency',
+                                                        currency: 'USD',
+                                                    })} from You
+                                                </div>
+                                                {request.status === 'pending' ?
+                                                    (<small id='pending'>{request.status}</small>) :
+                                                    (<small id='resolved'>{request.status}</small>)
+                                                }
+                                            </>
+
+                                        )
+                                    }
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
 
