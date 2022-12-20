@@ -15,10 +15,31 @@
     cursor: default;
 }
 
-#pending{
+#pending {
     color: #cc7c80;
 }
 
-#resolved{
+#resolved {
     color: green;
+}
+.req-header{
+    width: 200px;
+}
+
+.req-header button {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #38345f;
+    color: white;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.req-time-status{
+    display: flex;
+    justify-content: space-between;
 }
