@@ -107,6 +107,9 @@ const RequestComp = () => {
             <div className='content-footer'>
                 <div className='content-display-box'>
                     <div className='inside-container'>
+                        <div className='req-header'>
+                            <button>Send Request</button>
+                        </div>
                         {
                             requests.map(request => (
                                 <div className='single-request' key={request.id}>
@@ -121,8 +124,17 @@ const RequestComp = () => {
                                                     })} from {usersObj[request['receiver']]?.username}
                                                 </div>
                                                 {request.status === 'pending' ?
-                                                    (<small id='pending'>{request.status}</small>) :
-                                                    (<small id='resolved'>{request.status}</small>)
+                                                    (<div className='req-time-status'>
+                                                        <small id='pending'>{request.status}</small>
+                                                        <small>{request.createdAt.slice(0, 17)}</small>
+                                                    </div>
+                                                    ) :
+                                                    (
+                                                        <div className='req-time-status'>
+                                                            <small id='resolved'>{request.status}</small>
+                                                            <small>{request.createdAt.slice(0, 17)}</small>
+                                                        </div>
+                                                    )
                                                 }
                                             </>
                                         ) : (
@@ -134,8 +146,18 @@ const RequestComp = () => {
                                                     })} from You
                                                 </div>
                                                 {request.status === 'pending' ?
-                                                    (<small id='pending'>{request.status}</small>) :
-                                                    (<small id='resolved'>{request.status}</small>)
+                                                    (
+                                                        <div className='req-time-status'>
+                                                            <small id='pending'>{request.status}</small>
+                                                            <small>{request.createdAt.slice(0, 17)}</small>
+                                                        </div>
+                                                    ) :
+                                                    (
+                                                        <div className='req-time-status'>
+                                                            <small id='resolved'>{request.status}</small>
+                                                            <small>{request.createdAt.slice(0, 17)}</small>
+                                                        </div>
+                                                    )
                                                 }
                                             </>
 
