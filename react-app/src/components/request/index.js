@@ -37,6 +37,9 @@ const RequestComp = () => {
     const user = useSelector(state => state.session.user)
     const requests = useSelector(state => Object.values(state.request.requests)).reverse()
 
+    const incomingReq = requests.filter(request => request.receiver === user.id && request.status === 'pending').reverse()
+    const outGoingReq = requests.filter(request => request.sender.id === user.id && request.status === 'pending').reverse()
+
     // console.log('this is request', requests)
     console.log('this is usersObj', usersObj)
 
@@ -110,62 +113,65 @@ const RequestComp = () => {
                         <div className='req-header'>
                             <button>Send Request</button>
                         </div>
-                        {
-                            requests.map(request => (
+                        <div className='out-req-container'>
+                            <label> OUTGOING PENDING REQUEST:</label>
+                            {
+                                outGoingReq.map(request => (
+                                    <div className='single-request' key={request.id}>
+                                        <div>
+                                            You requested {request.amount.toLocaleString('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD',
+                                            })} from {usersObj[request['receiver']]?.username}
+                                        </div>
+                                        {request.status === 'pending' ?
+                                            (<div className='req-time-status'>
+                                                <small id='pending'>{request.status}</small>
+                                                <small>{request.createdAt.slice(0, 17)}</small>
+                                            </div>
+                                            ) :
+                                            (
+                                                <div className='req-time-status'>
+                                                    <small id='resolved'>{request.status}</small>
+                                                    <small>{request.createdAt.slice(0, 17)}</small>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+
+                                ))
+                            }
+                        </div>
+                        <div className='in-req-container'>
+                            <label>INCOMING PENDING REQUEST:</label>
+                            {incomingReq.map(request => (
                                 <div className='single-request' key={request.id}>
-
-                                    {request['sender']?.id === user.id ?
+                                    <div>
+                                        {request['sender']?.username} requested {request.amount.toLocaleString('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                        })} from You
+                                    </div>
+                                    {request.status === 'pending' ?
                                         (
-                                            <>
-                                                <div>
-                                                    You requested {request.amount.toLocaleString('en-US', {
-                                                        style: 'currency',
-                                                        currency: 'USD',
-                                                    })} from {usersObj[request['receiver']]?.username}
-                                                </div>
-                                                {request.status === 'pending' ?
-                                                    (<div className='req-time-status'>
-                                                        <small id='pending'>{request.status}</small>
-                                                        <small>{request.createdAt.slice(0, 17)}</small>
-                                                    </div>
-                                                    ) :
-                                                    (
-                                                        <div className='req-time-status'>
-                                                            <small id='resolved'>{request.status}</small>
-                                                            <small>{request.createdAt.slice(0, 17)}</small>
-                                                        </div>
-                                                    )
-                                                }
-                                            </>
-                                        ) : (
-                                            <>
-                                                <div>
-                                                    {request['sender']?.username} requested {request.amount.toLocaleString('en-US', {
-                                                        style: 'currency',
-                                                        currency: 'USD',
-                                                    })} from You
-                                                </div>
-                                                {request.status === 'pending' ?
-                                                    (
-                                                        <div className='req-time-status'>
-                                                            <small id='pending'>{request.status}</small>
-                                                            <small>{request.createdAt.slice(0, 17)}</small>
-                                                        </div>
-                                                    ) :
-                                                    (
-                                                        <div className='req-time-status'>
-                                                            <small id='resolved'>{request.status}</small>
-                                                            <small>{request.createdAt.slice(0, 17)}</small>
-                                                        </div>
-                                                    )
-                                                }
-                                            </>
-
+                                            <div className='req-time-status'>
+                                                <small id='pending'>{request.status}</small>
+                                                <small>{request.createdAt.slice(0, 17)}</small>
+                                            </div>
+                                        ) :
+                                        (
+                                            <div className='req-time-status'>
+                                                <small id='resolved'>{request.status}</small>
+                                                <small>{request.createdAt.slice(0, 17)}</small>
+                                            </div>
                                         )
                                     }
                                 </div>
-                            ))
-                        }
+
+                            ))}
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -198,7 +204,7 @@ const RequestComp = () => {
                 </div>
             </div>
 
-        </div>
+        </div >
     )
 }
 

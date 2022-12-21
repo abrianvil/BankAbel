@@ -1,3 +1,16 @@
+
+.out-req-container{
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.in-req-container{
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
 .single-request {
     display: flex;
     flex-direction: column;
@@ -10,7 +23,7 @@
     padding: 5px 15px;
     border: none;
     font-size: 25px;
-    gap: 13px;
+    gap: 8px;
     border-bottom: solid white 0.7px;
     cursor: default;
 }
