@@ -22,7 +22,8 @@
 #resolved {
     color: green;
 }
-.req-header{
+
+.req-header {
     width: 200px;
 }
 
@@ -39,7 +40,7 @@
     cursor: pointer;
 }
 
-.req-time-status{
+.req-time-status {
     display: flex;
     justify-content: space-between;
 }
