@@ -67,9 +67,13 @@ def update_request(id):
         form["csrf_token"].data = request.cookies["csrf_token"]
         if form.validate_on_submit():
             form.populate_obj(to_update)
-            db.session.commit()
-            return to_update.to_dict(), 200
+            print("""to_update \n \n \n""", form.data)
 
+            db.session.commit()
+            print("""to_update \n \n \n""", to_update.to_dict())
+            return to_update.to_dict(), 200
+        else:
+            print("""\n \n \n""", form.errors)
     else:
         return {"errors": "Request not found", "Status code": 404}, 404
 
