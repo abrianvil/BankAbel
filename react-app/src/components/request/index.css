@@ -1,11 +1,16 @@
+.req {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
 
-.out-req-container{
+.out-req-container {
     display: flex;
     flex-direction: column;
     gap: 13px;
 }
 
-.in-req-container{
+.in-req-container {
     display: flex;
     flex-direction: column;
     gap: 13px;
@@ -56,4 +61,12 @@
 .req-time-status {
     display: flex;
     justify-content: space-between;
+}
+
+
+.text-area{
+    height: 100px;
+    width: 93%;
+    border-radius: 4px;
+    resize: none;
 }
