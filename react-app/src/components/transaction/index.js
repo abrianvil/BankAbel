@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccounts } from '../../store/account';
 import { getWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
+import { getAllRequests } from '../../store/request';
 import LogoutButton from '../auth/LogoutButton';
 import './index.css'
 import { useHistory, Link } from 'react-router-dom';
@@ -17,8 +18,16 @@ const TransactionComp = () => {
 
     const user = useSelector(state => state.session.user)
     const transactions = (useSelector(state => Object.values(state.transaction.transactions))).reverse()
-
+    const requests = (useSelector(state => Object.values(state.request.requests))).reverse()
     const [users, setUsers] = useState({});
+
+    transactions.forEach(transaction => transaction['isTransaction'] = true)
+    requests.forEach(request => request['isTransaction'] = false)
+    let transactionRequest=[...transactions, ...requests]
+    transactionRequest.sort((a,b)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+
+
+    // console.log("this is transactions", transactionRequest)
 
     useEffect(() => {
         async function fetchData() {
@@ -48,11 +57,16 @@ const TransactionComp = () => {
         history.push('/activity')
     }
 
+    const clickRequest = () => {
+        history.push('/request')
+    }
+
 
     useEffect(() => {
         dispatch(getAllAccounts())
         dispatch(getWallet())
         dispatch(getAllTransactions())
+        dispatch(getAllRequests())
     }, [dispatch])
 
 
@@ -80,6 +94,11 @@ const TransactionComp = () => {
                     <div className='activity' onClick={clickActivity}>
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
+
+                    <div className='wallet' onClick={clickRequest}>
+                        <i className="fa-solid fa-hand-holding-dollar" />  Request
+                    </div>
+
                 </div>
 
                 <LogoutButton />
@@ -92,19 +111,60 @@ const TransactionComp = () => {
                             TRANSACTIONS
                         </div>
                         <div className='transaction-box'>
-                            {transactions.map(transaction => (
-                                <div className='single-trans' key={transaction.id}>
-                                    <div className='image'>
-                                        <img src={users[transaction['receiver']]?.picture} alt={transaction.id} />
-                                    </div>
+                            {transactionRequest.map(transaction => (
+                                <div className='single-trans' key={transaction.updatedAt}>
+                                    {transaction.isTransaction && (
+                                        <div className='image'>
+                                            <img src={users[transaction['receiver']]?.picture} alt={transaction.id} />
+                                        </div>)
+                                    }
                                     {+users[transaction['receiver']]?.id === user.id ? (
-                                        <div>received ${transaction.amount}</div>
+                                        transaction.isTransaction ? (
+                                            <div>received {transaction.amount.toLocaleString('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD',
+                                            })
+                                            }</div>
+                                        ) :
+
+                                            (
+                                                <>
+                                                    <div className='image'>
+                                                        <img src={transaction['sender'].picture} alt={transaction.id} />
+                                                    </div>
+                                                    <div> Requested {transaction.amount.toLocaleString('en-US', {
+                                                        style: 'currency',
+                                                        currency: 'USD',
+                                                    })
+                                                    }</div>
+                                                </>
+                                            )
+
 
                                     ) :
-                                        <div>Was sent ${transaction.amount}</div>
-
+                                        (
+                                            transaction.isTransaction ? (
+                                                <div>Was sent {transaction.amount.toLocaleString('en-US', {
+                                                    style: 'currency',
+                                                    currency: 'USD',
+                                                })
+                                                }</div>
+                                            ) :
+                                                (
+                                                    <>
+                                                        <div className='image'>
+                                                            <img src={users[transaction['receiver']]?.picture} alt={transaction.id} />
+                                                        </div>
+                                                        <div> Was sent a Requested of {transaction.amount.toLocaleString('en-US', {
+                                                            style: 'currency',
+                                                            currency: 'USD',
+                                                        })
+                                                        }</div>
+                                                    </>
+                                                )
+                                        )
                                     }
-                                    <div>{transaction.createdAt}</div>
+                                    <div>{transaction.createdAt.slice(0, 17)}</div>
                                 </div>
                             ))}
 

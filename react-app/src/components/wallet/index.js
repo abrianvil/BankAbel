@@ -59,6 +59,10 @@ const WalletComp = () => {
         history.push('/activity')
     }
 
+     const clickRequest =()=>{
+        history.push('/request')
+    }
+
     const editTrans = (transaction) => {
         setToEdit(transaction)
         setShowEditTransaction(true)
@@ -110,6 +114,10 @@ const WalletComp = () => {
                         <i className="fa-solid fa-clock-rotate-left" /> Activity
                     </div>
 
+                    <div className='wallet' onClick={clickRequest}>
+                        <i className="fa-solid fa-hand-holding-dollar"/>  Request
+                    </div>
+
                     <div className='activity' onClick={() => setShowTransModal(true)}>
                         <i className="fa-sharp fa-solid fa-money-bill-transfer" />
                         Create a transaction
@@ -130,36 +138,42 @@ const WalletComp = () => {
 
                     <div className='inner-box'>
                         <div className='info-col'>
-                            <div>
+                            <div className='personal-info'>
                                 <label>
                                     USERNAME
-                                    <div className='user-name'>
-                                        <div>{user.username}</div>
-                                    </div>
                                 </label>
+                                <div className='user-name'>
+                                    <div>{user.username}</div>
+                                </div>
                             </div>
-                            <div>
+                            <div className='personal-info'>
                                 <label>
                                     YOUR INFO
-                                    <div className='user-info'>
-                                        <div>{user.firstName}</div>
-                                        <div>{user.lastName}</div>
-                                        <div>{user.email}</div>
-                                    </div>
                                 </label>
+                                <div className='user-info'>
+                                    <div>{user.firstName}</div>
+                                    <div>{user.lastName}</div>
+                                    <div>{user.email}</div>
+                                </div>
                             </div>
-                            <div>
+                            <div className='personal-info'>
                                 <label>
                                     FUNDS
-                                    <div className='funds'>
-                                        <div className='underline'>
-                                            <div>
-                                                <i className="fa-solid fa-sack-dollar" /> Balance
-                                            </div>
-                                            <div>${(wallet.totalFund)?.toFixed(2)}</div>
+                                </label>
+                                <div className='funds'>
+                                    <div className='underline'>
+                                        <div>
+                                            <i className="fa-solid fa-sack-dollar" /> Balance
+                                        </div>
+                                        <div>{
+                                            (wallet.totalFund)?.toLocaleString('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD',
+                                            })
+                                        }
                                         </div>
                                     </div>
-                                </label>
+                                </div>
                             </div>
                         </div>
 
@@ -176,7 +190,11 @@ const WalletComp = () => {
                                                 </div>
                                             </div>
                                             <div className='underline'>
-                                                <div>${x.amount.toFixed(2)}</div>
+                                                <div>{x.amount.toLocaleString('en-US', {
+                                                    style: 'currency',
+                                                    currency: 'USD',
+                                                })
+                                                }</div>
                                                 <div>{x.createdAt.slice(0, 17)}</div>
                                             </div>
                                         </div>
@@ -197,7 +215,7 @@ const WalletComp = () => {
                             {outGoingTransactions.length > 0 ? (outGoingTransactions.map(transaction => (
                                 <div className="single-account" key={transaction.id}>
                                     <div className="account-name">
-                                        <div> {users[transaction['receiver']]?.username}</div>
+                                        <div>To: {users[transaction['receiver']]?.username}</div>
                                         <div className="add-delete">
                                             <div onClick={() => editTrans(transaction)}>
                                                 <i className="fa-solid fa-pen-to-square" />
@@ -208,7 +226,11 @@ const WalletComp = () => {
                                         </div>
                                     </div>
                                     <div className="underline">
-                                        <div>${transaction.amount.toFixed(2)}</div>
+                                        <div>{transaction.amount.toLocaleString('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                        })
+                                        }</div>
                                         <div>{transaction.createdAt.slice(0, 17)}</div>
                                     </div>
                                 </div>

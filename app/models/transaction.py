@@ -15,6 +15,7 @@ class Transaction(db.Model):
     amount=db.Column(db.Float, nullable=False)
     due_date=db.Column(db.DateTime(), nullable=False)
     status=db.Column(db.String, nullable=False)
+    message=db.Column(db.String)
     created_at = db.Column(db.DateTime(), nullable=False,
                            server_default=func.now())
     updated_at = db.Column(db.DateTime(), nullable=False,
@@ -33,6 +34,7 @@ class Transaction(db.Model):
             'amount':self.amount,
             'dueDate':self.due_date,
             'status':self.status,
+            'message':self.message,
             'createdAt':self.created_at,
             'updatedAt':self.updated_at
         }

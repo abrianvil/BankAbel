@@ -1,7 +1,7 @@
 .info-col {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 50px;
 }
 
 
@@ -96,6 +96,7 @@
     font-size: 25px;
     gap: 7px;
     border-bottom: solid white 0.7px;
+    cursor: default;
 }
 
 .no-pending div {
@@ -115,7 +116,7 @@
     justify-content: center;
     border: solid 1px white;
     background-color: #38345f;
-    width: 320px;
+    width: 340px;
     min-height: 100px;
     border-radius: 8px;
     padding: 5px 15px;
@@ -123,7 +124,7 @@
     font-size: 25px;
     gap: 7px;
     border-bottom: solid white 0.7px;
-
+    cursor: default;
 }
 
 .accept {
@@ -146,6 +147,13 @@
 }
 
 .outgoing {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+.personal-info{
     display: flex;
     flex-direction: column;
     gap: 15px;

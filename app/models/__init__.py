@@ -3,4 +3,5 @@ from .user import User
 from .account import Account
 from .wallet import Wallet
 from .transaction import Transaction
+from .request import Request
 from .db import environment, SCHEMA, add_prefix_for_prod

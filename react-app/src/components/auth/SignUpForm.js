@@ -45,7 +45,13 @@ const SignUpForm = () => {
       }));
       if (data) {
         setErrors(data)
-        console.log(data)
+        for (let error of data) {
+          if (error.startsWith('email')) setEmailErr('Email already in use')
+          if (error.startsWith('password')) setPasswordErr(error)
+          if (error.startsWith('username')) setUsernameErr(error.slice(10))
+
+        }
+        // console.log(data)
       }
     }
   };
