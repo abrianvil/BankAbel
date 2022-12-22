@@ -72,7 +72,6 @@ export const createRequest = (newRequest) => async dispatch => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newRequest)
     })
-
     if (response.ok) {
         const newRequest = await response.json()
         dispatch(addRequest(newRequest))

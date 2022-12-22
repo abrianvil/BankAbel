@@ -23,11 +23,11 @@ const TransactionComp = () => {
 
     transactions.forEach(transaction => transaction['isTransaction'] = true)
     requests.forEach(request => request['isTransaction'] = false)
-
     let transactionRequest=[...transactions, ...requests]
-    transactionRequest.sort((a,b)=> new Date(b.time).getTime() - new Date(a.time).getTime())
+    transactionRequest.sort((a,b)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
-    console.log("this is transactions", transactionRequest)
+
+    // console.log("this is transactions", transactionRequest)
 
     useEffect(() => {
         async function fetchData() {
