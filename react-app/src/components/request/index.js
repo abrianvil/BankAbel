@@ -6,6 +6,7 @@ import { getWallet, updateWallet } from '../../store/wallet';
 import { getAllTransactions, createTransaction } from '../../store/transaction';
 import { getAllRequests, updateRequest } from '../../store/request';
 import CreateRequest from './createRequestModal';
+import CancelRequest from './requestCancelModal';
 
 import { Modal } from '../../context/Modal'
 import LogoutButton from '../auth/LogoutButton'
@@ -23,6 +24,8 @@ const RequestComp = () => {
 
     const [usersObj, setUsersObj] = useState({})
     const [showReq, setShowReq] = useState(false)
+    const [showCancelReq, setShowCancelReq]= useState(false)
+    const [toCancel, setToCancel]=useState()
 
     // console.log('==================', showReq)
 
@@ -113,6 +116,11 @@ const RequestComp = () => {
 
     }
 
+    const handleCancel=(request)=>{
+        setToCancel(request.id)
+        setShowCancelReq(true)
+    }
+
     return (
         <div className='main-page'>
             <div className='navigation-bar'>
@@ -166,6 +174,19 @@ const RequestComp = () => {
                                     {
                                         outGoingReq.map(request => (
                                             <div className='single-request' key={request.id}>
+                                                <div className='req2'>
+                                                    <div id='edit-req'>
+                                                        <i className="fa-solid fa-pen-to-square" />
+                                                    </div>
+                                                    <div onClick={()=>handleCancel(request)} id='delete-req'>
+                                                        <i className="fa-solid fa-rectangle-xmark" />
+                                                    </div>
+                                                </div>
+                                                {showCancelReq &&
+                                                (<Modal onClose={()=>setShowCancelReq(false)}>
+                                                    <CancelRequest setShowCancelReq={setShowCancelReq} toCancel={toCancel} />
+                                                </Modal>)
+                                                }
                                                 <div>
                                                     You requested {request.amount.toLocaleString('en-US', {
                                                         style: 'currency',
@@ -188,8 +209,8 @@ const RequestComp = () => {
                                     {incomingReq.map(request => (
                                         <div className='single-request' key={request.id}>
                                             {request.status === 'pending' && (
-                                                <div onClick={() => acceptReq(request)} className='req2'>
-                                                    <div className='check'>
+                                                <div className='req2'>
+                                                    <div onClick={() => acceptReq(request)} className='check'>
                                                         <i className="fa-regular fa-square-check" />
                                                     </div>
                                                 </div>
