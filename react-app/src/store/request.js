@@ -90,7 +90,7 @@ export const updateRequest = (request) => async dispatch => {
     const response = await fetch(`/api/requests/${request.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Request)
+        body: JSON.stringify(request)
     })
 
     if (response.ok) {
@@ -108,7 +108,7 @@ export const updateRequest = (request) => async dispatch => {
 
 
 export const deleteRequest = (id) => async dispatch => {
-    const response = await fetch(`/api/request/${id}`, {
+    const response = await fetch(`/api/requests/${id}`, {
         method: 'DELETE'
     })
 
@@ -150,7 +150,8 @@ const requestReducer = (state = initialState, action) => {
             return newState
 
         case EDIT_REQUEST:
-            newState = { ...state, [action.request.id]: action.request }
+            newState = { ...state } //, [action.request.id]: action.request
+            newState.requests[action.request.id] = action.request
             return newState
 
         case REMOVE_REQUEST:

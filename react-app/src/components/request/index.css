@@ -64,9 +64,62 @@
 }
 
 
-.text-area{
+.text-area {
     height: 100px;
     width: 93%;
     border-radius: 4px;
     resize: none;
+}
+
+
+.req2 {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 2px 5px;
+    gap: 8px;
+}
+
+.req2 div {
+    cursor: pointer;
+}
+
+#delete-req:hover {
+    color: #cc7c80;
+}
+
+#edit-req:hover {
+    color: green;
+}
+
+
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    gap: 30px;
+    color: white;
+}
+
+.confirmation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #38345f;
+    border: none;
+    height: 50px;
+    border-radius: 5px;
+    width: 100px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.bold{
+    font-size: 25px;
 }
