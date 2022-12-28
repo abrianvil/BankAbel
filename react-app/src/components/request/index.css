@@ -7,13 +7,13 @@
 .out-req-container {
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 53px;
 }
 
 .in-req-container {
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 53px;
 }
 
 .single-request {
@@ -23,6 +23,7 @@
     border: solid 1px white;
     background-color: #38345f;
     width: auto;
+    max-width: 410px;
     min-height: 100px;
     border-radius: 8px;
     padding: 5px 15px;
@@ -74,7 +75,7 @@
 
 .req2 {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     flex-direction: row;
     background-color: rgba(255, 255, 255, 0.13);
     border-radius: 8px;
@@ -82,6 +83,12 @@
     border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     padding: 2px 5px;
+    gap: 8px;
+}
+
+.reqFunc{
+    display: flex;
+    flex-direction: row;
     gap: 8px;
 }
 
@@ -123,3 +130,57 @@
 .bold{
     font-size: 25px;
 }
+
+
+.message-box{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 2px 5px;
+    gap: 8px;
+}
+
+.message-box label{
+    text-decoration: underline;
+}
+
+/* .message-box span{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: wrap;
+} */
+
+
+.hovertext {
+    position: relative;
+    cursor: pointer;
+  }
+
+.hovertext:before {
+    content: attr(data-hover);
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    max-width: 380px;
+    word-wrap: break-word;
+    background-color: #9c96ca;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 5px;
+    transition: opacity 1s ease-in-out;
+
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 110%;
+  }
+
+.hovertext:hover:before {
+    opacity: 1;
+    visibility: visible;
+  }
