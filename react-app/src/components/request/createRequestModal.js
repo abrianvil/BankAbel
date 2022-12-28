@@ -80,8 +80,10 @@ const CreateRequest = ({ setShowReq }) => {
             setReceiverError('')
         }
 
-        if(message.length >80){
+        if(message.trim().length >80){
             setMessageError('Maximum input length exceeded ')
+        }else{
+            setMessageError('')
         }
 
     }, [amount, receiverId, message])

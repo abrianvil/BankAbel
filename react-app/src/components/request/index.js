@@ -24,8 +24,8 @@ const RequestComp = () => {
 
     const [usersObj, setUsersObj] = useState({})
     const [showReq, setShowReq] = useState(false)
-    const [showCancelReq, setShowCancelReq]= useState(false)
-    const [toCancel, setToCancel]=useState()
+    const [showCancelReq, setShowCancelReq] = useState(false)
+    const [toCancel, setToCancel] = useState()
 
     // console.log('==================', showReq)
 
@@ -116,7 +116,7 @@ const RequestComp = () => {
 
     }
 
-    const handleCancel=(request)=>{
+    const handleCancel = (request) => {
         setToCancel(request.id)
         setShowCancelReq(true)
     }
@@ -175,17 +175,24 @@ const RequestComp = () => {
                                         outGoingReq.map(request => (
                                             <div className='single-request' key={request.id}>
                                                 <div className='req2'>
-                                                    <div id='edit-req'>
-                                                        <i className="fa-solid fa-pen-to-square" />
+                                                    <div className='message-box'>
+                                                        <span className='hovertext' data-hover={request.message}>
+                                                            Message
+                                                        </span>
                                                     </div>
-                                                    <div onClick={()=>handleCancel(request)} id='delete-req'>
-                                                        <i className="fa-solid fa-rectangle-xmark" />
+                                                    <div className='reqFunc'>
+                                                        <div id='edit-req'>
+                                                            <i className="fa-solid fa-pen-to-square" />
+                                                        </div>
+                                                        <div onClick={() => handleCancel(request)} id='delete-req'>
+                                                            <i className="fa-solid fa-rectangle-xmark" />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 {showCancelReq &&
-                                                (<Modal onClose={()=>setShowCancelReq(false)}>
-                                                    <CancelRequest setShowCancelReq={setShowCancelReq} toCancel={toCancel} />
-                                                </Modal>)
+                                                    (<Modal onClose={() => setShowCancelReq(false)}>
+                                                        <CancelRequest setShowCancelReq={setShowCancelReq} toCancel={toCancel} />
+                                                    </Modal>)
                                                 }
                                                 <div>
                                                     You requested {request.amount.toLocaleString('en-US', {
@@ -193,6 +200,11 @@ const RequestComp = () => {
                                                         currency: 'USD',
                                                     })} from {usersObj[request['receiver']]?.username}
                                                 </div>
+                                                {/* <div className='message-box'>
+                                                    <span className='hovertext' data-hover={request.message}>
+                                                        Message
+                                                    </span>
+                                                </div> */}
 
                                                 <div className='req-time-status'>
                                                     <small id='pending'>{request.status}</small>
@@ -210,6 +222,11 @@ const RequestComp = () => {
                                         <div className='single-request' key={request.id}>
                                             {request.status === 'pending' && (
                                                 <div className='req2'>
+                                                    <div className='message-box'>
+                                                        <span className='hovertext' data-hover={request.message}>
+                                                            Message
+                                                        </span>
+                                                    </div>
                                                     <div onClick={() => acceptReq(request)} className='check'>
                                                         <i className="fa-regular fa-square-check" />
                                                     </div>
@@ -221,6 +238,7 @@ const RequestComp = () => {
                                                     currency: 'USD',
                                                 })} from You
                                             </div>
+
                                             <div className='req-time-status'>
                                                 <small id='pending'>{request.status}</small>
                                                 <small>{request.createdAt.slice(0, 17)}</small>
