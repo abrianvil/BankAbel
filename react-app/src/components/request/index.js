@@ -6,6 +6,7 @@ import { getWallet, updateWallet } from '../../store/wallet';
 import { getAllTransactions, createTransaction } from '../../store/transaction';
 import { getAllRequests, updateRequest } from '../../store/request';
 import CreateRequest from './createRequestModal';
+import EditRequest from './editRequestModal';
 import CancelRequest from './requestCancelModal';
 
 import { Modal } from '../../context/Modal'
@@ -25,7 +26,10 @@ const RequestComp = () => {
     const [usersObj, setUsersObj] = useState({})
     const [showReq, setShowReq] = useState(false)
     const [showCancelReq, setShowCancelReq] = useState(false)
+    const [showEditReq, setShowEditReq] = useState(false)
     const [toCancel, setToCancel] = useState()
+    const [toEdit, setToEdit] = useState()
+
 
     // console.log('==================', showReq)
 
@@ -109,7 +113,6 @@ const RequestComp = () => {
             } else {
                 console.log('there was an error from trans response')
             }
-            // dispatch()
 
         }
 
@@ -119,6 +122,11 @@ const RequestComp = () => {
     const handleCancel = (request) => {
         setToCancel(request.id)
         setShowCancelReq(true)
+    }
+
+    const handleEdit= (request)=>{
+        setToEdit(request)
+        setShowEditReq(true)
     }
 
     return (
@@ -181,7 +189,7 @@ const RequestComp = () => {
                                                         </span>
                                                     </div>
                                                     <div className='reqFunc'>
-                                                        <div id='edit-req'>
+                                                        <div onClick={()=> handleEdit(request)} id='edit-req'>
                                                             <i className="fa-solid fa-pen-to-square" />
                                                         </div>
                                                         <div onClick={() => handleCancel(request)} id='delete-req'>
@@ -189,6 +197,11 @@ const RequestComp = () => {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                {showEditReq && (
+                                                    <Modal onClose={()=>setShowEditReq(false)}>
+                                                        <EditRequest setShowEditReq={setShowEditReq} request={toEdit} />
+                                                    </Modal>
+                                                )}
                                                 {showCancelReq &&
                                                     (<Modal onClose={() => setShowCancelReq(false)}>
                                                         <CancelRequest setShowCancelReq={setShowCancelReq} toCancel={toCancel} />
@@ -200,11 +213,6 @@ const RequestComp = () => {
                                                         currency: 'USD',
                                                     })} from {usersObj[request['receiver']]?.username}
                                                 </div>
-                                                {/* <div className='message-box'>
-                                                    <span className='hovertext' data-hover={request.message}>
-                                                        Message
-                                                    </span>
-                                                </div> */}
 
                                                 <div className='req-time-status'>
                                                     <small id='pending'>{request.status}</small>

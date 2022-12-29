@@ -3,24 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllRequests } from '../../store/request';
 
 
-import { createRequest } from '../../store/request';
+import { updateRequest } from '../../store/request';
 import './index.css'
 
 
 
-const CreateRequest = ({ setShowReq }) => {
+const EditRequest = ({ setShowEditReq,request }) => {
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
 
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState(request.amount)
     //NOTE - TO BE IMPLEMENTED/CHANGE FOR FUTURE FEATURE
     // const [due_date] = useState(new Date().toLocaleDateString('eng-US'))
     const [status] = useState('pending')
-    const [receiverId, setReceiverId] = useState(0)
+    const [receiverId, setReceiverId] = useState(request.receiver)
     const [users, setUsers] = useState([]);
-    const [message, setMessage]= useState('')
+    const [message, setMessage]= useState(request.message)
     const [amountError, setAmountError] = useState('')
     const [receiverError, setReceiverError] = useState('')
     const [messageError, setMessageError]= useState('')
@@ -49,19 +49,20 @@ const CreateRequest = ({ setShowReq }) => {
 
         if (!receiverError && !amountError && !messageError) {
             const newReq = {
+                id: request.id,
                 amount,
-                // status,
+                status,
                 receiver_id: +receiverId,
                 sender_id:+user.id,
                 message
             }
-            const data = await dispatch(createRequest(newReq))
+            const data = await dispatch(updateRequest(newReq))
             await dispatch(getAllRequests())
 
-            setShowReq(false)
+            setShowEditReq(false)
 
         } else {
-            setShowReq(true)
+            setShowEditReq(true)
         }
     }
 
@@ -95,7 +96,7 @@ const CreateRequest = ({ setShowReq }) => {
             <div>
                 <form className='form' onSubmit={submit}>
                     <div className='text'>
-                        <h2>New Request</h2>
+                        <h2>Edit Request</h2>
                     </div>
                     <div>
                         {renderErr && amountError ? <label className='renderError'>{amountError}</label> :
@@ -120,7 +121,7 @@ const CreateRequest = ({ setShowReq }) => {
                             value={receiverId}
                             onChange={(e) => setReceiverId(e.target.value)}
                         >
-                            <option value={0}>Select Receiver</option>
+                            <option value={request.receiver_id}>Select Receiver</option>
                             {users.map(user => (
                                 <option key={user.id} value={user.id}>{user.username}</option>
                             ))}
@@ -139,7 +140,7 @@ const CreateRequest = ({ setShowReq }) => {
                     onChange={(e)=>setMessage(e.target.value)}
                     maxLength={85}
                     ></textarea>
-                    <button>Send Request</button>
+                    <button>Update Request</button>
                 </form>
             </div>
         </div>
@@ -147,4 +148,4 @@ const CreateRequest = ({ setShowReq }) => {
 }
 
 
-export default CreateRequest
+export default EditRequest
