@@ -7,13 +7,13 @@
 .out-req-container {
     display: flex;
     flex-direction: column;
-    gap: 53px;
+    gap: 33px;
 }
 
 .in-req-container {
     display: flex;
     flex-direction: column;
-    gap: 53px;
+    gap: 33px;
 }
 
 .single-request {
@@ -24,7 +24,7 @@
     background-color: #38345f;
     width: auto;
     max-width: 410px;
-    min-height: 100px;
+    min-height: 163px;
     border-radius: 8px;
     padding: 5px 15px;
     border: none;
@@ -148,11 +148,9 @@
     text-decoration: underline;
 }
 
-/* .message-box span{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: wrap;
-} */
+.message-box span{
+   font-size: 20px;
+}
 
 
 .hovertext {
