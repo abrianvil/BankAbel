@@ -27,7 +27,7 @@ class Joint_account(db.Model):
             "id": self.id,
             "name": self.name,
             "balance": self.balance,
-            "owner": self.users.to_dict(),
+            "owner": self.owner.to_dict(),
             'secondUser':self.second_owner_id,
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,
