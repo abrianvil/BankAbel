@@ -37,7 +37,7 @@ app.register_blueprint(account_routes, url_prefix='/api/accounts')
 app.register_blueprint(transaction_routes,url_prefix='/api/transactions')
 app.register_blueprint(wallet_routes,url_prefix='/api/wallets')
 app.register_blueprint(request_routes,url_prefix='/api/requests')
-app.register_blueprint(request_routes, url_prefix='/api/joint')
+app.register_blueprint(joint_account_routes, url_prefix='/api/joint')
 db.init_app(app)
 Migrate(app, db)
 
