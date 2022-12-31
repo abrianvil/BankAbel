@@ -14,27 +14,27 @@ const CLEAR_JOINT_ACCOUNT = 'jointAccounts/CLEAR'
 
 const loadJointAccounts = (jointAccounts) => ({
     type: LOAD_JOINT_ACCOUNTS,
-    accounts
+    jointAccounts
 })
 
 const loadOneJointAccount = (jointAccount) => ({
     type: LOAD_ONE_JOINT_ACCOUNT,
-    account
+    jointAccount
 })
 
 const addJointAccount = (newJointAccount) => ({
     type: CREATE_JOINT_ACCOUNT,
-    newAccount
+    newJointAccount
 })
 
 const removeJointAccount = (jointAccountId) => ({
     type: REMOVE_JOINT_ACCOUNT,
-    accountId
+    jointAccountId
 })
 
 const editJointAccount = (jointAccount) => ({
     type: EDIT_JOINT_ACCOUNT,
-    account
+    jointAccount
 })
 
 export const clearJointAccount = () => ({
