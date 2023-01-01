@@ -51,32 +51,32 @@ export const getAllJointAccounts = () => async dispatch => {
 
     if (response.ok) {
         const jointAccounts = await response.json();
-        dispatch(loadAccounts(jointAccounts.jointAccounts))
+        dispatch(loadJointAccounts(jointAccounts.jointAccounts))
         return jointAccounts
     }
 }
 
 
-export const getOneAccount = (jointAccountId) => async dispatch => {
-    const response = await fetch(`api/accounts/${jointAccountId}`)
+export const getOneJointAccount = (jointAccountId) => async dispatch => {
+    const response = await fetch(`api/joint/${jointAccountId}`)
 
     if (response.ok) {
         const singleJointAccount = await response.json()
-        dispatch(loadOneAccount(singleJointAccount))
+        dispatch(loadOneJointAccount(singleJointAccount))
         return singleJointAccount
     }
 }
 
-export const createAccount = (newAccount) => async dispatch => {
-    const response = await fetch('/api/accounts/', {
+export const createJointAccount = (newJointAccount) => async dispatch => {
+    const response = await fetch('/api/joint/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newAccount)
+        body: JSON.stringify(newJointAccount)
     })
 
     if (response.ok) {
         const addedAccount = await response.json();
-        dispatch(addAccount(addedAccount))
+        dispatch(addJointAccount(addedAccount))
         return addedAccount
     } else if (response.status < 500) {
         const data = await response.json();
@@ -88,28 +88,28 @@ export const createAccount = (newAccount) => async dispatch => {
 }
 
 
-export const updateAccount = (account) => async dispatch => {
-    const response = await fetch(`/api/accounts/${account.id}`, {
+export const updateAccount = (jointAccount) => async dispatch => {
+    const response = await fetch(`/api/joint/${jointAccount.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(account)
+        body: JSON.stringify(jointAccount)
     })
 
     if (response.ok) {
-        const account = await response.json()
-        dispatch(editAccount(account));
-        return account
+        const jointAccount = await response.json()
+        dispatch(editJointAccount(jointAccount));
+        return jointAccount
     }
 }
 
 export const deleteAccount = (id) => async dispatch => {
-    const response = await fetch(`/api/accounts/${id}`, {
+    const response = await fetch(`/api/joint/${id}`, {
         method: 'DELETE'
     })
 
     if (response.ok) {
         const account = await response.json();
-        dispatch(removeAccount(id));
+        dispatch(removeJointAccount(id));
         return account
     }
 }
@@ -117,42 +117,46 @@ export const deleteAccount = (id) => async dispatch => {
 /************************REDUCER************************** */
 
 const initialState = {
-    accounts: {},
-    oneAccount: {}
+    jointAccounts: {},
+    oneJointAccount: {}
 }
 
 
-const accountReducer = (state = initialState, action) => {
+const jointAccountReducer = (state = initialState, action) => {
     let newState = {}
 
     switch (action.type) {
-        case LOAD_ACCOUNTS:
+        case LOAD_JOINT_ACCOUNTS:
             newState = { ...state }
-            newState.accounts = {}
-            action.accounts.forEach(account => {
-                newState.accounts[account.id] = account
+            newState.jointAccounts = {}
+            action.jointAccounts.forEach(jointAccount => {
+                newState.jointAccounts[jointAccount.id] = jointAccount
             });
             return newState
 
-        case LOAD_ONE_ACCOUNT:
+        case LOAD_ONE_JOINT_ACCOUNT:
             newState = { ...state }
-            newState.oneAccount = { ...action.account }
-            return newState
-        case CREATE_ACCOUNT:
-            newState.accounts = { ...state.accounts,[action.newAccount.id]:action.newAccount }
+            newState.oneJointAccount = { ...action.JointAccount }
             return newState
 
-        case EDIT_ACCOUNT:
-            newState = { ...state, [action.account.id]: action.account }
+        case CREATE_JOINT_ACCOUNT:
+            newState = { ...state }
+            newState.jointAccounts = { ...state.jointAccounts, [action.newJointAccount.id]: action.newJointAccount }
             return newState
 
-        case REMOVE_ACCOUNT:
+
+        case EDIT_JOINT_ACCOUNT:
             newState = { ...state }
-            delete newState[action.accountId]
+            newState.jointAccounts[action.jointAccount.id]= action.jointAccount
             return newState
-        case CLEAR_ACCOUNT:
+
+        case REMOVE_JOINT_ACCOUNT:
             newState = { ...state }
-            newState.accounts = {}
+            delete newState[action.jointAccountId]
+            return newState
+        case CLEAR_JOINT_ACCOUNT:
+            newState = { ...state }
+            newState.jointAccounts = {}
             return newState
 
         default:
@@ -160,4 +164,4 @@ const accountReducer = (state = initialState, action) => {
     }
 }
 
-export default accountReducer
+export default jointAccountReducer
