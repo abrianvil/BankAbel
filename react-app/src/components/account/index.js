@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccounts, deleteAccount } from '../../store/account';
 import { getWallet, updateWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
+import { getAllJointAccounts } from '../../store/jointAccount';
 import { useHistory, Link } from 'react-router-dom';
 import { Modal } from '../../context/Modal'
 
@@ -12,8 +13,6 @@ import CreateAccountForm from '../accountModal/createAccountModal';
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
 import logo from '../../Images/logo.png'
-
-
 
 
 
@@ -32,10 +31,12 @@ const AccountComp = () => {
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
     const accountState = useSelector(state => state.Accounts.accounts)
+    const jointAccount= useSelector(state=>state.jointAccount.jointAccounts)
 
 
     useEffect(() => {
         dispatch(getAllAccounts())
+        dispatch(getAllJointAccounts())
         dispatch(getWallet())
         dispatch(getAllTransactions())
     }, [dispatch])
