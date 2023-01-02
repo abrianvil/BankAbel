@@ -83,7 +83,7 @@ const WalletComp = () => {
     }
 
     useEffect(() => {
-        dispatch(getAllAccounts())
+        // dispatch(getAllAccounts())
         dispatch(getWallet())
         dispatch(getAllTransactions())
     }, [dispatch])
