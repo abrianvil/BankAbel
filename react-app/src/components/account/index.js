@@ -31,18 +31,17 @@ const AccountComp = () => {
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
     const accountState = useSelector(state => state.Accounts.accounts)
-    const jointAccount= useSelector(state=>state.jointAccount.jointAccounts)
+    const jointAccounts = useSelector(state => Object.values(state.jointAccount.jointAccounts))
 
 
     useEffect(() => {
         dispatch(getAllAccounts())
         dispatch(getAllJointAccounts())
         dispatch(getWallet())
-        dispatch(getAllTransactions())
+        // dispatch(getAllTransactions())
     }, [dispatch])
 
     let accounts = Object.values(accountState)
-
 
     const clickUser = () => {
         history.push('/dashboard')
@@ -60,7 +59,7 @@ const AccountComp = () => {
         history.push('/activity')
     }
 
-    const clickRequest =()=>{
+    const clickRequest = () => {
         history.push('/request')
     }
 
@@ -111,7 +110,7 @@ const AccountComp = () => {
                     </div>
 
                     <div className='wallet' onClick={clickRequest}>
-                        <i className="fa-solid fa-hand-holding-dollar"/>  Request
+                        <i className="fa-solid fa-hand-holding-dollar" />  Request
                     </div>
 
                 </div>
@@ -124,38 +123,75 @@ const AccountComp = () => {
                     <div className='container'>
                         <div className='header'>
                             <button onClick={() => setShowCreate(true)}> Create new Account</button>
+                            <button>Create Joint Account</button>
                         </div>
-                        <div className='account-list'>
-                            {accounts.map(account => (
-                                <div className='single-account'>
-                                    <div className='account-name'>
-                                        <div>
-                                            {account.name}
+                        <div className='account-jointAccount'>
+                            <div className='account-list'>
+                                {accounts.map(account => (
+                                    <div className='single-account'>
+                                        <div className='account-name'>
+                                            <div>
+                                                {account.name}
+                                            </div>
+                                            <div className='add-delete'>
+                                                <div onClick={() => addFunds(account.id)}>
+                                                    <i className="fa-solid fa-plus" />
+                                                </div>
+                                                <div onClick={() => toEdit(account)}>
+                                                    <i className="fa-solid fa-pen-to-square" />
+                                                </div>
+                                                <div onClick={() => toDelete(account.id)}>
+                                                    <i className="fa-solid fa-trash-can" />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className='add-delete'>
-                                            <div onClick={() => addFunds(account.id)}>
-                                                <i className="fa-solid fa-plus" />
+                                        <div className='underline'>
+                                            <div>
+                                                <i className="fa-solid fa-sack-dollar" /> Balance
                                             </div>
-                                            <div onClick={() => toEdit(account)}>
-                                                <i className="fa-solid fa-pen-to-square" />
-                                            </div>
-                                            <div onClick={() => toDelete(account.id)}>
-                                                <i className="fa-solid fa-trash-can" />
-                                            </div>
+                                            <div>{account.balance.toLocaleString('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD',
+                                            })
+                                            }</div>
                                         </div>
                                     </div>
-                                    <div className='underline'>
-                                        <div>
-                                            <i className="fa-solid fa-sack-dollar" /> Balance
+                                ))}
+                            </div>
+                            <div className='joint-account-list'>
+                                {
+                                    jointAccounts.map(account=>(
+                                        <div className='single-account'>
+                                        <div className='account-name'>
+                                            <div>
+                                                {account.name}
+                                            </div>
+                                            <div className='add-delete'>
+                                                <div onClick={() => addFunds(account.id)}>
+                                                    <i className="fa-solid fa-plus" />
+                                                </div>
+                                                <div onClick={() => toEdit(account)}>
+                                                    <i className="fa-solid fa-pen-to-square" />
+                                                </div>
+                                                <div onClick={() => toDelete(account.id)}>
+                                                    <i className="fa-solid fa-trash-can" />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div>{account.balance.toLocaleString('en-US', {
-                                            style: 'currency',
-                                            currency: 'USD',
-                                        })
-                                        }</div>
+                                        <div className='underline'>
+                                            <div>
+                                                <i className="fa-solid fa-sack-dollar" /> Balance
+                                            </div>
+                                            <div>{account.balance.toLocaleString('en-US', {
+                                                style: 'currency',
+                                                currency: 'USD',
+                                            })
+                                            }</div>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                    ))
+                                }
+                            </div>
                         </div>
                         {showAddFund && (
                             <Modal onClose={() => setShowAddFund(false)}>

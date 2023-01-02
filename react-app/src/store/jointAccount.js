@@ -144,7 +144,6 @@ const jointAccountReducer = (state = initialState, action) => {
             newState.jointAccounts = { ...state.jointAccounts, [action.newJointAccount.id]: action.newJointAccount }
             return newState
 
-
         case EDIT_JOINT_ACCOUNT:
             newState = { ...state }
             newState.jointAccounts[action.jointAccount.id]= action.jointAccount
@@ -154,6 +153,7 @@ const jointAccountReducer = (state = initialState, action) => {
             newState = { ...state }
             delete newState[action.jointAccountId]
             return newState
+            
         case CLEAR_JOINT_ACCOUNT:
             newState = { ...state }
             newState.jointAccounts = {}
