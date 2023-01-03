@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccounts, deleteAccount } from '../../store/account';
 import { getWallet, updateWallet } from '../../store/wallet';
 import { getAllTransactions } from '../../store/transaction';
-import { getAllJointAccounts } from '../../store/jointAccount';
+import { getAllJointAccounts, deleteJointAccount } from '../../store/jointAccount';
 import { useHistory, Link } from 'react-router-dom';
 import { Modal } from '../../context/Modal'
 
@@ -80,11 +80,20 @@ const AccountComp = () => {
     }
 
     const toDelete = async (id) => {
-        const toEdit = accountState[id]
-        dispatch(updateWallet({ total_fund: wallet.totalFund + (+toEdit.balance) }))
+        const toBeDeleted = accountState[id]
+        dispatch(updateWallet({ total_fund: wallet.totalFund + (+toBeDeleted.balance) }))
         await dispatch(deleteAccount(id))
         await dispatch(getAllAccounts())
         await dispatch(getWallet())
+    }
+
+    const toDeleteJoint = async (id) => {
+        const toBeDeleted = jointAccounts.find(account=>account.id===id)
+        dispatch(updateWallet({ total_fund: wallet.totalFund + (+toBeDeleted.balance) }))
+        await dispatch(deleteJointAccount(id))
+        await dispatch(getAllJointAccounts())
+        await dispatch(getWallet())
+        console.log('this is toBeDeleted', toBeDeleted)
     }
 
     const toEdit = async (account) => {
@@ -182,7 +191,7 @@ const AccountComp = () => {
                                                     <div onClick={() => toEdit(account)}>
                                                         <i className="fa-solid fa-pen-to-square" />
                                                     </div>
-                                                    <div onClick={() => toDelete(account.id)}>
+                                                    <div onClick={() => toDeleteJoint(account.id)}>
                                                         <i className="fa-solid fa-trash-can" />
                                                     </div>
                                                 </div>
