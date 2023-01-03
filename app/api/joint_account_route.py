@@ -65,7 +65,6 @@ def update_joint_account(id):
             form.populate_obj(to_update)
             db.session.commit()
             return to_update.to_dict(),201
-
     else:
         return {
             'errors': 'Account not found',

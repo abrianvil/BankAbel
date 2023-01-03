@@ -7,6 +7,7 @@ import { getAllJointAccounts } from '../../store/jointAccount';
 import { useHistory, Link } from 'react-router-dom';
 import { Modal } from '../../context/Modal'
 
+import AddJointFundForm from '../accountModal/addJointFundModal';
 import EditAccountForm from '../accountModal/editAccountModal';
 import AddFundForm from '../accountModal/addFundModal';
 import CreateAccountForm from '../accountModal/createAccountModal';
@@ -131,7 +132,7 @@ const AccountComp = () => {
                     <div className='container'>
                         <div className='header'>
                             <button onClick={() => setShowCreate(true)}> Create new Account</button>
-                            <button onClick={()=> setShowCreateJoint(true)}>Create Joint Account</button>
+                            <button onClick={() => setShowCreateJoint(true)}>Create Joint Account</button>
                         </div>
                         <div className='account-jointAccount'>
                             <div className='account-list'>
@@ -168,35 +169,35 @@ const AccountComp = () => {
                             </div>
                             <div className='joint-account-list'>
                                 {
-                                    jointAccounts.map(account=>(
+                                    jointAccounts.map(account => (
                                         <div className='single-account'>
-                                        <div className='account-name'>
-                                            <div>
-                                                {account.name}
+                                            <div className='account-name'>
+                                                <div>
+                                                    {account.name}
+                                                </div>
+                                                <div className='add-delete'>
+                                                    <div onClick={() => addJointFunds(account.id)}>
+                                                        <i className="fa-solid fa-plus" />
+                                                    </div>
+                                                    <div onClick={() => toEdit(account)}>
+                                                        <i className="fa-solid fa-pen-to-square" />
+                                                    </div>
+                                                    <div onClick={() => toDelete(account.id)}>
+                                                        <i className="fa-solid fa-trash-can" />
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className='add-delete'>
-                                                <div onClick={() => addFunds(account.id)}>
-                                                    <i className="fa-solid fa-plus" />
+                                            <div className='underline'>
+                                                <div>
+                                                    <i className="fa-solid fa-sack-dollar" /> Balance
                                                 </div>
-                                                <div onClick={() => toEdit(account)}>
-                                                    <i className="fa-solid fa-pen-to-square" />
-                                                </div>
-                                                <div onClick={() => toDelete(account.id)}>
-                                                    <i className="fa-solid fa-trash-can" />
-                                                </div>
+                                                <div>{account.balance.toLocaleString('en-US', {
+                                                    style: 'currency',
+                                                    currency: 'USD',
+                                                })
+                                                }</div>
                                             </div>
                                         </div>
-                                        <div className='underline'>
-                                            <div>
-                                                <i className="fa-solid fa-sack-dollar" /> Balance
-                                            </div>
-                                            <div>{account.balance.toLocaleString('en-US', {
-                                                style: 'currency',
-                                                currency: 'USD',
-                                            })
-                                            }</div>
-                                        </div>
-                                    </div>
                                     ))
                                 }
                             </div>
@@ -217,10 +218,15 @@ const AccountComp = () => {
                             </Modal>
                         )}
                         {showCreateJoint && (
-                            <Modal onClose={()=>setShowCreateJoint(false)}>
+                            <Modal onClose={() => setShowCreateJoint(false)}>
                                 <CreateJointAccountForm setShowCreateJoint={setShowCreateJoint} accounts={jointAccounts} />
                             </Modal>
                         )}
+                        {showAddJointFund && (
+                            <Modal onClose={()=>setShowAddJointFund(false)}>
+                                <AddJointFundForm accountId={accountId} setShowAddJointFund={setShowAddJointFund} />
+                            </Modal>
+                        ) }
                     </div>
                 </div>
 
