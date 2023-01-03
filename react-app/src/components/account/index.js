@@ -10,6 +10,7 @@ import { Modal } from '../../context/Modal'
 import EditAccountForm from '../accountModal/editAccountModal';
 import AddFundForm from '../accountModal/addFundModal';
 import CreateAccountForm from '../accountModal/createAccountModal';
+import CreateJointAccountForm from '../accountModal/createJointAccountModal';
 import LogoutButton from '../auth/LogoutButton'
 import './index.css'
 import logo from '../../Images/logo.png'
@@ -23,7 +24,9 @@ const AccountComp = () => {
     const history = useHistory()
 
     const [showAddFund, setShowAddFund] = useState(false)
+    const [showAddJointFund, setShowAddJointFund] = useState(false)
     const [showCreate, setShowCreate] = useState(false)
+    const [showCreateJoint, setShowCreateJoint] = useState(false)
     const [accountId, setAccountId] = useState()
     const [account, setAccount] = useState()
     const [showEdit, setShowEdit] = useState(false)
@@ -67,6 +70,11 @@ const AccountComp = () => {
 
     const addFunds = (id) => {
         setShowAddFund(true)
+        setAccountId(id)
+    }
+
+    const addJointFunds = (id) => {
+        setShowAddJointFund(true)
         setAccountId(id)
     }
 
@@ -123,7 +131,7 @@ const AccountComp = () => {
                     <div className='container'>
                         <div className='header'>
                             <button onClick={() => setShowCreate(true)}> Create new Account</button>
-                            <button>Create Joint Account</button>
+                            <button onClick={()=> setShowCreateJoint(true)}>Create Joint Account</button>
                         </div>
                         <div className='account-jointAccount'>
                             <div className='account-list'>
@@ -206,6 +214,11 @@ const AccountComp = () => {
                         {showEdit && (
                             <Modal onClose={() => setShowEdit(false)}>
                                 <EditAccountForm account={account} setShowEdit={setShowEdit} accounts={accounts} />
+                            </Modal>
+                        )}
+                        {showCreateJoint && (
+                            <Modal onClose={()=>setShowCreateJoint(false)}>
+                                <CreateJointAccountForm setShowCreateJoint={setShowCreateJoint} accounts={jointAccounts} />
                             </Modal>
                         )}
                     </div>
