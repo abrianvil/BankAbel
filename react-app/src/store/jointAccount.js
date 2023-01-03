@@ -88,13 +88,12 @@ export const createJointAccount = (newJointAccount) => async dispatch => {
 }
 
 
-export const updateAccount = (jointAccount) => async dispatch => {
+export const updateJointAccount = (jointAccount) => async dispatch => {
     const response = await fetch(`/api/joint/${jointAccount.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(jointAccount)
     })
-
     if (response.ok) {
         const jointAccount = await response.json()
         dispatch(editJointAccount(jointAccount));
@@ -102,7 +101,7 @@ export const updateAccount = (jointAccount) => async dispatch => {
     }
 }
 
-export const deleteAccount = (id) => async dispatch => {
+export const deleteJointAccount = (id) => async dispatch => {
     const response = await fetch(`/api/joint/${id}`, {
         method: 'DELETE'
     })
@@ -153,7 +152,7 @@ const jointAccountReducer = (state = initialState, action) => {
             newState = { ...state }
             delete newState[action.jointAccountId]
             return newState
-            
+
         case CLEAR_JOINT_ACCOUNT:
             newState = { ...state }
             newState.jointAccounts = {}
