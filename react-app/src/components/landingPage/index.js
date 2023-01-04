@@ -41,10 +41,10 @@ const LandingPage = () => {
     }
 
     useEffect(() => {
-        dispatch(getAllAccounts())
+        // dispatch(getAllAccounts())
         dispatch(getWallet())
-        dispatch(getAllTransactions())
-        dispatch(getAllRequests())
+        // dispatch(getAllTransactions())
+        // dispatch(getAllRequests())
     }, [dispatch])
 
     return (

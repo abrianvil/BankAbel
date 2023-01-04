@@ -1,16 +1,28 @@
-
-.container{
+.container {
     display: flex;
     flex-direction: column;
     gap: 20px;
     overflow-y: scroll;
     width: 100%;
 }
-.container::-webkit-scrollbar{
+
+.container::-webkit-scrollbar {
     display: none;
 }
 
-.single-account{
+.account-jointAccount {
+    display: flex;
+    justify-content: space-around;
+}
+
+.joint-account-list{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0px 40px;
+}
+
+.single-account {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,14 +38,15 @@
     border-bottom: solid white 0.7px;
     cursor: default;
 }
-.account-list{
+
+.account-list {
     display: flex;
-    flex-wrap: wrap ;
+    flex-direction: column;
     gap: 30px;
     padding: 0px 40px;
 }
 
-.account-name{
+.account-name {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -46,34 +59,35 @@
 }
 
 
-.add-delete{
+.add-delete {
     display: flex;
     flex-direction: row;
     gap: 10px;
 
 }
 
-.add-delete div{
+.add-delete div {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 30px;
 }
-.add-delete div:hover{
+
+.add-delete div:hover {
     border-radius: 8px;
     background-color: #38345f;
     cursor: pointer;
 }
 
-.header{
-    width: 30%;
+.header {
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
 }
 
-.header button{
+.header button {
     margin-top: 30px;
-    width: 60%;
+    width: 20%;
     background-color: #38345f;
     color: white;
     padding: 15px 0;

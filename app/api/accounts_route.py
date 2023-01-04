@@ -67,7 +67,7 @@ def update_account(id):
 
 
 
-#SECTION - DELETE AND ACCOUNT
+#SECTION - DELETE AN ACCOUNT
 # TODO - CREATE ERROR HANDLING
 @account_routes.route('/<int:id>', methods=['DELETE'])
 @login_required

@@ -5,10 +5,12 @@ import accountReducer from './account';
 import walletReducer from './wallet';
 import transactionReducer from './transaction';
 import requestReducer from './request';
+import jointAccountReducer from './jointAccount';
 
 const rootReducer = combineReducers({
   session,
   Accounts:accountReducer,
+  jointAccount: jointAccountReducer,
   wallet:walletReducer,
   transaction:transactionReducer,
   request:requestReducer

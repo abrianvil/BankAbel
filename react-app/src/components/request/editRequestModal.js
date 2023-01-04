@@ -8,7 +8,7 @@ import './index.css'
 
 
 
-const EditRequest = ({ setShowEditReq,request }) => {
+const EditRequest = ({ setShowEditReq, request }) => {
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.session.user)
@@ -20,10 +20,10 @@ const EditRequest = ({ setShowEditReq,request }) => {
     const [status] = useState('pending')
     const [receiverId, setReceiverId] = useState(request.receiver)
     const [users, setUsers] = useState([]);
-    const [message, setMessage]= useState(request.message)
+    const [message, setMessage] = useState(request.message)
     const [amountError, setAmountError] = useState('')
     const [receiverError, setReceiverError] = useState('')
-    const [messageError, setMessageError]= useState('')
+    const [messageError, setMessageError] = useState('')
     const [renderErr, setRenderErr] = useState(false);
 
 
@@ -53,7 +53,7 @@ const EditRequest = ({ setShowEditReq,request }) => {
                 amount,
                 status,
                 receiver_id: +receiverId,
-                sender_id:+user.id,
+                sender_id: +user.id,
                 message
             }
             const data = await dispatch(updateRequest(newReq))
@@ -81,9 +81,9 @@ const EditRequest = ({ setShowEditReq,request }) => {
             setReceiverError('')
         }
 
-        if(message.trim().length >80){
+        if (message.trim().length > 80) {
             setMessageError('Maximum input length exceeded ')
-        }else{
+        } else {
             setMessageError('')
         }
 
@@ -128,17 +128,17 @@ const EditRequest = ({ setShowEditReq,request }) => {
                         </select>
                     </div>
                     <div>
-                        {renderErr && messageError ? <label className='renderError'>{messageError}</label>:
+                        {renderErr && messageError ? <label className='renderError'>{messageError}</label> :
                             <label className='text noRenderError'>
                                 Message
                             </label>
                         }
                     </div>
                     <textarea
-                    className='text-area'
-                    value={message}
-                    onChange={(e)=>setMessage(e.target.value)}
-                    maxLength={85}
+                        className='text-area'
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        maxLength={85}
                     ></textarea>
                     <button>Update Request</button>
                 </form>
