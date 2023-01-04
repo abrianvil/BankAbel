@@ -8,6 +8,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { Modal } from '../../context/Modal'
 
 import AddJointFundForm from '../accountModal/addJointFundModal';
+import EditJointAccountForm from '../accountModal/editJointAccountModal';
 import EditAccountForm from '../accountModal/editAccountModal';
 import AddFundForm from '../accountModal/addFundModal';
 import CreateAccountForm from '../accountModal/createAccountModal';
@@ -31,6 +32,8 @@ const AccountComp = () => {
     const [accountId, setAccountId] = useState()
     const [account, setAccount] = useState()
     const [showEdit, setShowEdit] = useState(false)
+    const [showEditJoint, setShowEditJoint] = useState(false)
+
 
     const user = useSelector(state => state.session.user)
     const wallet = useSelector(state => state.wallet.wallet)
@@ -98,6 +101,11 @@ const AccountComp = () => {
 
     const toEdit = async (account) => {
         setShowEdit(true)
+        setAccount(account)
+    }
+
+    const toEditJoint = async (account) => {
+        setShowEditJoint(true)
         setAccount(account)
     }
 
@@ -188,7 +196,7 @@ const AccountComp = () => {
                                                     <div onClick={() => addJointFunds(account.id)}>
                                                         <i className="fa-solid fa-plus" />
                                                     </div>
-                                                    <div onClick={() => toEdit(account)}>
+                                                    <div onClick={() => toEditJoint(account)}>
                                                         <i className="fa-solid fa-pen-to-square" />
                                                     </div>
                                                     <div onClick={() => toDeleteJoint(account.id)}>
@@ -236,6 +244,11 @@ const AccountComp = () => {
                                 <AddJointFundForm accountId={accountId} setShowAddJointFund={setShowAddJointFund} />
                             </Modal>
                         ) }
+                        {showEditJoint && (
+                            <Modal onClose={()=>setShowEditJoint(false)}>
+                                <EditJointAccountForm account={account} setShowEditJoint={setShowEditJoint}  accounts={jointAccounts} />
+                            </Modal>
+                        )}
                     </div>
                 </div>
 
