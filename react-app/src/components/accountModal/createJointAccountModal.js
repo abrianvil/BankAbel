@@ -13,7 +13,7 @@ const CreateJointAccountForm = ({ setShowCreateJoint, accounts }) => {
 
 
     const [name, setName] = useState('')
-    const [receiverId, setReceiverId]= useState('')
+    const [receiverId, setReceiverId] = useState('')
     const [users, setUsers] = useState([]);
     const [nameErr, setNameErr] = useState('')
     const [receiverError, setReceiverError] = useState('')
@@ -40,7 +40,7 @@ const CreateJointAccountForm = ({ setShowCreateJoint, accounts }) => {
         e.preventDefault()
         setRenderErr(true)
         if (!nameErr && !receiverError) {
-            const data = await dispatch(createJointAccount({ name, balance: 0.00, second_owner_id:receiverId }))
+            const data = await dispatch(createJointAccount({ name, balance: 0.00, second_owner_id: receiverId }))
             await dispatch(getAllJointAccounts())
             setShowCreateJoint(false)
         } else {
@@ -52,13 +52,13 @@ const CreateJointAccountForm = ({ setShowCreateJoint, accounts }) => {
     useEffect(() => {
         if (!name.trim().length) {
             setNameErr('A name is required')
-        }else if(accounts.find(account=>account.name.trim().toLowerCase() ===name.trim().toLowerCase())){
+        } else if (accounts.find(account => account.name.trim().toLowerCase() === name.trim().toLowerCase())) {
             setNameErr('Account with that name already exist')
         } else if (name.length < 2) {
             setNameErr('Name must be 2 or more characters')
         } else if (name.length > 20) {
             setNameErr('Name must be 20 or less characters')
-        } else{
+        } else {
             setNameErr('')
         }
 
@@ -92,7 +92,7 @@ const CreateJointAccountForm = ({ setShowCreateJoint, accounts }) => {
                     <div>
                         {renderErr && receiverError ? <label className='renderError'>{receiverError}</label> :
                             <label className='text noRenderError'>
-                                Receiver
+                                Select other Owner
                             </label>}
                     </div>
                     <div className='custom-select'>
@@ -100,7 +100,7 @@ const CreateJointAccountForm = ({ setShowCreateJoint, accounts }) => {
                             value={receiverId}
                             onChange={(e) => setReceiverId(e.target.value)}
                         >
-                            <option value={0}>Select Receiver</option>
+                            <option value={0}>Select other Owner</option>
                             {users.map(user => (
                                 <option key={user.id} value={user.id}>{user.username}</option>
                             ))}
